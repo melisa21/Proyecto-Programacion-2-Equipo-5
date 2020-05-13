@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Proyecto_Programacion_2_Equipo_5
+namespace Program
 {
     class Program
     {
