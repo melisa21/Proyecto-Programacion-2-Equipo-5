@@ -16,7 +16,8 @@ namespace Library
         private Fabrica()
         {
             this.usrs =new Usuarios();
-            this.programa =new ProgramaEmisor();
+            Bitacora b = new Bitacora();
+            this.programa =new ProgramaEmisor(b);
 
         }
 
