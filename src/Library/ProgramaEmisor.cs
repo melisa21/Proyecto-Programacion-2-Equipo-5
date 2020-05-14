@@ -3,7 +3,7 @@ namespace Library
     public class ProgramaEmisor: IPrograma, IObservador
     {
         private Bitacora bitacora;
-        private EstadoBitacora estadoBitacora;
+        
 
 
 
