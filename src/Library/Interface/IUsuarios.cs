@@ -1,6 +1,9 @@
 namespace Library
 {
-    internal interface IUsuarios
+    public interface IUsuarios
     {
+        void agregarU(Usuario miembro);
+
+        void removerU(Usuario miembro);
     }
 }
