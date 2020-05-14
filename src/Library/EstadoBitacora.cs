@@ -1,6 +1,6 @@
 namespace Library
 {
-    internal class EstadoBitacora
+    public class EstadoBitacora
     {
     }
 }
