@@ -1,5 +1,10 @@
 using System;
 
+/**************************************************************************
+Aqui contemplamos el patron Singleton, necesitamos garanticar
+que se cree una unica instancia de IUsuario y IPrograma
+***************************************************************************/
+
 namespace Library
 {
     public class Fabrica

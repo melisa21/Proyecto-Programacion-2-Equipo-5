@@ -6,11 +6,23 @@ namespace Library
 {
     public class Usuarios: IUsuarios
     {
-        private IList<Usuario> usrs;
+        private List<Usuario> usrs;
 
         public Usuarios()
         {
-            this.usrs= null;
+            this.usrs= new List<Usuario>();
         }
+
+        public void agregarU(Usuario miembro)
+        {
+            this.usrs.Add(miembro);
+        }
+
+        public void removerU(Usuario miembro)
+        {
+            this.usrs.Remove(miembro);
+        }
+
+
     }
 }
