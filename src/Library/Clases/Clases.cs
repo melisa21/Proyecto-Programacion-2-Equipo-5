@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿/***************************************
+Considerando Expert Clases es la experta en manejar 
+la coleccion correspondiente a Clase,
+además contempla un a composición
+******************************************/
+
+using System.Collections.Generic;
 
 namespace Library
 {

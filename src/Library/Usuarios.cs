@@ -1,3 +1,9 @@
+/***************************************
+Considerando Expert Usuarios es la experta en manejar 
+la coleccion correspondiente a Usuario, también tiene responsabilidad en esto
+además contempla un a composición.
+******************************************/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
