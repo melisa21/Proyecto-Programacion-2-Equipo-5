@@ -1,4 +1,9 @@
 using System.Collections.Generic;
+/*********************************
+BitacoraSemanal esta involucrada en los patrones Observer y State
+Por un lado, Bitacora Observa a esta
+Por otro lado, BitacoraSeamanal tiene tres estados posibles Entregada, NoRealizada y EnCurso 
+********************************/
 
 namespace Library
 {
