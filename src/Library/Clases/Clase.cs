@@ -1,3 +1,8 @@
+/*
+Clase: Representa una dia de clase con su fecha y horario.
+DateTime: https://docs.microsoft.com/en-us/dotnet/api/system.datetime
+TimeSpan: https://docs.microsoft.com/en-us/dotnet/api/system.timespan
+*/
 using System;
 
 namespace Library
