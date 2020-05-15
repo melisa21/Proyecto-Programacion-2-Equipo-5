@@ -1,6 +1,6 @@
 namespace Library
 {
-    public interface IEntrada
+    public interface IEntrada : IFormato
     {
     }
 }
