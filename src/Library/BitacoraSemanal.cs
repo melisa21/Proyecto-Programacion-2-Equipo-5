@@ -35,11 +35,13 @@ namespace Library
         
         public IEscribir Escribir{get; set;}
 
+        public DateTime Date { get; set; }
         public string Estado { get; set; }
 
-        public BitacoraSemanal()
+        public BitacoraSemanal(DateTime date)
         {
             Estado = "vacio";
+            this.Date = date;
         }
 
         //Inicio Metodos de IObservable

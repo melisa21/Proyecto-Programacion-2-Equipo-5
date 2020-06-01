@@ -1,6 +1,6 @@
 namespace Library
 {
-    public class Entrada
+    public abstract class Entrada
     {
         public Mensaje Contenido{ get; set;}
 

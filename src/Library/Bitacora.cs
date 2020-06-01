@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 
 namespace Library
 {
     public class Bitacora: IObservable
     {
-        private IList<IObservador> observadores = new List<IObservador>();
+        private static Bitacora instancia = null;
 
-        protected IList<BitacoraSemanal> bitacoraSemanals = new List<BitacoraSemanal>();
+        private IList<IObservador> observadores = null;
+
+        protected IList<BitacoraSemanal> bitacoraSemanals = null;
         
 
     
@@ -21,7 +24,15 @@ namespace Library
 
         public Bitacora()
         {
-        
+            this.observadores = new List<IObservador>();
+            this.bitacoraSemanals = new List<BitacoraSemanal>();
+        }
+
+        public static Bitacora getInstancia()
+        {
+            if (instancia == null)
+                instancia = new Bitacora();
+            return instancia;
         }
 
         public void Agrega(IObservador observador)
@@ -40,9 +51,11 @@ namespace Library
                 observador.Actualiza();
         }
 
-         public void GuardarMensajeEnEntrada(Mensaje msg, string tipoEntrada)
+         public void GuardarMensajeEnEntrada(Mensaje msg, string tipoEntrada, DateTime fecha )
         {
-            
+            BitacoraSemanal bitacoraSemanal = new BitacoraSemanal(fecha);
+            bitacoraSemanal.GuardarMensajeEnEntrada(msg,tipoEntrada);
+            bitacoraSemanals.Add(bitacoraSemanal);
         }
     }
 }
