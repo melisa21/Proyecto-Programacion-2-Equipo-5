@@ -6,7 +6,6 @@ namespace Library
     {
         private Usuario usr;
 
-        private Clases clases;
 
         
     }
