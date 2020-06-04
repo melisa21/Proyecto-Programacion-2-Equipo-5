@@ -56,6 +56,9 @@ namespace Library
 
         private static void EstablecerDias(Usuario usuario)
         {
+            DiaNotificacion.Dias dia;
+            TimeSpan hora;
+
             Console.WriteLine("\nAhora eligira cuando comenzar a ser notificado de cada tipo de entrada");
             string textoDias = "Ninguno, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo";
             Console.WriteLine(textoDias);
@@ -75,7 +78,7 @@ namespace Library
                     try
                     {
                         string respuesta = Console.ReadLine();
-                        DiaNotificacion.Dias dia = (DiaNotificacion.Dias)Enum.Parse(typeof(DiaNotificacion.Dias), respuesta, true);
+                        dia = (DiaNotificacion.Dias)Enum.Parse(typeof(DiaNotificacion.Dias), respuesta, true);
                         break;
                     }
                     catch (ArgumentException)
@@ -90,7 +93,7 @@ namespace Library
                     try
                     {
                         string respuesta = Console.ReadLine();
-                        TimeSpan hora = TimeSpan.Parse(respuesta);
+                        hora = TimeSpan.Parse(respuesta);
                         if (hora < TimeSpan.Zero || hora > TimeSpan.FromDays(1))
                         {
                             throw new ArgumentOutOfRangeException();
@@ -114,8 +117,10 @@ namespace Library
                     {
                         Console.WriteLine("Lo que sea que hayas hecho no funciona.");
                     }
+
                 }
 
+                usuario.diasNotificacion[i] = new DiaNotificacion(dia, hora);
 
             }
         }

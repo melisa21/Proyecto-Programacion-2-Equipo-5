@@ -4,9 +4,10 @@ namespace Library
 {
     public class DiaNotificacion
         {
-            public DiaNotificacion(Dias dia)
+            public DiaNotificacion(Dias dia, TimeSpan hora)
             {
                 this.Dia = dia;
+                this.Hora = hora;
             }
             public Dias Dia {get; set;}
 
