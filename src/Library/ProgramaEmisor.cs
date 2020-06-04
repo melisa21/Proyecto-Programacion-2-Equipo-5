@@ -38,6 +38,13 @@ namespace Library
             this.bitacora = new Bitacora();
         }
 
+        public static ProgramaEmisor GetInstancia()
+        {
+            if (instancia == null)
+                instancia = new ProgramaEmisor();
+            return instancia;
+        }
+
         public void CrearMensaje()
         {
 
