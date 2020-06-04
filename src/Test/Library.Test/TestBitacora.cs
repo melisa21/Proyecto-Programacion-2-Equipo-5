@@ -1,11 +1,11 @@
 using NUnit.Framework;
-using Library;
+using System;
 
 namespace Library.Test
 {
     public class TestBitacora
     {
-        private Bitacora bitacora = Bitacora.GetInstance();
+        private Bitacora bitacora = Bitacora.GetInstancia();
 
         [SetUp]
         public void Setup()
@@ -18,7 +18,8 @@ namespace Library.Test
         {
             DateTime fechaHoy = DateTime.Today;
             DateTime fechaSemana = bitacora.CorrerFechaALunes(fechaHoy);
-            Assert.AreEqual(fechaSemana.DayOfWeek , DayOfWeek.Tuesday );
+            Assert.AreEqual(fechaSemana.DayOfWeek , DayOfWeek.Monday );
+            
         }
     }
 }
