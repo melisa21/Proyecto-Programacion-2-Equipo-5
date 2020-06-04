@@ -56,21 +56,22 @@ namespace Library
 
         private static void EstablecerDias(Usuario usuario)
         {
+            int cantidadTiposEntrada = 4;
             DiaNotificacion.Dias dia;
             TimeSpan hora;
+            List<DiaNotificacion> diasNotificacion = new List<DiaNotificacion>();
 
             Console.WriteLine("\nAhora eligira cuando comenzar a ser notificado de cada tipo de entrada");
-            string textoDias = "Ninguno, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo";
-            Console.WriteLine(textoDias);
+            string textoDias = "Ninguno, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo (Sin Tildes)";
 
-            string textoObjetivos = "\nQue dia quiere que empieze a ser notificado de hacer los Objetivos?";
-            string textoPlanificacion = "\nY de la Planificacion?";
-            string textoSemanal = "\nDe la Reflexion Semanal?";
-            string textoMetacogniva = "\nY de la Reflexion Metacognitiva?";
+            string textoObjetivos = "\nQue dia quiere que empieze a ser notificado de hacer los Objetivos? \n" + textoDias;
+            string textoPlanificacion = "\nY de la Planificacion? \n" + textoDias;
+            string textoSemanal = "\nDe la Reflexion Semanal? \n" + textoDias;
+            string textoMetacogniva = "\nY de la Reflexion Metacognitiva? \n" + textoDias;
             List<string> textosEntradas = new List<string> { textoObjetivos, textoPlanificacion, textoSemanal, textoMetacogniva };
 
             List<DiaNotificacion.Dias> dias = new List<DiaNotificacion.Dias>();
-            for (int i = 0; i < usuario.diasNotificacion.Count; i++)
+            for (int i = 0; i < cantidadTiposEntrada; i++)
             {
                 Console.WriteLine(textosEntradas[i]);
                 while (true)
@@ -111,7 +112,7 @@ namespace Library
                     }
                     catch (ArgumentOutOfRangeException)
                     {
-                        Console.WriteLine("Hora invalida: No puede ser mas grande que un dia ni ser negativa.");
+                        Console.WriteLine("Formato invalido: Tiene que ser del tipo XX:XX.");
                     }
                     catch (Exception)
                     {
@@ -120,9 +121,9 @@ namespace Library
 
                 }
 
-                usuario.diasNotificacion[i] = new DiaNotificacion(dia, hora);
-
+                diasNotificacion.Add(new DiaNotificacion(dia, hora));
             }
+            usuario.ActualizarDiasDesdeLista(diasNotificacion);
         }
     }
 }
