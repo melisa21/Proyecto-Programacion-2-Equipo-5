@@ -1,13 +1,21 @@
 using System;
 using System.Collections.Generic;
 /*********************************
-Por otro lado, BitacoraSeamanal tiene tres estados posibles "vacia" "encurso" "terminada"
+BitacoraSeamanal tiene tres estados posibles "vacia" "encurso" "terminada"
 ********************************/
 
 namespace Library
 {
     public class BitacoraSemanal
     {
+        /// <summary>
+        /// Por SRP, BitacoraSemanal tiene la responsabilidad
+        ///  sobre las funcionalidades de las misma
+        /// Teniendo en cuenta Expert, esta clase tiene la responsabilidad
+        ///  dado que es el experto en la fecha a ala cual corresponde esta y su estado
+        /// cumpliendo la responsabilidad de manipular esta informacion
+        /// Ademas tiene la informacion necesaria para guardar el mensaje en las entradas segun cual sea el caso
+        /// </summary>
 
 
         protected IList<Objetivo> listObjetivo= new List<Objetivo>();
@@ -28,13 +36,23 @@ namespace Library
         
         public IEscribir Escribir{get; set;}
 
+        
 
+        //****************************************
         public DateTime Fecha { get; set; }
 
         //Los estados definidos "vacia" "encurso" "terminada" 
         public string Estado { get; set; }
+        //****************************************
 
 
+
+        /// <summary>
+        /// Bitacora con coleccion de las entradas correspondientes a cada categoria.
+        /// </summary>
+        /// <param name="fecha">Fecha correspondiente a la semana
+        ///  de la Bitacora, el comeinzo de la semana</param>
+        /// <param name="name">Nombre del objeto</param>
         public BitacoraSemanal(DateTime fecha)
         {
             this.Estado = "vacio";
@@ -43,6 +61,9 @@ namespace Library
         }
 
 
+        /// <summary>
+        /// Cambia el estado de la Bitacora Semanal.
+        /// </summary>
         public void EstadoSiguiente()
         {
             if (this.Estado == "vacio")
@@ -51,7 +72,11 @@ namespace Library
                 this.Estado = "terminada";
         }
 
-        //tipoEntrada puede ser: "objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"
+        /// <summary>
+        /// Guardar el Mensaje como contenido de la entrada segun el tipo de entrada y la crea.
+        /// </summary>
+        /// <param name="msg">contenido de la entrada</param>
+        /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
         public void GuardarMensajeEnEntrada(Mensaje msg, string tipoEntrada)
         {
             if (tipoEntrada == "objetivo")
@@ -82,6 +107,13 @@ namespace Library
 
         }
 
+
+
+        /// <summary>
+        /// Segun lo que eligió el usuario de como se quiere mostrar sus entradas,
+        ///  se crean la instancia segun corresponda para delegar la repsonsabilidad que a ellas mismas compete.
+        /// </summary>
+        /// <param name="tipoEscritura">Tipo de Escritura elegida por el usuario: "consola" "word" "markdown"</param>
         public void CrearEscritura(string tipoEscritura)
         {
                 if (Estado == "terminada")
