@@ -38,6 +38,9 @@ namespace Library
             this.bitacora = new Bitacora();
         }
 
+        /// <summary>
+        /// Metodo propio de haberlo definido segun Singleton.
+        /// </summary>
         public static ProgramaEmisor GetInstancia()
         {
             if (instancia == null)
@@ -45,15 +48,25 @@ namespace Library
             return instancia;
         }
 
+        /// <summary>
+        /// Crea el mensjae.
+        /// </summary>
         public void CrearMensaje()
         {
 
         }
 
+        /// <summary>
+        /// Delega a el comunicador el envio del mensaje para el usuario
+        /// </summary>
         public void EnviarMensaje()
         {
 
         }
+
+        /// <summary>
+        /// Interpreta el mensaje que envio el mensaje a tarves del comunicador.
+        /// </summary>
         public void RecibirMensaje()
         {
 
