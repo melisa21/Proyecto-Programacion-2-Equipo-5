@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using System;
+using Library;
 
 namespace Library.Test
 {
@@ -18,7 +18,7 @@ namespace Library.Test
         {
             DateTime fechaHoy = DateTime.Today;
             DateTime fechaSemana = bitacora.CorrerFechaALunes(fechaHoy);
-            Assert.Equals(fechaSemana.DayOfWeek , DayOfWeek.Tuesday );
+            Assert.AreEqual(fechaSemana.DayOfWeek , DayOfWeek.Tuesday );
         }
     }
 }
