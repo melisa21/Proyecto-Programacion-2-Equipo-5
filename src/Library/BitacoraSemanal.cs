@@ -1,21 +1,14 @@
 using System;
 using System.Collections.Generic;
 /*********************************
-BitacoraSemanal esta involucrada con el patron Observer
-Por un lado, Bitacora Observa a esta
 Por otro lado, BitacoraSeamanal tiene tres estados posibles "vacia" "encurso" "terminada"
 ********************************/
 
 namespace Library
 {
-    public class BitacoraSemanal: IObservable
+    public class BitacoraSemanal
     {
-        protected DateTime date;
-        protected string estado;
-        //Los estados definidos "vacia" "encurso" "terminada" 
 
-
-        private IList<IObservador> observadores = new List<IObservador>();
 
         protected IList<Objetivo> listObjetivo= new List<Objetivo>();
         protected IList<PlanificacionDiaria> listPlanificacionDiaria = new List<PlanificacionDiaria>();
@@ -35,34 +28,20 @@ namespace Library
         
         public IEscribir Escribir{get; set;}
 
-        public DateTime Date { get; set; }
+
+        public DateTime Fecha { get; set; }
+
+        //Los estados definidos "vacia" "encurso" "terminada" 
         public string Estado { get; set; }
 
-        public BitacoraSemanal(DateTime date)
+
+        public BitacoraSemanal(DateTime fecha)
         {
-            Estado = "vacio";
-            this.Date = date;
+            this.Estado = "vacio";
+            this.Fecha = fecha;
+            
         }
 
-        //Inicio Metodos de IObservable
-         public void Agrega(IObservador observador)
-        {
-            observadores.Add(observador);
-        }
-
-        public void Elimina(IObservador observador)
-        {
-            observadores.Remove(observador);
-        }
-
-        public void Notifica()
-        {
-            foreach (IObservador observador in observadores)
-                observador.Actualiza();
-        }
-        //Fin Metodos de IObservable 
-
-        
 
         public void EstadoSiguiente()
         {
@@ -99,6 +78,7 @@ namespace Library
                 ListReflexionMetacognitiva.Add(eReflexionMetacognitiva);
             }
 
+            this.EstadoSiguiente();
 
         }
 

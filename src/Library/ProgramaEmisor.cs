@@ -1,6 +1,6 @@
 namespace Library
 {
-    public class ProgramaEmisor: IPrograma, IObservador
+    public class ProgramaEmisor
     {
         private Bitacora bitacora;
         
@@ -10,12 +10,8 @@ namespace Library
         public ProgramaEmisor(Bitacora bitacora)
         {
             this.bitacora = bitacora;
-            bitacora.Agrega(this);
+            
         }
 
-        public void Actualiza()
-        {
-
-        }
     }
 }
