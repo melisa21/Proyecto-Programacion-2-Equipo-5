@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 namespace Library.Test
 {
-    public class Tests
+    public class TestSolicitudNotificacion
     {
         private SolicitudNotificacion solicitud;
         private Entrada entrada;
+
         [SetUp]
         public void Setup()
         {
