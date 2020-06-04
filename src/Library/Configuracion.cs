@@ -61,8 +61,8 @@ namespace Library
             TimeSpan hora;
             List<DiaNotificacion> diasNotificacion = new List<DiaNotificacion>();
 
-            Console.WriteLine("\nAhora eligira cuando comenzar a ser notificado de cada tipo de entrada");
-            string textoDias = "Ninguno, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo (Sin Tildes)";
+            Console.WriteLine("\nEscoja cuando comenzar a ser notificado de cada tipo de entrada");
+            string textoDias = "Ninguno, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo. (Sin Tildes)";
 
             string textoObjetivos = "\nQue dia quiere que empieze a ser notificado de hacer los Objetivos? \n" + textoDias;
             string textoPlanificacion = "\nY de la Planificacion? \n" + textoDias;
@@ -104,7 +104,7 @@ namespace Library
                     }
                     catch (OverflowException)
                     {
-                        Console.WriteLine("Formato invalido: Sobran digitos.");
+                        Console.WriteLine("Formato invalido: Hora fuera de rango.");
                     }
                     catch (FormatException)
                     {
