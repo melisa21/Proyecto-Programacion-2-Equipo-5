@@ -92,7 +92,10 @@ namespace Library
             for (DateTime fechaBitacoraSemanal=fechaBitacoraSemanalInicial;
                 fechaBitacoraSemanal.CompareTo(fechaFin)<=0;
                 fechaBitacoraSemanal=fechaBitacoraSemanal.AddDays(7))
+            {
                 bitacoraSemanal = new BitacoraSemanal(fechaBitacoraSemanal);
+                BitacoraSemanals.Add(bitacoraSemanal);
+            }
         }
 
         /// <summary>
@@ -102,12 +105,8 @@ namespace Library
         /// <returns>Posicion De la Bitacora Semanal con esa fecha</returns>
         public int BuscarBitacoraSemanalPorFecha(DateTime fechaBuscada)
         {
-            int indice=-1;
-            foreach (BitacoraSemanal b in bitacoraSemanals)
-            {
-                if (b.Fecha.Date.Equals(fechaBuscada.Date))
-                    indice = bitacoraSemanals.IndexOf(b);
-            }        
+            int indice = BitacoraSemanals.FindIndex((BitacoraSemanal b) => b.Fecha.Date.Equals(fechaBuscada.Date));        
+            
             return indice;
         }
 
