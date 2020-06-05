@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Library
 {
     [Serializable]
-    internal class NombreVacioException : Exception
+    public class NombreVacioException : Exception
     {
         public NombreVacioException()
         {

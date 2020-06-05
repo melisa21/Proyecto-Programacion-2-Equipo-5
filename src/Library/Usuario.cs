@@ -38,11 +38,11 @@ namespace Library
         {
             if(lista.Count == 4)
             {
-                DiaNotificacion DiaObjetivo = lista[0];
-                DiaNotificacion DiaPlanificacion = lista[1];
-                DiaNotificacion DiaReflexionSemanal = lista[2];
-                DiaNotificacion DiaReflexionMetacognitiva = lista[3];
-                diasNotificacion = new List<DiaNotificacion>{DiaObjetivo, DiaPlanificacion, DiaReflexionSemanal, DiaReflexionMetacognitiva};
+                DiaNotificacion diaObjetivo = lista[0];
+                DiaNotificacion diaPlanificacion = lista[1];
+                DiaNotificacion diaReflexionSemanal = lista[2];
+                DiaNotificacion diaReflexionMetacognitiva = lista[3];
+                diasNotificacion = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
             }
             else
             {
