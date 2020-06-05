@@ -10,10 +10,7 @@ namespace Library
         public string Nombre { get; set; }
         public string IDContacto { get; set; }
         public ModoDeUso modo { get; set; }
-        public DiaNotificacion DiaObjetivo { get; private set;}
-        public DiaNotificacion DiaPlanificacion { get; private set;}
-        public DiaNotificacion DiaSemanal { get; private set;}
-        public DiaNotificacion DiaMetacognitiva { get; private set;}
+        public List<DiaNotificacion> diasNotificacion {get; set;}
         public static Usuario GetUsuario()
         {
             if (usuario == null)
@@ -41,10 +38,11 @@ namespace Library
         {
             if(lista.Count == 4)
             {
-                DiaObjetivo = lista[0];
-                DiaPlanificacion = lista[1];
-                DiaSemanal = lista[2];
-                DiaMetacognitiva = lista[3];
+                DiaNotificacion DiaObjetivo = lista[0];
+                DiaNotificacion DiaPlanificacion = lista[1];
+                DiaNotificacion DiaReflexionSemanal = lista[2];
+                DiaNotificacion DiaReflexionMetacognitiva = lista[3];
+                diasNotificacion = new List<DiaNotificacion>{DiaObjetivo, DiaPlanificacion, DiaReflexionSemanal, DiaReflexionMetacognitiva};
             }
             else
             {

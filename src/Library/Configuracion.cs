@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 
+
 namespace Library
 {
     public static class Configuracion
@@ -62,7 +63,7 @@ namespace Library
             List<DiaNotificacion> diasNotificacion = new List<DiaNotificacion>();
 
             Console.WriteLine("\nEscoja cuando comenzar a ser notificado de cada tipo de entrada");
-            string textoDias = "Ninguno, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo. (Sin Tildes)";
+            string textoDias = "Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado. (Sin Tildes)";
 
             string textoObjetivos = "\nQue dia quiere que empieze a ser notificado de hacer los Objetivos? \n" + textoDias;
             string textoPlanificacion = "\nY de la Planificacion? \n" + textoDias;
@@ -120,8 +121,9 @@ namespace Library
                     }
 
                 }
+                DiaNotificacion.TipoEntrada tipo = (DiaNotificacion.TipoEntrada)i;
 
-                diasNotificacion.Add(new DiaNotificacion(dia, hora));
+                diasNotificacion.Add(new DiaNotificacion(tipo,dia, hora));
             }
             usuario.ActualizarDiasDesdeLista(diasNotificacion);
         }
