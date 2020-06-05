@@ -7,7 +7,7 @@ namespace Program
     {
         static void Main(string[] args)
         {
-           Configuracion.Menu();
+           Configuracion.MenuInicial();
         }
     }
 }

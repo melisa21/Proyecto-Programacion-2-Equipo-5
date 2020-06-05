@@ -1,4 +1,3 @@
-//Configuracion servira para dejar el bot pronto para funcionar la primera vez que el usuario la utilize.
 using System;
 using System.Collections.Generic;
 
@@ -7,16 +6,20 @@ namespace Library
 {
     public static class Configuracion
     {
-        public static void Menu()
+        /// <summary>
+        /// Configuracion es una clase estatica que contiene metodos que crea objetos y establece variables con los datos necesarios para el funcionamiento del programa.
+        /// Por ahora solo guarda las variables en memoria pero en el futuro podra almacenar y recuperar los datos desde archivos.
+        /// </summary>
+        public static void MenuInicial()
         {
             Usuario usuario = Usuario.GetUsuario();
-            CambiarNombreUsuario(usuario);
+            EstablecerNombre(usuario);
             EstablecerPlataforma(usuario);
             EstablecerDias(usuario);
 
         }
 
-        private static void CambiarNombreUsuario(Usuario usuario)
+        public static void EstablecerNombre(Usuario usuario)
         {
             Console.WriteLine("Ingrese un nombre: ");
             while (true)
@@ -55,7 +58,7 @@ namespace Library
             }
         }
 
-        private static void EstablecerDias(Usuario usuario)
+        public static void EstablecerDias(Usuario usuario)
         {
             int cantidadTiposEntrada = 4;
             DiaNotificacion.Dias dia;
