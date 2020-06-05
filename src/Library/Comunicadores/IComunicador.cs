@@ -7,7 +7,7 @@ namespace Library
 {
     public interface IComunicador
     {
-        void Entrada();
-        void Salida();
+        void EnviarMensaje();
+        void RecibirMensaje();
     }
 }

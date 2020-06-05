@@ -6,8 +6,8 @@ namespace Library
 {
     public class ComunicadorConsola : IComunicador, IEscribir
     {
-        public void Entrada(){}
-        public void Salida(){}
+        public void EnviarMensaje(){}
+        public void RecibirMensaje(){}
 
         public void Escribir(){}
     }
