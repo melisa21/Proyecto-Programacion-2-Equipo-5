@@ -6,6 +6,6 @@ namespace Library
 {
     public interface IFormato
     {
-        
+        string formatearEntrada(string entrada);
     }
 }
