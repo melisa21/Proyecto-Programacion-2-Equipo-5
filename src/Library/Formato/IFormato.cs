@@ -6,6 +6,11 @@ namespace Library
 {
     public interface IFormato
     {
-        string formatearEntrada(string entrada);
+        /// <summary>
+        /// Implementar el método para formatear string
+        /// </summary>
+        /// <param name="entrada">String al que se le quiere dar formato</param>
+        /// <returns>string con formato deseado</returns>
+        string FormatearEntrada(string entrada);
     }
 }
