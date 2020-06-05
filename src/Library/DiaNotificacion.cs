@@ -27,10 +27,10 @@ namespace Library
 
             public enum TipoEntrada
             {
-                Objetivo,
-                Planificacion,
-                ReflexionSemanal,
-                ReflexionMetacognitiva
+                objetivo,
+                planificacion,
+                reflexionsemanal,
+                reflexionmetacognitiva
             }
 
 
