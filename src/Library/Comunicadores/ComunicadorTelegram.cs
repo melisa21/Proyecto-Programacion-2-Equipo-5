@@ -6,7 +6,7 @@ namespace Library
 {
     public class ComunicadorTelegram : IComunicador
     {
-        public void Entrada(){}
-        public void Salida(){}   
+        public void EnviarMensaje(){}
+        public void RecibirMensaje(){}
     }
 }
