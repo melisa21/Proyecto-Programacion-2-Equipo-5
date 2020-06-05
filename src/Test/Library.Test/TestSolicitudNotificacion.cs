@@ -1,35 +1,33 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Library;
 
 namespace Library.Test
 {
     public class TestSolicitudNotificacion
     {
-        private SolicitudNotificacion solicitud;
-        private Entrada entrada;
-
         [SetUp]
-        public void Setup()
-        {
-            entrada = new Objetivo(new Texto());
-            solicitud = new SolicitudNotificacion(new List<Entrada>{entrada});
-        }
+        public void Setup(){}
 
         [Test]
         public void CasoPositivo()
         {
-            entrada.DiaDeNotificacion = 4;
-            entrada.HoraDeNotificacion = new TimeSpan(23,0,0);
-            bool esMomento = SolicitudNotificacion.esMomentoDeNotificar(entrada, new DateTime(2020, 6, 4, 23, 0, 0));
+            DiaNotificacion.Dias diaDeLaSemana = (DiaNotificacion.Dias)4;
+            DiaNotificacion.TipoEntrada tipoDeEntrada = (DiaNotificacion.TipoEntrada)1;
+            TimeSpan horaDeNot = new TimeSpan(23,0,0);
+            DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
+            bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
             Assert.IsTrue(esMomento);
         }
         [Test]
         public void CasoNegativo()
         {
-            entrada.DiaDeNotificacion = 5;
-            entrada.HoraDeNotificacion = new TimeSpan(23,0,0);
-            bool esMomento = SolicitudNotificacion.esMomentoDeNotificar(entrada, new DateTime(2020, 6, 4, 23, 0, 0));
+            DiaNotificacion.Dias diaDeLaSemana = (DiaNotificacion.Dias)4;
+            DiaNotificacion.TipoEntrada tipoDeEntrada = (DiaNotificacion.TipoEntrada)1;
+            TimeSpan horaDeNot = new TimeSpan(20,20,0);
+            DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
+            bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
             Assert.IsFalse(esMomento);
         }
     }

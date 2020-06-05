@@ -5,46 +5,72 @@ namespace Library
 {
     public class SolicitudNotificacion
     {
-        private static List<Entrada> entradas;
+        /// <summary>
+        /// Esta clase se encarga de notificar al usuario
+        /// cuando debe enviar una cierta entrada de la bitacora y
+        /// lo hace en un proceso asíncrono.
+        ///  
+        /// Importante: esta clase implementara ProgramaEmisor
+        /// en un futuro para enviar mensajes.
+        /// </summary>
+        private static List<DiaNotificacion> dias;
         public Timer aTimer {get; set;}
 
-        public SolicitudNotificacion(List<Entrada> data){
-            entradas = data;
+        public SolicitudNotificacion(List<DiaNotificacion> data){
+            dias = data;
         }
+        /// <summary>
+        /// Crea el Timer necesario para notificar.
+        /// Se corre el evento Notificar cada 1 minuto.
+        /// Al ser asíncrono no vamos a poder ver el mensaje
+        /// a menos que agreguemos Console.ReadLine() al final
+        /// de esta funcion y sea la hora exacta.
+        /// </summary>
         public void crearSolicitud()
         {
             
-            if(entradas.Count == 0){return;}
+            if(dias.Count == 0)
+                return;
             // Seteamos el timer con el evento
-            aTimer = new Timer(1000);
-            aTimer.Elapsed += VerificarHoraYNotificar;
+            aTimer = new Timer(60000);
+            aTimer.Elapsed += Notificar;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
         }
-
-        private static void VerificarHoraYNotificar(Object source, ElapsedEventArgs e)
+        /// <summary>
+        /// Notificar el usario en el momento dado.
+        /// Importante: este metodo en el futuro implementara Programa Emisor
+        /// para poder notificar tanto por conosla como por telegram.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private static void Notificar(Object source, ElapsedEventArgs e)
         {
-            foreach (Entrada entrada in entradas)
+            foreach (DiaNotificacion diaNot in dias)
             {
-                if(esMomentoDeNotificar(entrada, DateTime.Now))
+                if(EsMomentoDeNotificar(diaNot, DateTime.Now))
                 {
-                    Console.WriteLine("Es Hora De Trabajar en la Bitacora!");
+                    Console.WriteLine($"Es hora de trabajar en la {(DiaNotificacion.TipoEntrada)diaNot.Tipo}!");
                 }
             }
         }
-
-        public static bool esMomentoDeNotificar(Entrada entrada, DateTime diaYHoraActual)
+        /// <summary>
+        /// Verificar que es el momento de notificacion.
+        /// </summary>
+        /// <param name="diaNot"></param>
+        /// <param name="diaYHoraActual"></param>
+        public static bool EsMomentoDeNotificar(DiaNotificacion diaNot, DateTime diaYHoraActual)
         {
             TimeSpan tiempoActual = diaYHoraActual.TimeOfDay;
             int horaActual = tiempoActual.Hours;
             int minutoActual = tiempoActual.Minutes;
             int diaActual = (int)DateTime.Now.DayOfWeek;
 
-            TimeSpan tiempoNotificacion = entrada.HoraDeNotificacion;
+            TimeSpan tiempoNotificacion = diaNot.Hora;
             int horaNotificacion = tiempoNotificacion.Hours;
             int minutoNotificacion = tiempoNotificacion.Minutes;
 
-            bool esElDia = (entrada.DiaDeNotificacion == diaActual);
+            bool esElDia = ((int)diaNot.Dia == diaActual);
             bool esLaHora = (horaActual == horaNotificacion);
             bool esElMinuto = (minutoActual == minutoNotificacion);
 
