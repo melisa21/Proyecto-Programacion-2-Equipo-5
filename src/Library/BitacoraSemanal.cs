@@ -68,8 +68,9 @@ namespace Library
         {
             if (this.Estado == "vacio")
                 this.Estado = "encurso";
-            if (this.Estado == "encurso")
+            else if (this.Estado == "encurso")
                 this.Estado = "terminada";
+            
         }
 
         /// <summary>
