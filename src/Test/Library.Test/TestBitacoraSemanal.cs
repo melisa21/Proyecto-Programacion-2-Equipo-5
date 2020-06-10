@@ -22,6 +22,17 @@ namespace Library.Test
             
         }
 
+        /*
+        [Test]
+        public void GuardarMensajeEnEntrada()
+        {
+            Mensaje texto = new Texto();
+            bitacoraSemanal.GuardarMensajeEnEntrada(texto,"objetivo");
+            Assert.AreEqual( 0, bitacoraSemanal.ListObjetivo.FindIndex((Objetivo o) => o.Contenido.Equals(texto)) );
+            
+        }*/
+
+
         
 
     }

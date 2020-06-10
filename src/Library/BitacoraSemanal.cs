@@ -18,21 +18,21 @@ namespace Library
         /// </summary>
 
 
-        protected IList<Objetivo> listObjetivo= new List<Objetivo>();
-        protected IList<PlanificacionDiaria> listPlanificacionDiaria = new List<PlanificacionDiaria>();
-        protected IList<ReflexionSemanal> listReflexionSemanal = new List<ReflexionSemanal>();
-        protected IList<ReflexionMetacognitiva> listReflexionMetacognitiva = new List<ReflexionMetacognitiva>();
+        protected List<Objetivo> listObjetivo= new List<Objetivo>();
+        protected List<PlanificacionDiaria> listPlanificacionDiaria = new List<PlanificacionDiaria>();
+        protected List<ReflexionSemanal> listReflexionSemanal = new List<ReflexionSemanal>();
+        protected List<ReflexionMetacognitiva> listReflexionMetacognitiva = new List<ReflexionMetacognitiva>();
 
         protected IEscribir escribir ;
         
         
-        public IList<Entrada> ListObjetivo { get; set; }
+        public List<Objetivo> ListObjetivo { get; set; }
   
-        public IList<Entrada> ListPlanificacionDiaria { get; set; }
+        public List<PlanificacionDiaria> ListPlanificacionDiaria { get; set; }
 
-        public IList<Entrada> ListReflexionSemanal { get; set; }
+        public List<ReflexionSemanal> ListReflexionSemanal { get; set; }
 
-        public IList<Entrada> ListReflexionMetacognitiva { get; set; }
+        public List<ReflexionMetacognitiva> ListReflexionMetacognitiva { get; set; }
         
         public IEscribir Escribir{get; set;}
 
@@ -82,29 +82,29 @@ namespace Library
         {
             if (tipoEntrada == "objetivo")
             {
-                Entrada eObjetivo = new Objetivo(msg);
+                Objetivo eObjetivo = new Objetivo(msg);
                 ListObjetivo.Add(eObjetivo);
             }
 
             if (tipoEntrada == "planificaciondiaria")
             {
-                Entrada ePlanificacionDiaria = new PlanificacionDiaria(msg);
+                PlanificacionDiaria ePlanificacionDiaria = new PlanificacionDiaria(msg);
                 ListPlanificacionDiaria.Add(ePlanificacionDiaria);
             }
 
             if (tipoEntrada == "reflexionsemanal" )
             {
-                Entrada eReflexionSemanal = new ReflexionSemanal(msg);
+                ReflexionSemanal eReflexionSemanal = new ReflexionSemanal(msg);
                 ListReflexionSemanal.Add(eReflexionSemanal);
             }
 
             if (tipoEntrada == "reflexionmetacognitiva")
             {
-                Entrada eReflexionMetacognitiva = new ReflexionMetacognitiva(msg);
+                ReflexionMetacognitiva eReflexionMetacognitiva = new ReflexionMetacognitiva(msg);
                 ListReflexionMetacognitiva.Add(eReflexionMetacognitiva);
             }
 
-            this.EstadoSiguiente();
+            //this.EstadoSiguiente();
 
         }
 
