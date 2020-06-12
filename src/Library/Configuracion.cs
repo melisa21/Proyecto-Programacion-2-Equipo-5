@@ -48,6 +48,7 @@ namespace Library
                 if (respuesta == "1" || respuesta.ToLower() == "telegram")
                 {
                     usuario.modo = Usuario.ModoDeUso.Telegram;
+                    Console.WriteLine("Ingresa aqui desde Telegram: http://t.me/Lukesoytupadrebot");
                     break;
                 }
                 else if (respuesta == "0" || respuesta.ToLower() == "consola")

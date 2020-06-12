@@ -43,7 +43,7 @@ namespace Library
         /// <summary>
         /// Punto de entrada.
         /// </summary>
-        public static void Main()
+        public static void MainTelegram()
         {
             Bot = new TelegramBotClient(Token);
             var cts = new CancellationTokenSource();
