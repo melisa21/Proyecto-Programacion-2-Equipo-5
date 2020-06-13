@@ -79,7 +79,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada</param>
         /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
         /// <param name="fecha">fecha de la bitacora semanal a a la que se quiere guardar la entrada</param>
-        public void GuardarEnBitacora(Mensaje msg, string tipoEntrada, DateTime fecha)
+        public void GuardarEnBitacora(Mensaje msg, BitacoraSemanal.TipoEntrada tipoEntrada, DateTime fecha)
         {
             this.Bitacora.GuardarMensajeEnEntrada(msg,tipoEntrada, fecha);
         }

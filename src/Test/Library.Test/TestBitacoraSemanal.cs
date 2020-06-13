@@ -10,6 +10,7 @@ namespace Library.Test
         [SetUp]
         public void Setup()
         {
+            
             DateTime fecha = new DateTime(2020,06,01,00,00,00);
             bitacoraSemanal = new BitacoraSemanal(fecha);
         }
@@ -18,7 +19,7 @@ namespace Library.Test
         public void EstadoSiguiente()
         {
             bitacoraSemanal.EstadoSiguiente();
-            Assert.AreEqual( "encurso", bitacoraSemanal.Estado );
+            Assert.AreEqual( BitacoraSemanal.TipoEstado.Finalizada, bitacoraSemanal.Estado );
             
         }
 

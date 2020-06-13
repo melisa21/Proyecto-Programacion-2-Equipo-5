@@ -14,19 +14,24 @@ namespace Library
         
 
         //****************************************
-        public string Estado{get; set;}
+        public TipoEstado Estado{get; set;}
         public Mensaje Contenido{ get; set;}
         public int DiaDeNotificacion {get; set;}
         public TimeSpan HoraDeNotificacion {get; set;}
         public DateTime DiaDeLaSemanaYHorario{get; set;}
         //****************************************
 
-        
+        public enum TipoEstado
+        {
+            vacia,
+            finalizada
+        }
+
         /// <summary>
         /// Entrada de la Bitacora sin contenido
         /// </summary>
         public Entrada (){
-            this.Estado = "vacio";
+            this.Estado = TipoEstado.vacia;
         }   
 
 
@@ -36,7 +41,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada obtenida a traves de mensaje con anterioridad</param>
         /// <param name="name">Nombre del objeto</param>
         public Entrada (Mensaje msg){
-            this.Estado = "encurso";
+            this.Estado = TipoEstado.finalizada;
             this.Contenido = msg;
         }
 
@@ -47,7 +52,7 @@ namespace Library
         /// </summary>
         public void TerminarEntrada()
         {
-            this.Estado = "terminada";
+            this.Estado = TipoEstado.finalizada;
         }       
     }
 }

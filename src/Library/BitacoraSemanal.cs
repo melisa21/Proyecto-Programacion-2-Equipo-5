@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 /*********************************
-BitacoraSeamanal tiene tres estados posibles "vacia" "encurso" "terminada"
+BitacoraSeamanal tiene estados posibles "vacia" "terminada"
 ********************************/
 
 namespace Library
@@ -41,10 +41,23 @@ namespace Library
         //****************************************
         public DateTime Fecha { get; set; }
 
-        //Los estados definidos "vacia" "encurso" "terminada" 
-        public string Estado { get; set; }
+        //Los estados definidos "vacia" "finalizada" 
+        public TipoEstado Estado { get; set; }
         //****************************************
 
+        public enum TipoEstado
+        {
+            Vacia,
+            Finalizada
+        }
+
+        public enum TipoEntrada
+        {
+            Objetivo,
+            PlanificacionDiaria,
+            ReflexionSemanal,
+            ReflexionMetacognitiva
+        }
 
 
         /// <summary>
@@ -55,7 +68,7 @@ namespace Library
         /// <param name="name">Nombre del objeto</param>
         public BitacoraSemanal(DateTime fecha)
         {
-            this.Estado = "vacio";
+            this.Estado = TipoEstado.Vacia;
             this.Fecha = fecha;
             
         }
@@ -66,10 +79,8 @@ namespace Library
         /// </summary>
         public void EstadoSiguiente()
         {
-            if (this.Estado == "vacio")
-                this.Estado = "encurso";
-            else if (this.Estado == "encurso")
-                this.Estado = "terminada";
+            if (this.Estado == TipoEstado.Vacia)
+                this.Estado = TipoEstado.Finalizada;
             
         }
 
@@ -78,33 +89,33 @@ namespace Library
         /// </summary>
         /// <param name="msg">contenido de la entrada</param>
         /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
-        public void GuardarMensajeEnEntrada(Mensaje msg, string tipoEntrada)
+        public void GuardarMensajeEnEntrada(Mensaje msg, TipoEntrada tipoEntrada)
         {
-            if (tipoEntrada == "objetivo")
+            if (tipoEntrada == TipoEntrada.Objetivo)
             {
                 Objetivo eObjetivo = new Objetivo(msg);
                 ListObjetivo.Add(eObjetivo);
             }
 
-            if (tipoEntrada == "planificaciondiaria")
+            if (tipoEntrada == TipoEntrada.PlanificacionDiaria)
             {
                 PlanificacionDiaria ePlanificacionDiaria = new PlanificacionDiaria(msg);
                 ListPlanificacionDiaria.Add(ePlanificacionDiaria);
             }
 
-            if (tipoEntrada == "reflexionsemanal" )
+            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
             {
                 ReflexionSemanal eReflexionSemanal = new ReflexionSemanal(msg);
                 ListReflexionSemanal.Add(eReflexionSemanal);
             }
 
-            if (tipoEntrada == "reflexionmetacognitiva")
+            if (tipoEntrada == TipoEntrada.ReflexionMetacognitiva)
             {
                 ReflexionMetacognitiva eReflexionMetacognitiva = new ReflexionMetacognitiva(msg);
                 ListReflexionMetacognitiva.Add(eReflexionMetacognitiva);
             }
 
-            //this.EstadoSiguiente();
+            this.EstadoSiguiente();
 
         }
 
@@ -117,7 +128,7 @@ namespace Library
         /// <param name="tipoEscritura">Tipo de Escritura elegida por el usuario: "consola" "word" "markdown"</param>
         public void CrearEscritura(string tipoEscritura)
         {
-                if (Estado == "terminada")
+                if (Estado == TipoEstado.Finalizada)
                 {
                     if (tipoEscritura == "consola")
                     {

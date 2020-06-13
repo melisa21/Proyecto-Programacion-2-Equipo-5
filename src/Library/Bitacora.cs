@@ -118,7 +118,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada</param>
         /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
         /// <param name="fecha">fecha de la bitacora semanal a a la que se quiere guardar la entrada</param>
-         public void GuardarMensajeEnEntrada(Mensaje msg, string tipoEntrada, DateTime fecha )
+         public void GuardarMensajeEnEntrada(Mensaje msg, BitacoraSemanal.TipoEntrada tipoEntrada, DateTime fecha )
         {
             //buscar biracora semenal con fecha 
             int indice = BuscarBitacoraSemanalPorFecha(fecha);
