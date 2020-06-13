@@ -64,7 +64,7 @@ namespace Library
             TimeSpan tiempoActual = diaYHoraActual.TimeOfDay;
             int horaActual = tiempoActual.Hours;
             int minutoActual = tiempoActual.Minutes;
-            int diaActual = (int)DateTime.Now.DayOfWeek;
+            int diaActual = (int)diaYHoraActual.DayOfWeek;
 
             TimeSpan tiempoNotificacion = diaNot.Hora;
             int horaNotificacion = tiempoNotificacion.Hours;
