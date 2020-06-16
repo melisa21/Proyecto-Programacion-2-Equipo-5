@@ -112,8 +112,7 @@ namespace Library
 
 
         /// <summary>
-        /// Delega a la Bitacora Semanal con la correspondiente fecha la posibilidad
-        /// de guardar el Mensaje como contenido de la entrada.
+        /// Guarda las entradas en la bitacora semanal corresponidente
         /// </summary>
         /// <param name="msg">contenido de la entrada</param>
         /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
@@ -123,7 +122,29 @@ namespace Library
             //buscar biracora semenal con fecha 
             int indice = BuscarBitacoraSemanalPorFecha(fecha);
             //guardarmensaje en la encontrada
-            this.BitacoraSemanals[indice].GuardarMensajeEnEntrada(msg,tipoEntrada);
+            
+            if (tipoEntrada == TipoEntrada.Objetivo)
+            {
+                this.BitacoraSemanals[indice].GuardarObjetivo(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.PlanificacionDiaria)
+            {
+                this.BitacoraSemanals[indice].GuardarPlanificacionDiaria(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
+            {
+                this.BitacoraSemanals[indice].GuardarReflexionSemanal(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.ReflexionMetacognitiva)
+            {
+                this.BitacoraSemanals[indice].GuardarReflexionMetacognitiva(msg);
+            }
+
+            this.BitacoraSemanals[indice].EstadoSiguiente();
+
         }
     }
 }

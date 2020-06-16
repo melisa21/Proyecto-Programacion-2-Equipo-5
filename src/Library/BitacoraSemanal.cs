@@ -18,21 +18,21 @@ namespace Library
         /// </summary>
 
 
-        protected List<Objetivo> listObjetivo= new List<Objetivo>();
-        protected List<PlanificacionDiaria> listPlanificacionDiaria = new List<PlanificacionDiaria>();
-        protected List<ReflexionSemanal> listReflexionSemanal = new List<ReflexionSemanal>();
-        protected List<ReflexionMetacognitiva> listReflexionMetacognitiva = new List<ReflexionMetacognitiva>();
+        protected List<Entrada> listObjetivo= new List<Entrada>();
+        protected List<Entrada> listPlanificacionDiaria = new List<Entrada>();
+        protected List<Entrada> listReflexionSemanal = new List<Entrada>();
+        protected List<Entrada> listReflexionMetacognitiva = new List<Entrada>();
 
         protected IEscribir escribir ;
         
         
-        public List<Objetivo> ListObjetivo { get; set; }
+        public List<Entrada> ListObjetivo { get; set; }
   
-        public List<PlanificacionDiaria> ListPlanificacionDiaria { get; set; }
+        public List<Entrada> ListPlanificacionDiaria { get; set; }
 
-        public List<ReflexionSemanal> ListReflexionSemanal { get; set; }
+        public List<Entrada> ListReflexionSemanal { get; set; }
 
-        public List<ReflexionMetacognitiva> ListReflexionMetacognitiva { get; set; }
+        public List<Entrada> ListReflexionMetacognitiva { get; set; }
         
         public IEscribir Escribir{get; set;}
 
@@ -73,40 +73,49 @@ namespace Library
         }
 
         /// <summary>
-        /// Guardar el Mensaje como contenido de la entrada segun el tipo de entrada y la crea.
+        /// Guarda el mensaje dentro de la lista de objetivos
         /// </summary>
         /// <param name="msg">contenido de la entrada</param>
-        /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
-        public void GuardarMensajeEnEntrada(Mensaje msg, TipoEntrada tipoEntrada)
+        public void GuardarObjetivo(Mensaje msg)
         {
-            if (tipoEntrada == TipoEntrada.Objetivo)
-            {
-                Objetivo eObjetivo = new Objetivo(msg);
+                Entrada eObjetivo = new Objetivo(msg);
                 ListObjetivo.Add(eObjetivo);
-            }
-
-            if (tipoEntrada == TipoEntrada.PlanificacionDiaria)
-            {
-                PlanificacionDiaria ePlanificacionDiaria = new PlanificacionDiaria(msg);
-                ListPlanificacionDiaria.Add(ePlanificacionDiaria);
-            }
-
-            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
-            {
-                ReflexionSemanal eReflexionSemanal = new ReflexionSemanal(msg);
-                ListReflexionSemanal.Add(eReflexionSemanal);
-            }
-
-            if (tipoEntrada == TipoEntrada.ReflexionMetacognitiva)
-            {
-                ReflexionMetacognitiva eReflexionMetacognitiva = new ReflexionMetacognitiva(msg);
-                ListReflexionMetacognitiva.Add(eReflexionMetacognitiva);
-            }
-
-            this.EstadoSiguiente();
-
         }
 
+        
+        /// <summary>
+        /// Guarda el mensaje dentro de la lista de planificaciones diarias
+        /// </summary>
+        /// <param name="msg">contenido de la entrada</param>
+        public void GuardarPlanificacionDiaria(Mensaje msg)
+        {
+                PlanificacionDiaria ePlanificacionDiaria = new PlanificacionDiaria(msg);
+                ListPlanificacionDiaria.Add(ePlanificacionDiaria);
+        }
+
+        
+        /// <summary>
+        /// Guarda en mensaje dentro de la lista de reflexiones semanales
+        /// </summary>
+        /// <param name="msg">contenido de la entrada</param>
+        public void GuardarReflexionSemanal(Mensaje msg)
+        {
+                ReflexionSemanal eReflexionSemanal = new ReflexionSemanal(msg);
+                ListReflexionSemanal.Add(eReflexionSemanal);
+        }
+
+
+        
+        /// <summary>
+        /// Guarda en mensaje dentro de la lista de reflexiones metacognitivas
+        /// </summary>
+        /// <param name="msg">contenido de la entrada</param>
+        public void GuardarReflexionMetacognitiva(Mensaje msg)
+        {       
+                ReflexionMetacognitiva eReflexionMetacognitiva = new ReflexionMetacognitiva(msg);
+                ListReflexionMetacognitiva.Add(eReflexionMetacognitiva);
+
+        }
 
 
         /// <summary>
@@ -118,11 +127,6 @@ namespace Library
         {
                 if (Estado == TipoEstado.Finalizada)
                 {
-                    if (tipoEscritura == TipoEscritura.Consola)
-                    {
-                        this.Escribir = new ComunicadorConsola();
-                        
-                    }
                     if (tipoEscritura == TipoEscritura.Word)
                     {
                         this.Escribir = new Word();

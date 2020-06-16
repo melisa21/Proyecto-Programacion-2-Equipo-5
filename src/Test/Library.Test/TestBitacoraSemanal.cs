@@ -19,7 +19,7 @@ namespace Library.Test
         public void EstadoSiguiente()
         {
             bitacoraSemanal.EstadoSiguiente();
-            Assert.AreEqual( BitacoraSemanal.TipoEstado.Finalizada, bitacoraSemanal.Estado );
+            Assert.AreEqual( TipoEstado.Finalizada, bitacoraSemanal.Estado );
             
         }
 

@@ -10,8 +10,6 @@ namespace Library
         ///  mas de una instancia esto generaria un conflicto
         /// Ademas, teniendo en cuanta EXPERT, esta tiene la informacion
         ///  necesaria para crear las bitacora que se necesita la cual tambien es singleton
-        /// Adicionalmente, en base a CREATOR esta debe ser la responsable de crear
-        ///  las instancias de la clase Bitacora
         /// De este se crea en configuracion
         /// </summary>
         
@@ -49,7 +47,7 @@ namespace Library
         }
 
         /// <summary>
-        /// Crea el mensjae.
+        /// Crea el mensaje.
         /// </summary>
         public void CrearMensaje()
         {
@@ -82,6 +80,7 @@ namespace Library
         public void GuardarEnBitacora(Mensaje msg, TipoEntrada tipoEntrada, DateTime fecha)
         {
             this.Bitacora.GuardarMensajeEnEntrada(msg,tipoEntrada, fecha);
+            
         }
 
     }
