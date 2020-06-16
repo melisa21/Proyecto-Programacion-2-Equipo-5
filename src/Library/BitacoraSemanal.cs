@@ -45,19 +45,7 @@ namespace Library
         public TipoEstado Estado { get; set; }
         //****************************************
 
-        public enum TipoEstado
-        {
-            Vacia,
-            Finalizada
-        }
-
-        public enum TipoEntrada
-        {
-            Objetivo,
-            PlanificacionDiaria,
-            ReflexionSemanal,
-            ReflexionMetacognitiva
-        }
+        
 
 
         /// <summary>
@@ -126,20 +114,20 @@ namespace Library
         ///  se crean la instancia segun corresponda para delegar la repsonsabilidad que a ellas mismas compete.
         /// </summary>
         /// <param name="tipoEscritura">Tipo de Escritura elegida por el usuario: "consola" "word" "markdown"</param>
-        public void CrearEscritura(string tipoEscritura)
+        public void CrearEscritura(TipoEscritura tipoEscritura)
         {
                 if (Estado == TipoEstado.Finalizada)
                 {
-                    if (tipoEscritura == "consola")
+                    if (tipoEscritura == TipoEscritura.Consola)
                     {
                         this.Escribir = new ComunicadorConsola();
                         
                     }
-                    if (tipoEscritura == "word")
+                    if (tipoEscritura == TipoEscritura.Word)
                     {
                         this.Escribir = new Word();
                     }
-                    if (tipoEscritura == "markdown")
+                    if (tipoEscritura == TipoEscritura.Markdown)
                     {
                             this.Escribir = new Markdown();
                     }

@@ -33,9 +33,9 @@ namespace Library
         /// ProgramaEmisor en el encargado de comunicarse con el usuario a traves del comunicador.
         /// </summary>
         /// <param name="name">Nombre del objeto</param>
-        public ProgramaEmisor()
+        private ProgramaEmisor()
         {
-            this.bitacora = new Bitacora();
+            this.bitacora = Bitacora.GetInstancia();
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada</param>
         /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
         /// <param name="fecha">fecha de la bitacora semanal a a la que se quiere guardar la entrada</param>
-        public void GuardarEnBitacora(Mensaje msg, BitacoraSemanal.TipoEntrada tipoEntrada, DateTime fecha)
+        public void GuardarEnBitacora(Mensaje msg, TipoEntrada tipoEntrada, DateTime fecha)
         {
             this.Bitacora.GuardarMensajeEnEntrada(msg,tipoEntrada, fecha);
         }
