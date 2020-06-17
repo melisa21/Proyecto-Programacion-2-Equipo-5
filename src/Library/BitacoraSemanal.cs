@@ -6,8 +6,6 @@ BitacoraSeamanal tiene estados posibles "vacia" "terminada"
 
 namespace Library
 {
-    public class BitacoraSemanal
-    {
         /// <summary>
         /// Por SRP, BitacoraSemanal tiene la responsabilidad
         ///  sobre las funcionalidades de las misma
@@ -16,6 +14,9 @@ namespace Library
         /// cumpliendo la responsabilidad de manipular esta informacion
         /// Ademas tiene la informacion necesaria para guardar el mensaje en las entradas segun cual sea el caso
         /// </summary>
+        public class BitacoraSemanal
+        {
+        
 
 
         protected List<Entrada> listObjetivo= new List<Entrada>();
@@ -78,7 +79,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada</param>
         public void GuardarObjetivo(Mensaje msg)
         {
-                Entrada eObjetivo = new Objetivo(msg);
+                Entrada eObjetivo = new Entrada(msg);
                 ListObjetivo.Add(eObjetivo);
         }
 
@@ -89,7 +90,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada</param>
         public void GuardarPlanificacionDiaria(Mensaje msg)
         {
-                PlanificacionDiaria ePlanificacionDiaria = new PlanificacionDiaria(msg);
+                Entrada ePlanificacionDiaria = new Entrada(msg);
                 ListPlanificacionDiaria.Add(ePlanificacionDiaria);
         }
 
@@ -100,7 +101,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada</param>
         public void GuardarReflexionSemanal(Mensaje msg)
         {
-                ReflexionSemanal eReflexionSemanal = new ReflexionSemanal(msg);
+                Entrada eReflexionSemanal = new Entrada(msg);
                 ListReflexionSemanal.Add(eReflexionSemanal);
         }
 
@@ -112,7 +113,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada</param>
         public void GuardarReflexionMetacognitiva(Mensaje msg)
         {       
-                ReflexionMetacognitiva eReflexionMetacognitiva = new ReflexionMetacognitiva(msg);
+                Entrada eReflexionMetacognitiva = new Entrada(msg);
                 ListReflexionMetacognitiva.Add(eReflexionMetacognitiva);
 
         }

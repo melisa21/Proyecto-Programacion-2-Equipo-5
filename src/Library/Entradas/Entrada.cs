@@ -1,16 +1,17 @@
 using System;
 namespace Library
 {
-    public abstract class Entrada
+    /// <summary>
+    /// Por SRP, Entrada tiene la responsabilidad
+    ///  sobre las funcionalidades de las misma
+    /// las cuales comparten sus subclases
+    /// Por Expert, esta clase tiene la responsabilidad
+    ///  dado que es el experto en el contenido y el estado de esta
+    /// cumpliendo la responsabilidad de manipular esta informacion
+    /// </summary>
+    public class Entrada
     {
-        /// <summary>
-        /// Por SRP, Entrada tiene la responsabilidad
-        ///  sobre las funcionalidades de las misma
-        /// las cuales comparten sus subclases
-        /// Por Expert, esta clase tiene la responsabilidad
-        ///  dado que es el experto en el contenido y el estado de esta
-        /// cumpliendo la responsabilidad de manipular esta informacion
-        /// </summary>
+        
         
 
         //****************************************
@@ -21,17 +22,12 @@ namespace Library
         public DateTime DiaDeLaSemanaYHorario{get; set;}
         //****************************************
 
-        public enum TipoEstado
-        {
-            vacia,
-            finalizada
-        }
 
         /// <summary>
         /// Entrada de la Bitacora sin contenido
         /// </summary>
         public Entrada (){
-            this.Estado = TipoEstado.vacia;
+            this.Estado = TipoEstado.Vacia;
         }   
 
 
@@ -41,7 +37,7 @@ namespace Library
         /// <param name="msg">contenido de la entrada obtenida a traves de mensaje con anterioridad</param>
         /// <param name="name">Nombre del objeto</param>
         public Entrada (Mensaje msg){
-            this.Estado = TipoEstado.finalizada;
+            this.Estado = TipoEstado.Finalizada;
             this.Contenido = msg;
         }
 
@@ -52,7 +48,7 @@ namespace Library
         /// </summary>
         public void TerminarEntrada()
         {
-            this.Estado = TipoEstado.finalizada;
+            this.Estado = TipoEstado.Finalizada;
         }       
     }
 }

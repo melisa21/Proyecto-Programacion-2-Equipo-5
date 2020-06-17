@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace Library
 {
+    /// <summary>
+    /// EsTA clase debe seguir SINGLETON dado que permite asegurarse de que Bitacora
+    /// tenga solo una instancia, al tiempo que proporciona
+    /// un punto de acceso global a esta instancia. 
+    /// Dada la relevancia de esta clase. Además no necesitamos
+    ///  mas de una instancia esto generaria un conflicto
+    /// Ademas, teniendo en cuanta EXPERT, esta tiene la informacion
+    ///  necesaria para crear las bitacora semanales que se necesitan
+    /// Adicionalmente, en base a CREATOR esta debe ser la responsable de crear
+    ///  las instancias de la clase BitacoraSemanal
+    /// </summary>
     public class Bitacora
     {
-        /// <summary>
-        /// EsTA clase debe seguir SINGLETON dado que permite asegurarse de que Bitacora
-        /// tenga solo una instancia, al tiempo que proporciona
-        /// un punto de acceso global a esta instancia. 
-        /// Dada la relevancia de esta clase. Además no necesitamos
-        ///  mas de una instancia esto generaria un conflicto
-        /// Ademas, teniendo en cuanta EXPERT, esta tiene la informacion
-        ///  necesaria para crear las bitacora semanales que se necesitan
-        /// Adicionalmente, en base a CREATOR esta debe ser la responsable de crear
-        ///  las instancias de la clase BitacoraSemanal
-        /// </summary>
-
+        
         private static Bitacora instancia = null;
 
         protected List<BitacoraSemanal> bitacoraSemanals = null;
