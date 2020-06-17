@@ -4,6 +4,6 @@ namespace Library
 {
     public abstract class Mensaje
     {
-        //public abstract string Responder();
+        
     }
 }
