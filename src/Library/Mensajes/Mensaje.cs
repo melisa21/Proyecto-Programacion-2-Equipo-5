@@ -2,5 +2,8 @@
 
 namespace Library
 {
-    public abstract class Mensaje{}
+    public abstract class Mensaje
+    {
+        
+    }
 }
