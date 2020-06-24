@@ -140,6 +140,9 @@ namespace Library
                 }
         }
 
-       
+        public void GenerarEscritura()
+        {
+                
+        }
     }
 }
