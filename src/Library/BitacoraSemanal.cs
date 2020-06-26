@@ -24,7 +24,7 @@ namespace Library
         protected List<Entrada> listReflexionSemanal = new List<Entrada>();
         protected List<Entrada> listReflexionMetacognitiva = new List<Entrada>();
 
-        protected IEscribir escribir ;
+        protected AdaptadorEscribir escribir ;
         
         
         public List<Entrada> ListObjetivo { get; set; }
@@ -35,7 +35,7 @@ namespace Library
 
         public List<Entrada> ListReflexionMetacognitiva { get; set; }
         
-        public IEscribir Escribir{get; set;}
+        public AdaptadorEscribir Escribir{get; set;}
 
         
 
@@ -130,19 +130,18 @@ namespace Library
                 {
                     if (tipoEscritura == TipoEscritura.Word)
                     {
-                        this.Escribir = new Word();
+                        this.Escribir.Adaptado = new Word();
                     }
                     if (tipoEscritura == TipoEscritura.Markdown)
                     {
-                            this.Escribir = new Markdown();
+                            this.Escribir.Adaptado = new Markdown();
                     }
-                    Escribir.Escribir();
                 }
         }
 
         public void GenerarEscritura()
         {
-                
+                this.Escribir.Escribir(this.listObjetivo, this.listPlanificacionDiaria, this.listReflexionMetacognitiva, this.listReflexionSemanal);
         }
     }
 }

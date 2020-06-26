@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 
 namespace Library
 {
@@ -10,6 +12,6 @@ namespace Library
         ///en particular escribir en documento posiblemente Markdown o word, o motrar a traves de la consola
         /// </summary>
     
-        void Escribir();
+        void Escribir(List<Entrada> listObjetivo, List<Entrada> listPlanificacionDiaria, List<Entrada> listReflexionMetacognitiva, List<Entrada> listReflexionSemanal);
     }
 }
