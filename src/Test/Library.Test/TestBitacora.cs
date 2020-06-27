@@ -35,11 +35,14 @@ namespace Library.Test
         [Test]
         public void BuscarBitacoraSemanalPorFecha()
         {
-            
-            DateTime fechaABuscar = new DateTime(2020,06,15,00,00,00);
-            Assert.AreEqual( bitacora.BuscarBitacoraSemanalPorFecha(fechaABuscar) , 1 );   
+            DateTime fechaHoy = DateTime.Today;
+            DateTime fechaSemana = bitacora.CorrerFechaALunes(fechaHoy);
+            DateTime fechaABuscar = new DateTime(fechaSemana.Year,fechaSemana.Month,fechaSemana.Day,00,00,00);
+            Assert.AreNotEqual( bitacora.BuscarBitacoraSemanalPorFecha(fechaABuscar) , -1 );   
         
         }
+
+        
 
         
 

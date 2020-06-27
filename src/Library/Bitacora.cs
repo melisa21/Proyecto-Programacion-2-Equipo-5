@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace Library
 {
+    /// <summary>
+    /// EsTA clase debe seguir SINGLETON dado que permite asegurarse de que Bitacora
+    /// tenga solo una instancia, al tiempo que proporciona
+    /// un punto de acceso global a esta instancia. 
+    /// Dada la relevancia de esta clase. Además no necesitamos
+    ///  mas de una instancia esto generaria un conflicto
+    /// Ademas, teniendo en cuanta EXPERT, esta tiene la informacion
+    ///  necesaria para crear las bitacora semanales que se necesitan
+    /// Adicionalmente, en base a CREATOR esta debe ser la responsable de crear
+    ///  las instancias de la clase BitacoraSemanal
+    /// </summary>
     public class Bitacora
     {
-        /// <summary>
-        /// EsTA clase debe seguir SINGLETON dado que permite asegurarse de que Bitacora
-        /// tenga solo una instancia, al tiempo que proporciona
-        /// un punto de acceso global a esta instancia. 
-        /// Dada la relevancia de esta clase. Además no necesitamos
-        ///  mas de una instancia esto generaria un conflicto
-        /// Ademas, teniendo en cuanta EXPERT, esta tiene la informacion
-        ///  necesaria para crear las bitacora semanales que se necesitan
-        /// Adicionalmente, en base a CREATOR esta debe ser la responsable de crear
-        ///  las instancias de la clase BitacoraSemanal
-        /// </summary>
-
+        
         private static Bitacora instancia = null;
 
         protected List<BitacoraSemanal> bitacoraSemanals = null;
@@ -40,7 +40,7 @@ namespace Library
         /// Bitacora con coleccion de Bitacoras Semanales.
         /// </summary>
         /// <param name="name">Nombre del objeto</param>
-        public Bitacora()
+        private Bitacora()
         {
             this.bitacoraSemanals = new List<BitacoraSemanal>();
         }
@@ -112,18 +112,39 @@ namespace Library
 
 
         /// <summary>
-        /// Delega a la Bitacora Semanal con la correspondiente fecha la posibilidad
-        /// de guardar el Mensaje como contenido de la entrada.
+        /// Guarda las entradas en la bitacora semanal corresponidente
         /// </summary>
         /// <param name="msg">contenido de la entrada</param>
         /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
         /// <param name="fecha">fecha de la bitacora semanal a a la que se quiere guardar la entrada</param>
-         public void GuardarMensajeEnEntrada(Mensaje msg, string tipoEntrada, DateTime fecha )
+         public void GuardarMensajeEnEntrada(Mensaje msg, TipoEntrada tipoEntrada, DateTime fecha )
         {
             //buscar biracora semenal con fecha 
             int indice = BuscarBitacoraSemanalPorFecha(fecha);
             //guardarmensaje en la encontrada
-            this.BitacoraSemanals[indice].GuardarMensajeEnEntrada(msg,tipoEntrada);
+            
+            if (tipoEntrada == TipoEntrada.Objetivo)
+            {
+                this.BitacoraSemanals[indice].GuardarObjetivo(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.PlanificacionDiaria)
+            {
+                this.BitacoraSemanals[indice].GuardarPlanificacionDiaria(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
+            {
+                this.BitacoraSemanals[indice].GuardarReflexionSemanal(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.ReflexionMetacognitiva)
+            {
+                this.BitacoraSemanals[indice].GuardarReflexionMetacognitiva(msg);
+            }
+
+            this.BitacoraSemanals[indice].EstadoSiguiente();
+
         }
     }
 }
