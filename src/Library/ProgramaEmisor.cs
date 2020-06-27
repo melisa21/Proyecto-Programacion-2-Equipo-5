@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Library
 {
@@ -17,16 +18,10 @@ namespace Library
         
         private static ProgramaEmisor instancia = null;
 
-        protected Bitacora bitacora = null;
+        private List<Usuario> usuariosDelPrograma = null;
 
+        List<Usuario> UsuariosDelPrograma{get; set;}
 
-        public Bitacora Bitacora
-        {
-            get
-            {
-                return bitacora;
-            }
-        }
 
         /// <summary>
         /// ProgramaEmisor en el encargado de comunicarse con el usuario a traves del comunicador.
@@ -34,7 +29,7 @@ namespace Library
         /// <param name="name">Nombre del objeto</param>
         private ProgramaEmisor()
         {
-            this.bitacora = Bitacora.GetInstancia();
+            
         }
 
         /// <summary>
@@ -71,44 +66,8 @@ namespace Library
 
         }
 
-        /// <summary>
-        /// Delega a la Bitacora con la correspondiente fecha la posibilidad
-        /// de guardar el Mensaje como contenido de la entrada.
-        /// </summary>
-        /// <param name="msg">contenido de la entrada</param>
-        /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
-        /// <param name="fecha">fecha de la bitacora semanal a a la que se quiere guardar la entrada</param>
-        public void GuardarEnBitacora(Mensaje msg, TipoEntrada tipoEntrada, DateTime fecha)
-        {
-            //buscar biracora semenal con fecha 
-            int indice = Bitacora.BuscarBitacoraSemanalPorFecha(fecha);
-            BitacoraSemanal bitacoraSemanalEncontrada = Bitacora.BitacoraSemanals[indice];
 
-            //guardarmensaje en la encontrada
-            
-            if (tipoEntrada == TipoEntrada.Objetivo)
-            {
-                bitacoraSemanalEncontrada.GuardarObjetivo(msg);
-            }
-
-            if (tipoEntrada == TipoEntrada.PlanificacionDiaria)
-            {
-                bitacoraSemanalEncontrada.GuardarPlanificacionDiaria(msg);
-            }
-
-            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
-            {
-                bitacoraSemanalEncontrada.GuardarReflexionSemanal(msg);
-            }
-
-            if (tipoEntrada == TipoEntrada.ReflexionMetacognitiva)
-            {
-                bitacoraSemanalEncontrada.GuardarReflexionMetacognitiva(msg);
-            }
-
-
-            
-        }
+        
 
     }
 }

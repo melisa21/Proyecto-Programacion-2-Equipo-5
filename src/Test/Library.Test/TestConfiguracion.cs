@@ -15,7 +15,7 @@ namespace Library.Test
         [Test]
         public void CambiarNombreUsuario() 
         {
-            Usuario usuario = Usuario.GetUsuario();
+            Usuario usuario = new Usuario();
             Assert.IsNull(usuario.Nombre);
             
             string nombre = "Marina";
@@ -29,7 +29,7 @@ namespace Library.Test
         [Test]
         public void CambiarPlataforma() 
         {
-            Usuario usuario = Usuario.GetUsuario();
+            Usuario usuario = new Usuario();
 
             string modo = "Consola";
             var input = new StringReader(modo);

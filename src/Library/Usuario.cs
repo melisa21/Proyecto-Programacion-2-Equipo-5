@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Library
 {
@@ -9,11 +11,13 @@ namespace Library
         /// Es un Singleton ya que contiene una instancia publica de si mismo que sera unica. 
         /// Lo es ya que nuestro bot esta pensado de forma que solo haya un usuario por instalacion. 
         /// </summary>
-        private Usuario(){}
-
-        private static Usuario usuario;
+        public Usuario()
+        {
+            this.BitacoraUsuario = new Bitacora();
+        }
 
         private string nombre;
+
         public string Nombre 
         { 
             get
@@ -31,14 +35,8 @@ namespace Library
         public string IDContacto { get; set; }
         public ModoDeUso modo { get; set; }
         public List<DiaNotificacion> diasNotificacion {get; set;}
-        public static Usuario GetUsuario()
-        {
-            if (usuario == null)
-            {
-                usuario = new Usuario();
-            }
-            return usuario;
-        }
+        public Bitacora BitacoraUsuario {get; set;}
+
 
         public enum ModoDeUso
         {
@@ -73,5 +71,43 @@ namespace Library
                 throw new ListaDeDiasInvalidaException();
             }
         }
-    }
+
+        
+        /// <summary>
+        /// Delega a la Bitacora con la correspondiente fecha la posibilidad
+        /// de guardar el Mensaje como contenido de la entrada.
+        /// </summary>
+        /// <param name="msg">contenido de la entrada</param>
+        /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
+        /// <param name="fecha">fecha de la bitacora semanal a a la que se quiere guardar la entrada</param>
+        public void GuardarEnBitacora(Mensaje msg, TipoEntrada tipoEntrada, DateTime fecha)
+        {
+            //buscar biracora semenal con fecha 
+            int indice = BitacoraUsuario.BuscarBitacoraSemanalPorFecha(fecha);
+            BitacoraSemanal bitacoraSemanalEncontrada = BitacoraUsuario.BitacoraSemanals[indice];
+
+            //guardarmensaje en la encontrada
+            
+            if (tipoEntrada == TipoEntrada.Objetivo)
+            {
+                bitacoraSemanalEncontrada.GuardarObjetivo(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.PlanificacionDiaria)
+            {
+                bitacoraSemanalEncontrada.GuardarPlanificacionDiaria(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
+            {
+                bitacoraSemanalEncontrada.GuardarReflexionSemanal(msg);
+            }
+
+            if (tipoEntrada == TipoEntrada.ReflexionMetacognitiva)
+            {
+                bitacoraSemanalEncontrada.GuardarReflexionMetacognitiva(msg);
+            }
+
+        }     
+    }  
 }
