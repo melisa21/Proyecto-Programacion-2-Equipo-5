@@ -17,8 +17,6 @@ namespace Library
     public class Bitacora
     {
         
-        private static Bitacora instancia = null;
-
         protected List<BitacoraSemanal> bitacoraSemanals = null;
         
         
@@ -40,20 +38,11 @@ namespace Library
         /// Bitacora con coleccion de Bitacoras Semanales.
         /// </summary>
         /// <param name="name">Nombre del objeto</param>
-        private Bitacora()
+        public Bitacora()
         {
             this.bitacoraSemanals = new List<BitacoraSemanal>();
         }
 
-        /// <summary>
-        /// Metodo propio de haberlo definido segun Singleton.
-        /// </summary>
-        public static Bitacora GetInstancia()
-        {
-            if (instancia == null)
-                instancia = new Bitacora();
-            return instancia;
-        }
 
         /// <summary>
         /// La fecha de la Bitacora Semanal va ser la del lunes de cada semana

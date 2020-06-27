@@ -12,7 +12,7 @@ namespace Library
         /// </summary>
         public static void MenuInicial()
         {
-            Usuario usuario = Usuario.GetUsuario();
+            Usuario usuario = new Usuario();
             EstablecerNombre(usuario);
             EstablecerPlataforma(usuario);
             EstablecerDias(usuario);
