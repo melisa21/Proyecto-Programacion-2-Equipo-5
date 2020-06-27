@@ -101,29 +101,25 @@ namespace Library
             
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
             
-            await Bot.GetInfoAndDownloadFileAsync(message.Photo[0].FileId, new FileStream($"./images/{message.Photo[0].FileId}.png", FileMode.CreateNew, FileAccess.Write));
-            string response;
 
-            switch(message.Text.ToLower())
-            {
-                case "hola": 
-                    response = "hola! como estás?";
-                    break;
+            string mensajeEntrada = message.Text.ToLower();
+            Dialogo dialogo= Dialogo.GetInstancia();
+            dialogo.MensajeEntrada = mensajeEntrada;
+            dialogo.FlujoUsuarioEntraAPlataforma();
+            string response = dialogo.Responde;
 
-                case "chau": 
-                    response = "Chau! Que andes bien!";
-                    break;
+            // enviamos el texto de respuesta
+            await Bot.SendTextMessageAsync(message.Chat.Id, response);
+        }
 
-                case "foto":
-                    // si nos piden una foto, mandamos la foto en vez de responder
-                    // con un mensaje de texto.
-                    await SendProfileImage(message);
-                    return;
-
-                default: 
-                    response = "Disculpa, no se qué hacer con ese mensaje!";
-                    break;
-            }
+        private static async Task HandleMessageSendNotification(Message message)
+        {
+            
+            Console.WriteLine("Digo");
+            
+            Dialogo dialogo= Dialogo.GetInstancia();
+            dialogo.NotificacionObjetivo();
+            string response = dialogo.Responde;
 
             // enviamos el texto de respuesta
             await Bot.SendTextMessageAsync(message.Chat.Id, response);
