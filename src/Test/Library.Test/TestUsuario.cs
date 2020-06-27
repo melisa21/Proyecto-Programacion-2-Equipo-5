@@ -13,7 +13,7 @@ namespace Library.Test
         [SetUp]
         public void Setup()
         {
-            usuario = Usuario.GetUsuario();
+            usuario = new Usuario();
         }
 
         [Test]
@@ -23,12 +23,6 @@ namespace Library.Test
         }
 
 
-        [Test]
-        public void InstanciaSingletonUnica() 
-        {
-            Usuario usuariolocal = Usuario.GetUsuario();
-            Assert.AreSame(usuariolocal, Usuario.GetUsuario());
-        }
 
         [Test]
         public void ActualizacionDiasDesdeLista()
