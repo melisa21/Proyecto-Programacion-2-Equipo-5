@@ -18,8 +18,15 @@ namespace Library
         
         private static ProgramaEmisor instancia = null;
 
-        
-        public List<Usuario> UsuariosDelPrograma{get; set;}
+        private List<Usuario> usuarios;
+
+        public List<Usuario> UsuariosDelPrograma
+        {
+            get
+            {
+                return usuarios;
+            }
+        }
 
 
         /// <summary>
@@ -28,7 +35,7 @@ namespace Library
         /// <param name="name">Nombre del objeto</param>
         private ProgramaEmisor()
         {
-            UsuariosDelPrograma = null;    
+            this.usuarios = new List<Usuario>();   
         }
 
         /// <summary>
@@ -67,7 +74,7 @@ namespace Library
 
         public int BuscarUsuarioID(int idContacto)
         {
-            int indice=this.UsuariosDelPrograma.FindIndex((Usuario u) => u.IDContacto.Equals(idContacto));
+            int indice = this.UsuariosDelPrograma.FindIndex((Usuario u) => u.IDContacto.Equals(idContacto));
             return indice;
         }
         
@@ -75,8 +82,55 @@ namespace Library
         {
             
             int i= this.BuscarUsuarioID( IDUsuario);
-            this.UsuariosDelPrograma[i].DiasNotificacion.Add(diaNotificacion);
-            Console.WriteLine(this.UsuariosDelPrograma[i].DiasNotificacion);
+            
+            Console.WriteLine(i);
+            if (i!=-1)
+            {
+                this.UsuariosDelPrograma[i].DiasNotificacion.Add(diaNotificacion);
+                Console.WriteLine(this.UsuariosDelPrograma[i].DiasNotificacion);
+            }
+            else
+            {
+                Usuario u= new Usuario();
+                u.IDContacto = IDUsuario;
+                u.DiasNotificacion.Add(diaNotificacion);
+                this.UsuariosDelPrograma.Add(u);
+            }
+            this.ImprimirConsolaUsuarios();
+        }
+
+        public void GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada entrada, int IDUsuario)
+        {
+            
+                DiaNotificacion diaNotificacion= new DiaNotificacion();
+                diaNotificacion.Tipo = entrada; 
+                GuardarDiaNotificacionAUsuario(diaNotificacion, IDUsuario);
+                this.ImprimirConsolaUsuarios();
+        }
+
+        public void GuardarDiaDiaNotificacionAUsuario(Dias dia, int IDUsuario)
+        {
+            int i= this.BuscarUsuarioID( IDUsuario);
+            int cantidad= this.UsuariosDelPrograma[i].DiasNotificacion.Count;
+            this.UsuariosDelPrograma[i].DiasNotificacion[cantidad-1].Dia = dia;
+            this.ImprimirConsolaUsuarios();
+        }
+
+        public void GuardarHoraDiaNotificacionAUsuario(TimeSpan hora, int IDUsuario)
+        {
+            
+            int i= this.BuscarUsuarioID( IDUsuario);
+            int cantidad= this.UsuariosDelPrograma[i].DiasNotificacion.Count;
+            this.UsuariosDelPrograma[i].DiasNotificacion[cantidad-1].Hora = hora;
+            ImprimirConsolaUsuarios();
+        }
+        public void ImprimirConsolaUsuarios()
+        {
+            foreach (var item in this.UsuariosDelPrograma)
+            {
+                item.ImprimirConsolaUsuario();
+                Console.WriteLine("......");
+            }
         }
     }
 }

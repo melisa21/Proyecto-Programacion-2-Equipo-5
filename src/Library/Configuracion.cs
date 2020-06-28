@@ -129,7 +129,7 @@ namespace Library
 
                 diasNotificacion.Add(new DiaNotificacion(tipo,dia, hora));
             }
-            usuario.ActualizarDiasDesdeLista(diasNotificacion);
+            //usuario.ActualizarDiasDesdeLista(diasNotificacion);
         }
     }
 }

@@ -23,26 +23,6 @@ namespace Library.Test
         }
 
 
-
-        [Test]
-        public void ActualizacionDiasDesdeLista()
-        {
-            DiaNotificacion diaObjetivo = new DiaNotificacion(TipoEntrada.Objetivo, Dias.Domingo, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaPlanificacion = new DiaNotificacion(TipoEntrada.PlanificacionDiaria, Dias.Sabado, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaReflexionSemanal = new DiaNotificacion(TipoEntrada.ReflexionSemanal, Dias.Sabado, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaReflexionMetacognitiva = new DiaNotificacion(TipoEntrada.ReflexionMetacognitiva, Dias.Sabado, TimeSpan.Parse("20:00"));
-            List<DiaNotificacion> lista = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
-
-            usuario.ActualizarDiasDesdeLista(lista);
-
-            Assert.AreEqual(lista.Count, usuario.DiasNotificacion.Count);
-            Assert.AreEqual(cantidadTiposEntradasSoportadas, usuario.DiasNotificacion.Count);
-            Assert.AreEqual(diaObjetivo.Dia, usuario.DiasNotificacion[0].Dia);
-            Assert.AreEqual(diaPlanificacion.Tipo, usuario.DiasNotificacion[1].Tipo);
-            Assert.AreEqual(diaReflexionMetacognitiva.Hora, usuario.DiasNotificacion[3].Hora);
-
-        }
-
         [Test]
         public void ValidarNombre()
         {

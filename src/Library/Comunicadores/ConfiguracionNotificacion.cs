@@ -11,12 +11,9 @@ namespace Library
     public abstract class ConfiguracionNotificacion: ManipuladorBase
     {
 
-        public DiaNotificacion DiaNot{get;set;}
-
-        
-        public ConfiguracionNotificacion(string mensajeEntrada, int iDUsuario,DiaNotificacion diaNot):base(mensajeEntrada,iDUsuario)
+        public ConfiguracionNotificacion(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario)
         {
-            DiaNot = diaNot;
+            
         }
 
    }

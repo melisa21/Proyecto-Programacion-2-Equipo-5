@@ -123,11 +123,11 @@ namespace Library
             
             IManipulador comienzo = new Comienzo(mensajeEntrada,message.From.Id);
             IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,message.From.Id);
-            DiaNotificacion diaNot;
-            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada,message.From.Id,diaNot=new DiaNotificacion());
-            IManipulador eleccionDia = new EleccionDia(mensajeEntrada,message.From.Id,diaNot);
-            IManipulador eleccionHora = new EleccionHora(mensajeEntrada,message.From.Id,diaNot);
-            IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,message.From.Id,diaNot);
+            
+            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada,message.From.Id);
+            IManipulador eleccionDia = new EleccionDia(mensajeEntrada,message.From.Id);
+            IManipulador eleccionHora = new EleccionHora(mensajeEntrada,message.From.Id);
+            IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,message.From.Id);
             
             //Si  caso es ConfiguracionNotificacion
 

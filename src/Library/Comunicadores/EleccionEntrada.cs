@@ -7,7 +7,7 @@ namespace Library
     /// </summary>
     public class EleccionEntrada: ConfiguracionNotificacion
     {
-        public EleccionEntrada(string mensajeEntrada, int iDUsuario,DiaNotificacion diaNot):base(mensajeEntrada,iDUsuario, diaNot){}
+        public EleccionEntrada(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {
