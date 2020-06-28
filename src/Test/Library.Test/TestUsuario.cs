@@ -27,10 +27,10 @@ namespace Library.Test
         [Test]
         public void ActualizacionDiasDesdeLista()
         {
-            DiaNotificacion diaObjetivo = new DiaNotificacion(DiaNotificacion.TipoEntrada.objetivo, DiaNotificacion.Dias.Domingo, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaPlanificacion = new DiaNotificacion(DiaNotificacion.TipoEntrada.planificacion, DiaNotificacion.Dias.Sabado, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaReflexionSemanal = new DiaNotificacion(DiaNotificacion.TipoEntrada.reflexionsemanal, DiaNotificacion.Dias.Sabado, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaReflexionMetacognitiva = new DiaNotificacion(DiaNotificacion.TipoEntrada.reflexionmetacognitiva, DiaNotificacion.Dias.Sabado, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaObjetivo = new DiaNotificacion(TipoEntrada.Objetivo, Dia.Domingo, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaPlanificacion = new DiaNotificacion(TipoEntrada.PlanificacionDiaria, Dia.Sabado, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaReflexionSemanal = new DiaNotificacion(TipoEntrada.ReflexionSemanal, Dia.Sabado, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaReflexionMetacognitiva = new DiaNotificacion(TipoEntrada.ReflexionMetacognitiva, Dia.Sabado, TimeSpan.Parse("20:00"));
             List<DiaNotificacion> lista = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
 
             usuario.ActualizarDiasDesdeLista(lista);

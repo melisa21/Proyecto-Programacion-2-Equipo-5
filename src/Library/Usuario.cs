@@ -108,6 +108,37 @@ namespace Library
                 bitacoraSemanalEncontrada.GuardarReflexionMetacognitiva(msg);
             }
 
+        }
+        /// <summary>
+        /// Verificar que es el momento de notificacion.
+        /// </summary>
+        /// <param name="diaYHoraActual"></param>
+        public List<String> TareaPendiente(DateTime diaYHoraActual)
+        {
+            List<String> tareas = new List<String>();
+
+            TimeSpan tiempoActual = diaYHoraActual.TimeOfDay;
+            int horaActual = tiempoActual.Hours;
+            int minutoActual = tiempoActual.Minutes;
+            int diaActual = (int)diaYHoraActual.DayOfWeek;
+
+            foreach (DiaNotificacion diaNot in this.diasNotificacion)
+            {
+                TimeSpan tiempoNotificacion = diaNot.Hora;
+                int horaNotificacion = tiempoNotificacion.Hours;
+                int minutoNotificacion = tiempoNotificacion.Minutes;
+
+                bool esElDia = ((int)diaNot.Dia == diaActual);
+                bool esLaHora = (horaActual == horaNotificacion);
+                bool esElMinuto = (minutoActual == minutoNotificacion);
+                
+                if(esElDia && esLaHora && esElMinuto)
+                {
+                    tareas.Add(diaNot.TipoDeEntradaANotificar());
+                }
+            }
+
+            return tareas;
         }     
     }  
 }

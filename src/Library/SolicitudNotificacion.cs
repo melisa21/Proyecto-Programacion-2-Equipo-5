@@ -13,12 +13,10 @@ namespace Library
         /// Importante: esta clase implementara ProgramaEmisor
         /// en un futuro para enviar mensajes.
         /// </summary>
-        private static List<DiaNotificacion> dias;
+        private static List<Usuario> usuarios = new List<Usuario>();
         public Timer aTimer {get; set;}
+        public SolicitudNotificacion(){}
 
-        public SolicitudNotificacion(List<DiaNotificacion> data){
-            dias = data;
-        }
         /// <summary>
         /// Crea el Timer necesario para notificar.
         /// Se corre el evento Notificar cada 1 minuto.
@@ -29,8 +27,10 @@ namespace Library
         public void crearSolicitud()
         {
             
-            if(dias.Count == 0)
-                return;
+            if(usuarios.Count == 0)
+            {
+                throw new Exception("No hay usuarios agregados para notificar!");
+            }
             // Seteamos el timer con el evento
             aTimer = new Timer(60000);
             aTimer.Elapsed += Notificar;
@@ -46,35 +46,30 @@ namespace Library
         /// <param name="e"></param>
         private static void Notificar(Object source, ElapsedEventArgs e)
         {
-            foreach (DiaNotificacion diaNot in dias)
+            DateTime fechaActual = DateTime.Now;
+            foreach (Usuario usuario in usuarios)
             {
-                if(EsMomentoDeNotificar(diaNot, DateTime.Now))
+                List<String> tareasPendiente = usuario.TareaPendiente(fechaActual);
+                if(tareasPendiente.Count > 0)
                 {
-                    Console.WriteLine($"Es hora de trabajar en la {(DiaNotificacion.TipoEntrada)diaNot.Tipo}!");
+                    foreach (String tarea in tareasPendiente)
+                    {
+                        Console.WriteLine("Es hora de trabajar en: " + tarea);
+                    }
                 }
             }
         }
-        /// <summary>
-        /// Verificar que es el momento de notificacion.
-        /// </summary>
-        /// <param name="diaNot"></param>
-        /// <param name="diaYHoraActual"></param>
-        public static bool EsMomentoDeNotificar(DiaNotificacion diaNot, DateTime diaYHoraActual)
+
+        public void AgregarNotificado(Usuario usuario)
         {
-            TimeSpan tiempoActual = diaYHoraActual.TimeOfDay;
-            int horaActual = tiempoActual.Hours;
-            int minutoActual = tiempoActual.Minutes;
-            int diaActual = (int)diaYHoraActual.DayOfWeek;
-
-            TimeSpan tiempoNotificacion = diaNot.Hora;
-            int horaNotificacion = tiempoNotificacion.Hours;
-            int minutoNotificacion = tiempoNotificacion.Minutes;
-
-            bool esElDia = ((int)diaNot.Dia == diaActual);
-            bool esLaHora = (horaActual == horaNotificacion);
-            bool esElMinuto = (minutoActual == minutoNotificacion);
-
-            return (esElDia && esLaHora && esElMinuto);
+            if(usuario.diasNotificacion.Count > 0)
+            {
+                usuarios.Add(usuario);
+            }
+            else
+            {
+                throw new Exception("Usuario sin dias de notificacion");
+            }
         }
     }
 }
