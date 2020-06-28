@@ -34,7 +34,7 @@ namespace Library
         }
         public string IDContacto { get; set; }
         public ModoDeUso modo { get; set; }
-        public List<DiaNotificacion> diasNotificacion {get; set;}
+        public List<DiaNotificacion> DiasNotificacion {get; set;}
         public Bitacora BitacoraUsuario {get; set;}
 
 
@@ -64,7 +64,7 @@ namespace Library
                 DiaNotificacion diaPlanificacion = lista[1];
                 DiaNotificacion diaReflexionSemanal = lista[2];
                 DiaNotificacion diaReflexionMetacognitiva = lista[3];
-                diasNotificacion = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
+                DiasNotificacion = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
             }
             else
             {

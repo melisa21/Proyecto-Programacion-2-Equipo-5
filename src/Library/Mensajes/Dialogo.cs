@@ -4,6 +4,7 @@ namespace Library
 {
     public class Dialogo
     {
+        //private ComunicadorTelegram adaptado = ComunicadorTelegram.GetInstancia();
         private static Dialogo instancia = null;
 
         private bool seEquivoco, terminoConfigurarMomentoNotificacion;
@@ -53,7 +54,9 @@ namespace Library
                 Responde = "ELIGE A QUE ::HORA:: QUIERES QUE SE NOTIFIQUE EL ::"+ entrada.ToString() +":: ESCRIBE\n"+
                     " CON EL SIGUIENTE FORMATO: \nHH:MM:SS \n___";
                 //buscar usuario en el programa asociado con el usuario de Telegram
+                
                 //guardar en DiaNotificacion del usuario
+
                 terminoConfigurarMomentoNotificacion = true;
             }
             else

@@ -20,7 +20,7 @@ namespace Library
 
         private List<Usuario> usuariosDelPrograma = null;
 
-        List<Usuario> UsuariosDelPrograma{get; set;}
+        public List<Usuario> UsuariosDelPrograma{get; set;}
 
 
         /// <summary>
@@ -66,7 +66,11 @@ namespace Library
 
         }
 
+        public int BuscarUsuarioID(int idContacto)
+        {
 
+            return UsuariosDelPrograma.FindIndex((Usuario u) => u.IDContacto.Equals(idContacto));
+        }
         
 
     }

@@ -17,9 +17,27 @@ using Telegram.Bot.Types.InputFiles;
 
 namespace Library
 {
-    public class ComunicadorTelegram : IComunicador
+    public class ComunicadorTelegram 
     {
 
+        /*private static ComunicadorTelegram instancia = null;
+        
+        private bool seEquivoco, terminoConfigurarMomentoNotificacion;
+        private TipoEntrada entrada;
+
+        private ComunicadorTelegram()
+        {
+            seEquivoco= false; terminoConfigurarMomentoNotificacion = false;
+        }
+        
+
+        public static ComunicadorTelegram GetInstancia()
+        {
+            if (instancia == null)
+                instancia = new ComunicadorTelegram();
+            return instancia;
+        }*/
+      
         
         public void EnviarMensaje(){}
         public void RecibirMensaje(){}
@@ -98,32 +116,61 @@ namespace Library
         /// <returns></returns>
         private static async Task HandleMessageReceived(Message message)
         {
+            string response="";
+            string mensajeEntrada = message.Text.ToLower();
             
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
             
+            IManipulador comienzo = new Comienzo(mensajeEntrada);
+            comienzo.Manipular();
+            response = comienzo.Respuesta;
+            
+            // enviamos el texto de respuesta
+            await Bot.SendTextMessageAsync(message.Chat.Id, response);
 
-            string mensajeEntrada = message.Text.ToLower();
-            Dialogo dialogo= Dialogo.GetInstancia();
-            dialogo.MensajeEntrada = mensajeEntrada;
-            dialogo.FlujoUsuarioEntraAPlataforma();
-            string response = dialogo.Responde;
+            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada);
+            comienzo.CambiarSiguiente(eleccionEntrada);
+            response = eleccionEntrada.Respuesta;
 
+            // enviamos el texto de respuesta
+            await Bot.SendTextMessageAsync(message.Chat.Id, response);
+
+            IManipulador eleccionDia = new EleccionDia(mensajeEntrada);
+            eleccionEntrada.CambiarSiguiente(eleccionDia);
+            response = eleccionDia.Respuesta;
+            
+            // enviamos el texto de respuesta
+            await Bot.SendTextMessageAsync(message.Chat.Id, response);
+            
+            IManipulador eleccionHora = new EleccionHora(mensajeEntrada);
+            eleccionDia.CambiarSiguiente(eleccionHora);
+            response = eleccionHora.Respuesta;
+            
+                    
+            
             // enviamos el texto de respuesta
             await Bot.SendTextMessageAsync(message.Chat.Id, response);
         }
 
-        private static async Task HandleMessageSendNotification(Message message)
+        public static int DevolverUsuario(Message message)
+        {
+            
+            Console.WriteLine("IdUsuario"+message.From.Id);
+            return message.From.Id;
+        }
+
+        /*private static async Task HandleMessageSendNotification(Message message)
         {
             
             Console.WriteLine("Digo");
             
             Dialogo dialogo= Dialogo.GetInstancia();
             dialogo.NotificacionObjetivo();
-            string response = dialogo.Responde;
+            string response = dialogo.responde;
 
             // enviamos el texto de respuesta
             await Bot.SendTextMessageAsync(message.Chat.Id, response);
-        }
+        }*/
 
         /// <summary>
         /// Envía una imágen como respuesta al mensaje recibido.
@@ -131,7 +178,7 @@ namespace Library
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        static async Task SendProfileImage(Message message)
+        /*static async Task SendProfileImage(Message message)
         {
             await Bot.SendChatActionAsync(message.Chat.Id, ChatAction.UploadPhoto);
 
@@ -143,7 +190,7 @@ namespace Library
                 photo: new InputOnlineFile(fileStream, fileName),
                 caption: "Te ves bien!"
             );
-        }
+        }*/
 
         /// <summary>
         /// Manejo de excepciones. 

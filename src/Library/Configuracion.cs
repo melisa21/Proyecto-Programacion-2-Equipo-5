@@ -62,7 +62,7 @@ namespace Library
         public static void EstablecerDias(Usuario usuario)
         {
             int cantidadTiposEntrada = 4;
-            DiaNotificacion.Dias dia;
+            Dias dia;
             TimeSpan hora;
             List<DiaNotificacion> diasNotificacion = new List<DiaNotificacion>();
 
@@ -75,7 +75,7 @@ namespace Library
             string textoMetacogniva = "\nY de la Reflexion Metacognitiva? \n" + textoDias;
             List<string> textosEntradas = new List<string> { textoObjetivos, textoPlanificacion, textoSemanal, textoMetacogniva };
 
-            List<DiaNotificacion.Dias> dias = new List<DiaNotificacion.Dias>();
+            List<Dias> dias = new List<Dias>();
             for (int i = 0; i < cantidadTiposEntrada; i++)
             {
                 Console.WriteLine(textosEntradas[i]);
@@ -84,7 +84,7 @@ namespace Library
                     try
                     {
                         string respuesta = Console.ReadLine();
-                        dia = (DiaNotificacion.Dias)Enum.Parse(typeof(DiaNotificacion.Dias), respuesta, true);
+                        dia = (Dias)Enum.Parse(typeof(Dias), respuesta, true);
                         break;
                     }
                     catch (ArgumentException)
@@ -125,7 +125,7 @@ namespace Library
                     }
 
                 }
-                DiaNotificacion.TipoEntrada tipo = (DiaNotificacion.TipoEntrada)i;
+                TipoEntrada tipo = (TipoEntrada)i;
 
                 diasNotificacion.Add(new DiaNotificacion(tipo,dia, hora));
             }

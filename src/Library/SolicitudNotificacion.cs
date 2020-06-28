@@ -50,7 +50,7 @@ namespace Library
             {
                 if(EsMomentoDeNotificar(diaNot, DateTime.Now))
                 {
-                    Console.WriteLine($"Es hora de trabajar en la {(DiaNotificacion.TipoEntrada)diaNot.Tipo}!");
+                    Console.WriteLine($"Es hora de trabajar en la {(TipoEntrada)diaNot.Tipo}!");
                 }
             }
         }
