@@ -116,7 +116,7 @@ namespace Library
         /// <returns></returns>
         private static async Task HandleMessageReceived(Message message)
         {
-            string response="";
+            string response="Disculpe, no entiendo";
             string mensajeEntrada = message.Text.ToLower();
             
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
@@ -124,32 +124,40 @@ namespace Library
             IManipulador comienzo = new Comienzo(mensajeEntrada);
             comienzo.Manipular();
             response = comienzo.Respuesta;
-            
-            // enviamos el texto de respuesta
             await Bot.SendTextMessageAsync(message.Chat.Id, response);
+
+            IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada);
+            comienzo.CambiarSiguiente(escribirBitacora);
+            response = escribirBitacora.Respuesta;
+            await Bot.SendTextMessageAsync(message.Chat.Id, response);
+
 
             IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada);
             comienzo.CambiarSiguiente(eleccionEntrada);
             response = eleccionEntrada.Respuesta;
-
             // enviamos el texto de respuesta
             await Bot.SendTextMessageAsync(message.Chat.Id, response);
 
             IManipulador eleccionDia = new EleccionDia(mensajeEntrada);
             eleccionEntrada.CambiarSiguiente(eleccionDia);
             response = eleccionDia.Respuesta;
-            
             // enviamos el texto de respuesta
             await Bot.SendTextMessageAsync(message.Chat.Id, response);
             
-            IManipulador eleccionHora = new EleccionHora(mensajeEntrada);
-            eleccionDia.CambiarSiguiente(eleccionHora);
-            response = eleccionHora.Respuesta;
             
-                    
+            //try
+            //{
+                IManipulador eleccionHora = new EleccionHora(mensajeEntrada);
+                eleccionDia.CambiarSiguiente(eleccionHora);
+                response = eleccionHora.Respuesta;
+                // enviamos el texto de respuesta
+                await Bot.SendTextMessageAsync(message.Chat.Id, response);
+            /*}
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Dia invalido, intente nuevamente: ");
+            }*/
             
-            // enviamos el texto de respuesta
-            await Bot.SendTextMessageAsync(message.Chat.Id, response);
         }
 
         public static int DevolverUsuario(Message message)

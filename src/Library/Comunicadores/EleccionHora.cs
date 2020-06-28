@@ -1,3 +1,4 @@
+using System;
 namespace Library
 {
 
@@ -14,11 +15,14 @@ namespace Library
              (MensajeEntrada=="jueves") || (MensajeEntrada=="viernes") || (MensajeEntrada=="sabado") || (MensajeEntrada=="domingo"))
             {  
                 Respuesta = "ELIGE A QUE ::HORA:: QUIERES QUE SE NOTIFIQUE EL ::"+ Entrada.ToString() +":: ESCRIBE\n"+
-                    " CON EL SIGUIENTE FORMATO: \nHH:MM:SS \n___";
+                    " CON EL SIGUIENTE FORMATO: \nHH:MM \n___";
+                
+                Dia = (Dias)Enum.Parse(typeof(Dias), MensajeEntrada, true);
             }
             else
             {
                 Respuesta = "Listo";
+                Hora = TimeSpan.Parse(MensajeEntrada);
                 base.Manipular();
             }
             
