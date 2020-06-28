@@ -5,9 +5,9 @@ namespace Library
     /// <summary>
     /// EsTA clasea 
     /// </summary>
-    public class EleccionEntrada: ManipuladorBase
+    public class EleccionEntrada: ConfiguracionNotificacion
     {
-        public EleccionEntrada(string mensajeEntrada):base(mensajeEntrada){}
+        public EleccionEntrada(string mensajeEntrada, int iDUsuario,DiaNotificacion diaNot):base(mensajeEntrada,iDUsuario, diaNot){}
 
         public override void Manipular()
         {

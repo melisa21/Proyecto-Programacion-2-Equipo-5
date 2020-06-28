@@ -118,45 +118,65 @@ namespace Library
         {
             string response="Disculpe, no entiendo";
             string mensajeEntrada = message.Text.ToLower();
-            
+             
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
             
-            IManipulador comienzo = new Comienzo(mensajeEntrada);
-            comienzo.Manipular();
-            response = comienzo.Respuesta;
-            await Bot.SendTextMessageAsync(message.Chat.Id, response);
-
-            IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada);
-            comienzo.CambiarSiguiente(escribirBitacora);
-            response = escribirBitacora.Respuesta;
-            await Bot.SendTextMessageAsync(message.Chat.Id, response);
-
-
-            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada);
-            comienzo.CambiarSiguiente(eleccionEntrada);
-            response = eleccionEntrada.Respuesta;
-            // enviamos el texto de respuesta
-            await Bot.SendTextMessageAsync(message.Chat.Id, response);
-
-            IManipulador eleccionDia = new EleccionDia(mensajeEntrada);
-            eleccionEntrada.CambiarSiguiente(eleccionDia);
-            response = eleccionDia.Respuesta;
-            // enviamos el texto de respuesta
-            await Bot.SendTextMessageAsync(message.Chat.Id, response);
+            IManipulador comienzo = new Comienzo(mensajeEntrada,message.From.Id);
+            IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,message.From.Id);
+            DiaNotificacion diaNot;
+            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada,message.From.Id,diaNot=new DiaNotificacion());
+            IManipulador eleccionDia = new EleccionDia(mensajeEntrada,message.From.Id,diaNot);
+            IManipulador eleccionHora = new EleccionHora(mensajeEntrada,message.From.Id,diaNot);
+            IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,message.From.Id,diaNot);
             
-            
-            //try
-            //{
-                IManipulador eleccionHora = new EleccionHora(mensajeEntrada);
-                eleccionDia.CambiarSiguiente(eleccionHora);
-                response = eleccionHora.Respuesta;
-                // enviamos el texto de respuesta
-                await Bot.SendTextMessageAsync(message.Chat.Id, response);
-            /*}
-            catch (ArgumentException)
+            //Si  caso es ConfiguracionNotificacion
+
+            switch(mensajeEntrada)
             {
-                Console.WriteLine("Dia invalido, intente nuevamente: ");
-            }*/
+                case "/start": 
+                    comienzo.Manipular();
+                    response = comienzo.Respuesta;
+                
+                break;
+
+                case "escribir":
+                    comienzo.CambiarSiguiente(escribirBitacora);
+                    response = escribirBitacora.Respuesta;
+                break;
+
+                case "configurar":
+                    comienzo.CambiarSiguiente(eleccionEntrada);
+                    response = eleccionEntrada.Respuesta;
+    
+                    
+                break;
+
+                default:
+                    if (mensajeEntrada == "1" || mensajeEntrada == "2" || mensajeEntrada == "3" || mensajeEntrada == "4")
+                    {    
+                        eleccionEntrada.CambiarSiguiente(eleccionDia);
+                        response = eleccionDia.Respuesta;
+                        
+                    } 
+                    else
+                    {
+                        if ((mensajeEntrada=="lunes") || (mensajeEntrada=="martes") || (mensajeEntrada=="miercoles") ||
+                        (mensajeEntrada=="jueves") || (mensajeEntrada=="viernes") || (mensajeEntrada=="sabado") || (mensajeEntrada=="domingo"))
+                        {
+                            
+                            eleccionDia.CambiarSiguiente(eleccionHora);
+                            response = eleccionHora.Respuesta;
+                        }
+                        else
+                        {
+                            eleccionHora.CambiarSiguiente(guardadoNotificacion);
+                            response = eleccionHora.Respuesta;
+                            
+                        }
+                    }
+                break;
+            }
+            await Bot.SendTextMessageAsync(message.Chat.Id, response);
             
         }
 

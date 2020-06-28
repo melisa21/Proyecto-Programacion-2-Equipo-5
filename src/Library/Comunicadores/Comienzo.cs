@@ -7,7 +7,7 @@ namespace Library
     /// </summary>
     public class Comienzo: ManipuladorBase
     {
-        public Comienzo(string mensajeEntrada):base(mensajeEntrada){}
+        public Comienzo(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {

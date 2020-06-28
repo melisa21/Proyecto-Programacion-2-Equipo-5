@@ -7,7 +7,7 @@ namespace Library
     /// </summary>
     public class EscribirBitacora: ManipuladorBase
     {
-        public EscribirBitacora(string mensajeEntrada):base(mensajeEntrada){}
+        public EscribirBitacora(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {

@@ -4,6 +4,10 @@ namespace Library
 {
     public class DiaNotificacion
         {
+            
+            public DiaNotificacion()
+            {}
+            
             public DiaNotificacion(TipoEntrada tipo, Dias dia, TimeSpan hora)
             {
                 this.Tipo = tipo;

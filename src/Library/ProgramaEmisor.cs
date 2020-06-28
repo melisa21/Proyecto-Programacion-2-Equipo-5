@@ -18,8 +18,7 @@ namespace Library
         
         private static ProgramaEmisor instancia = null;
 
-        private List<Usuario> usuariosDelPrograma = null;
-
+        
         public List<Usuario> UsuariosDelPrograma{get; set;}
 
 
@@ -29,7 +28,7 @@ namespace Library
         /// <param name="name">Nombre del objeto</param>
         private ProgramaEmisor()
         {
-            
+            UsuariosDelPrograma = null;    
         }
 
         /// <summary>
@@ -68,10 +67,16 @@ namespace Library
 
         public int BuscarUsuarioID(int idContacto)
         {
-
-            return UsuariosDelPrograma.FindIndex((Usuario u) => u.IDContacto.Equals(idContacto));
+            int indice=this.UsuariosDelPrograma.FindIndex((Usuario u) => u.IDContacto.Equals(idContacto));
+            return indice;
         }
         
-
+        public void GuardarDiaNotificacionAUsuario(DiaNotificacion diaNotificacion, int IDUsuario)
+        {
+            
+            int i= this.BuscarUsuarioID( IDUsuario);
+            this.UsuariosDelPrograma[i].DiasNotificacion.Add(diaNotificacion);
+            Console.WriteLine(this.UsuariosDelPrograma[i].DiasNotificacion);
+        }
     }
 }

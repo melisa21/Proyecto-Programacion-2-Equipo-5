@@ -10,11 +10,8 @@ namespace Library
     /// </summary>
     public abstract class ManipuladorBase: IManipulador
     {
+        public int IDUsuario{get;set;}
         public TipoEntrada Entrada{get; set;}
-
-        public Dias Dia{get; set;}
-
-        public TimeSpan Hora{get;set;}
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string MensajeEntrada{get;set;}
@@ -23,9 +20,10 @@ namespace Library
         public string Respuesta{get;set;}
         public IManipulador Siguiente{get; set;}
 
-        public ManipuladorBase(string mensajeEntrada)
+        public ManipuladorBase(string mensajeEntrada, int iDUsuario)
         {
             this.MensajeEntrada=mensajeEntrada;
+            this.IDUsuario= iDUsuario;
             
             Console.WriteLine(MensajeEntrada);
         }  

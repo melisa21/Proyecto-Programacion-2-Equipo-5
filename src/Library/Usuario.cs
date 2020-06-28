@@ -14,6 +14,7 @@ namespace Library
         public Usuario()
         {
             this.BitacoraUsuario = new Bitacora();
+            this.DiasNotificacion = null;
         }
 
         private string nombre;
@@ -32,7 +33,7 @@ namespace Library
                 }
             } 
         }
-        public string IDContacto { get; set; }
+        public int IDContacto { get; set; }
         public ModoDeUso modo { get; set; }
         public List<DiaNotificacion> DiasNotificacion {get; set;}
         public Bitacora BitacoraUsuario {get; set;}
@@ -108,6 +109,8 @@ namespace Library
                 bitacoraSemanalEncontrada.GuardarReflexionMetacognitiva(msg);
             }
 
-        }     
+        }  
+
+           
     }  
 }

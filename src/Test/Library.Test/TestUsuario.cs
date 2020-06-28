@@ -27,19 +27,19 @@ namespace Library.Test
         [Test]
         public void ActualizacionDiasDesdeLista()
         {
-            DiaNotificacion diaObjetivo = new DiaNotificacion(DiaNotificacion.TipoEntrada.objetivo, DiaNotificacion.Dias.Domingo, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaPlanificacion = new DiaNotificacion(DiaNotificacion.TipoEntrada.planificacion, DiaNotificacion.Dias.Sabado, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaReflexionSemanal = new DiaNotificacion(DiaNotificacion.TipoEntrada.reflexionsemanal, DiaNotificacion.Dias.Sabado, TimeSpan.Parse("20:00"));
-            DiaNotificacion diaReflexionMetacognitiva = new DiaNotificacion(DiaNotificacion.TipoEntrada.reflexionmetacognitiva, DiaNotificacion.Dias.Sabado, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaObjetivo = new DiaNotificacion(TipoEntrada.Objetivo, Dias.Domingo, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaPlanificacion = new DiaNotificacion(TipoEntrada.PlanificacionDiaria, Dias.Sabado, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaReflexionSemanal = new DiaNotificacion(TipoEntrada.ReflexionSemanal, Dias.Sabado, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaReflexionMetacognitiva = new DiaNotificacion(TipoEntrada.ReflexionMetacognitiva, Dias.Sabado, TimeSpan.Parse("20:00"));
             List<DiaNotificacion> lista = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
 
             usuario.ActualizarDiasDesdeLista(lista);
 
-            Assert.AreEqual(lista.Count, usuario.diasNotificacion.Count);
-            Assert.AreEqual(cantidadTiposEntradasSoportadas, usuario.diasNotificacion.Count);
-            Assert.AreEqual(diaObjetivo.Dia, usuario.diasNotificacion[0].Dia);
-            Assert.AreEqual(diaPlanificacion.Tipo, usuario.diasNotificacion[1].Tipo);
-            Assert.AreEqual(diaReflexionMetacognitiva.Hora, usuario.diasNotificacion[3].Hora);
+            Assert.AreEqual(lista.Count, usuario.DiasNotificacion.Count);
+            Assert.AreEqual(cantidadTiposEntradasSoportadas, usuario.DiasNotificacion.Count);
+            Assert.AreEqual(diaObjetivo.Dia, usuario.DiasNotificacion[0].Dia);
+            Assert.AreEqual(diaPlanificacion.Tipo, usuario.DiasNotificacion[1].Tipo);
+            Assert.AreEqual(diaReflexionMetacognitiva.Hora, usuario.DiasNotificacion[3].Hora);
 
         }
 

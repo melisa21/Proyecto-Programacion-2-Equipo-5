@@ -13,8 +13,8 @@ namespace Library.Test
         [Test]
         public void CasoPositivo()
         {
-            DiaNotificacion.Dias diaDeLaSemana = (DiaNotificacion.Dias)4;
-            DiaNotificacion.TipoEntrada tipoDeEntrada = (DiaNotificacion.TipoEntrada)1;
+            Dias diaDeLaSemana = (Dias)4;
+            TipoEntrada tipoDeEntrada = (TipoEntrada)1;
             TimeSpan horaDeNot = new TimeSpan(23,0,0);
             DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
             bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
@@ -23,8 +23,8 @@ namespace Library.Test
         [Test]
         public void CasoNegativo()
         {
-            DiaNotificacion.Dias diaDeLaSemana = (DiaNotificacion.Dias)4;
-            DiaNotificacion.TipoEntrada tipoDeEntrada = (DiaNotificacion.TipoEntrada)1;
+            Dias diaDeLaSemana = (Dias)4;
+            TipoEntrada tipoDeEntrada = (TipoEntrada)1;
             TimeSpan horaDeNot = new TimeSpan(20,20,0);
             DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
             bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
