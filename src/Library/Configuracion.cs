@@ -47,13 +47,13 @@ namespace Library
                 string respuesta = Console.ReadLine();
                 if (respuesta == "1" || respuesta.ToLower() == "telegram")
                 {
-                    usuario.modo = Usuario.ModoDeUso.Telegram;
+                    usuario.modo = ModoDeUso.Telegram;
                     Console.WriteLine("Ingresa aqui desde Telegram: http://t.me/Lukesoytupadrebot");
                     break;
                 }
                 else if (respuesta == "0" || respuesta.ToLower() == "consola")
                 {
-                    usuario.modo = Usuario.ModoDeUso.Consola;
+                    usuario.modo = ModoDeUso.Consola;
                     break;
                 }
             }

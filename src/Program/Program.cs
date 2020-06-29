@@ -7,7 +7,8 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            ComunicadorTelegram.MainTelegram();
+            //ComunicadorTelegram.MainTelegram();
+            ComunicadorConsola.MainConsola();
 /*
             Configuracion.MenuInicial();
 

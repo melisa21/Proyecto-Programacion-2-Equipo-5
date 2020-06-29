@@ -48,29 +48,23 @@ namespace Library
             return instancia;
         }
 
-        /// <summary>
-        /// Crea el mensaje.
-        /// </summary>
-        public void CrearMensaje()
-        {
+      
 
-        }
 
         /// <summary>
         /// Delega a el comunicador el envio del mensaje para el usuario
         /// </summary>
-        public void EnviarMensaje()
+        public void EnviarMensajeNotificacion(int idContacto, TipoEntrada entrada)
         {
+            int i = this.BuscarUsuarioID(idContacto);
+            if (this.UsuariosDelPrograma[i].modo == ModoDeUso.Telegram)
+                ComunicadorTelegram.HandleMessageSendNotification(idContacto,entrada);
+            else
+                ComunicadorConsola.ModeradroMensajeNotificacion(idContacto,entrada);
+
 
         }
 
-        /// <summary>
-        /// Interpreta el mensaje que envio el mensaje a tarves del comunicador.
-        /// </summary>
-        public void RecibirMensaje()
-        {
-
-        }
 
         public int BuscarUsuarioID(int idContacto)
         {
@@ -83,7 +77,7 @@ namespace Library
             
             int i= this.BuscarUsuarioID( IDUsuario);
             
-            Console.WriteLine(i);
+            
             if (i!=-1)
             {
                 this.UsuariosDelPrograma[i].DiasNotificacion.Add(diaNotificacion);
@@ -96,7 +90,7 @@ namespace Library
                 u.DiasNotificacion.Add(diaNotificacion);
                 this.UsuariosDelPrograma.Add(u);
             }
-            this.ImprimirConsolaUsuarios();
+            //this.ImprimirConsolaUsuarios();
         }
 
         public void GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada entrada, int IDUsuario)
@@ -105,7 +99,7 @@ namespace Library
                 DiaNotificacion diaNotificacion= new DiaNotificacion();
                 diaNotificacion.Tipo = entrada; 
                 GuardarDiaNotificacionAUsuario(diaNotificacion, IDUsuario);
-                this.ImprimirConsolaUsuarios();
+                //this.ImprimirConsolaUsuarios();
         }
 
         public void GuardarDiaDiaNotificacionAUsuario(Dias dia, int IDUsuario)
@@ -113,7 +107,7 @@ namespace Library
             int i= this.BuscarUsuarioID( IDUsuario);
             int cantidad= this.UsuariosDelPrograma[i].DiasNotificacion.Count;
             this.UsuariosDelPrograma[i].DiasNotificacion[cantidad-1].Dia = dia;
-            this.ImprimirConsolaUsuarios();
+            //this.ImprimirConsolaUsuarios();
         }
 
         public void GuardarHoraDiaNotificacionAUsuario(TimeSpan hora, int IDUsuario)
@@ -122,7 +116,7 @@ namespace Library
             int i= this.BuscarUsuarioID( IDUsuario);
             int cantidad= this.UsuariosDelPrograma[i].DiasNotificacion.Count;
             this.UsuariosDelPrograma[i].DiasNotificacion[cantidad-1].Hora = hora;
-            ImprimirConsolaUsuarios();
+            //ImprimirConsolaUsuarios();
         }
         public void ImprimirConsolaUsuarios()
         {

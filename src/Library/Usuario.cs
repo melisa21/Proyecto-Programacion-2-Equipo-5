@@ -48,11 +48,7 @@ namespace Library
         public Bitacora BitacoraUsuario {get; set;}
 
 
-        public enum ModoDeUso
-        {
-            Consola,
-            Telegram
-        }
+       
 
         public static bool ValidarNombre(string nombre)
         {

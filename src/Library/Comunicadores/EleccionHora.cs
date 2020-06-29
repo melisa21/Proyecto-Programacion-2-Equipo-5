@@ -23,7 +23,7 @@ namespace Library
             }
             else
             {
-                Console.WriteLine("llega eleccion hora else");
+                
                 Respuesta = "Listo";
                 
                 base.Manipular();

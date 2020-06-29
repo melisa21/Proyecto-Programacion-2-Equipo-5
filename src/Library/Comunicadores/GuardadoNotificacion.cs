@@ -12,10 +12,8 @@ namespace Library
         public override void Manipular()
         {
                 
-                Console.WriteLine("llega guardar");
-                
                 //Guardo Dia Notificacion en logica
-                //Console.WriteLine(DiaNot.Hora);
+                
                 ProgramaEmisor p = ProgramaEmisor.GetInstancia();
                 p.GuardarHoraDiaNotificacionAUsuario(TimeSpan.Parse(MensajeEntrada),IDUsuario);
                 Respuesta = "Guardado";

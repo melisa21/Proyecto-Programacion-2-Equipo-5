@@ -39,9 +39,6 @@ namespace Library
         }*/
       
         
-        public void EnviarMensaje(){}
-        public void RecibirMensaje(){}
-        
 
         
         /// <summary>
@@ -180,6 +177,7 @@ namespace Library
             
         }
 
+
         public static int DevolverUsuario(Message message)
         {
             
@@ -187,18 +185,16 @@ namespace Library
             return message.From.Id;
         }
 
-        /*private static async Task HandleMessageSendNotification(Message message)
+        public static void  HandleMessageSendNotification(int idContacto, TipoEntrada entrada)
         {
             
-            Console.WriteLine("Digo");
-            
-            Dialogo dialogo= Dialogo.GetInstancia();
-            dialogo.NotificacionObjetivo();
-            string response = dialogo.responde;
+           MensajesNotificatorios m = new MensajesNotificatorios(idContacto);
+            m.Notificacion(entrada);
+            string response = m.Respuesta;
 
             // enviamos el texto de respuesta
-            await Bot.SendTextMessageAsync(message.Chat.Id, response);
-        }*/
+            Bot.SendTextMessageAsync(idContacto, response);
+        }
 
         /// <summary>
         /// Envía una imágen como respuesta al mensaje recibido.

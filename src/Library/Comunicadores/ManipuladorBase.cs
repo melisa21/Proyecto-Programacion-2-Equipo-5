@@ -25,7 +25,6 @@ namespace Library
             this.MensajeEntrada=mensajeEntrada;
             this.IDUsuario= iDUsuario;
             
-            Console.WriteLine(MensajeEntrada);
         }  
 
         public void CambiarSiguiente(IManipulador m)
