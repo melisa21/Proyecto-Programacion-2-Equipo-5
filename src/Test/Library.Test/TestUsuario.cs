@@ -69,5 +69,34 @@ namespace Library.Test
             Assert.DoesNotThrow(PruebaCadenaCorrecta);
 
         }
+
+        [Test]
+        public void TareasPendientes()
+        {
+            DiaNotificacion diaObjetivo = new DiaNotificacion(TipoEntrada.Objetivo, Dia.Domingo, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaPlanificacion = new DiaNotificacion(TipoEntrada.PlanificacionDiaria, Dia.Domingo, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaReflexionSemanal = new DiaNotificacion(TipoEntrada.ReflexionSemanal, Dia.Domingo, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaReflexionMetacognitiva = new DiaNotificacion(TipoEntrada.ReflexionMetacognitiva, Dia.Domingo, TimeSpan.Parse("20:00"));
+            List<DiaNotificacion> lista = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
+
+            usuario.ActualizarDiasDesdeLista(lista);
+
+            List<String> tareas = usuario.TareasPendiente(new DateTime(2020, 6, 28, 20, 0, 0));
+            Assert.AreEqual(4, tareas.Count);
+        }
+
+        [Test]
+        public void UnaTareaPendienteAhora()
+        {
+            DiaNotificacion diaObjetivo = new DiaNotificacion(TipoEntrada.Objetivo, Dia.Domingo, TimeSpan.Parse("20:00"));
+            DiaNotificacion diaPlanificacion = new DiaNotificacion(TipoEntrada.PlanificacionDiaria, Dia.Domingo, TimeSpan.Parse("20:01"));
+            DiaNotificacion diaReflexionSemanal = new DiaNotificacion(TipoEntrada.ReflexionSemanal, Dia.Domingo, TimeSpan.Parse("19:59"));
+            DiaNotificacion diaReflexionMetacognitiva = new DiaNotificacion(TipoEntrada.ReflexionMetacognitiva, Dia.Domingo, TimeSpan.Parse("21:00"));
+            List<DiaNotificacion> lista = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
+            usuario.ActualizarDiasDesdeLista(lista);
+
+            List<String> tareas = usuario.TareasPendiente(new DateTime(2020, 6, 28, 20, 0, 0));
+            Assert.AreEqual(1, tareas.Count);
+        }
     }
 }

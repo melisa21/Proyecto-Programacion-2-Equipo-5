@@ -110,10 +110,12 @@ namespace Library
 
         }
         /// <summary>
-        /// Verificar que es el momento de notificacion.
+        /// Verificar cuales son las tareas pendientes
+        /// dependiendo de los diaNotificacion del usuario
+        /// y un DateTime cualquiera.
         /// </summary>
         /// <param name="diaYHoraActual"></param>
-        public List<String> TareaPendiente(DateTime diaYHoraActual)
+        public List<String> TareasPendiente(DateTime diaYHoraActual)
         {
             List<String> tareas = new List<String>();
 

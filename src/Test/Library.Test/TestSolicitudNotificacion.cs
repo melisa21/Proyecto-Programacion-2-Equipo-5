@@ -7,28 +7,27 @@ namespace Library.Test
 {
     public class TestSolicitudNotificacion
     {
+        private SolicitudNotificacion sol;
         [SetUp]
-        public void Setup(){}
+        public void Setup()
+        {
+            sol = new SolicitudNotificacion();
+        }
 
         [Test]
-        public void CasoPositivo()
+        public void ValidarTimer()
         {
-            // DiaNotificacion.Dias diaDeLaSemana = (DiaNotificacion.Dias)4;
-            // DiaNotificacion.TipoEntrada tipoDeEntrada = (DiaNotificacion.TipoEntrada)1;
-            // TimeSpan horaDeNot = new TimeSpan(23,0,0);
-            // DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
-            // bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
-            // Assert.IsTrue(esMomento);
+            Assert.Throws(typeof(SolicitudNotificacionException), sol.crearSolicitud);
         }
         [Test]
-        public void CasoNegativo()
+        public void ValidarAgregarUsuario()
         {
-            // DiaNotificacion.Dias diaDeLaSemana = (DiaNotificacion.Dias)4;
-            // DiaNotificacion.TipoEntrada tipoDeEntrada = (DiaNotificacion.TipoEntrada)1;
-            // TimeSpan horaDeNot = new TimeSpan(20,20,0);
-            // DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
-            // bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
-            // Assert.IsFalse(esMomento);
+            Usuario x = new Usuario();
+            void agregarUsuario()
+            {
+                sol.AgregarNotificado(x);
+            }
+            Assert.Throws(typeof(SolicitudNotificacionException), agregarUsuario);
         }
     }
 }

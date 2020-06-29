@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Timers;
+using System.Threading;
 using System;
 namespace Library
 {
@@ -13,29 +13,22 @@ namespace Library
         /// Importante: esta clase implementara ProgramaEmisor
         /// en un futuro para enviar mensajes.
         /// </summary>
-        private static List<Usuario> usuarios = new List<Usuario>();
-        public Timer aTimer {get; set;}
+        private List<Usuario> usuarios = new List<Usuario>();
+        public Timer aTimer {get; private set;}
         public SolicitudNotificacion(){}
 
         /// <summary>
         /// Crea el Timer necesario para notificar.
-        /// Se corre el evento Notificar cada 1 minuto.
-        /// Al ser asíncrono no vamos a poder ver el mensaje
-        /// a menos que agreguemos Console.ReadLine() al final
-        /// de esta funcion y sea la hora exacta.
         /// </summary>
         public void crearSolicitud()
         {
             
             if(usuarios.Count == 0)
             {
-                throw new Exception("No hay usuarios agregados para notificar!");
+                throw new SolicitudNotificacionException("No hay usuarios agregados para notificar!");
             }
             // Seteamos el timer con el evento
-            aTimer = new Timer(60000);
-            aTimer.Elapsed += Notificar;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
+            aTimer = new Timer(this.Notificar, null, 1, 60000);
         }
         /// <summary>
         /// Notificar el usario en el momento dado.
@@ -43,13 +36,12 @@ namespace Library
         /// para poder notificar tanto por conosla como por telegram.
         /// </summary>
         /// <param name="source"></param>
-        /// <param name="e"></param>
-        private static void Notificar(Object source, ElapsedEventArgs e)
+        private void Notificar(Object source)
         {
             DateTime fechaActual = DateTime.Now;
             foreach (Usuario usuario in usuarios)
             {
-                List<String> tareasPendiente = usuario.TareaPendiente(fechaActual);
+                List<String> tareasPendiente = usuario.TareasPendiente(fechaActual);
                 if(tareasPendiente.Count > 0)
                 {
                     foreach (String tarea in tareasPendiente)
@@ -59,16 +51,20 @@ namespace Library
                 }
             }
         }
-
+        /// <summary>
+        /// Agregar usuario a la lista de personas a notificar
+        /// solo si tiene ya agregados los dias de notificacion
+        /// </summary>
+        /// <param name="usuario"></param>
         public void AgregarNotificado(Usuario usuario)
         {
-            if(usuario.diasNotificacion.Count > 0)
+            if(usuario.diasNotificacion != null && usuario.diasNotificacion.Count > 0)
             {
                 usuarios.Add(usuario);
             }
             else
             {
-                throw new Exception("Usuario sin dias de notificacion");
+                throw new SolicitudNotificacionException("Usuario sin dias de notificacion");
             }
         }
     }

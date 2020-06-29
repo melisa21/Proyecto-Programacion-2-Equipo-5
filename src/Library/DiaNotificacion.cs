@@ -10,7 +10,6 @@ namespace Library
             this.Dia = dia;
             this.Hora = hora;
         }
-
         public TipoEntrada Tipo {get; set;}
         public Dia Dia {get; set;}
         public TimeSpan Hora {get; set;}
