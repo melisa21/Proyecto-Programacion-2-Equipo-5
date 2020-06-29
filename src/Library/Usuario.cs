@@ -6,6 +6,9 @@ namespace Library
 {
     public class Usuario
     {
+        
+        private List<DiaNotificacion> diasNotificacion;
+
         /// <summary>
         /// Usuario contiene informacion necesaria para el funcionamiento del bot como con que plataforma se quiere usar y en que dias se quiere ser notificado.
         /// Es un Singleton ya que contiene una instancia publica de si mismo que sera unica. 
@@ -14,6 +17,7 @@ namespace Library
         public Usuario()
         {
             this.BitacoraUsuario = new Bitacora();
+            this.diasNotificacion = new List<DiaNotificacion>();
         }
 
         private string nombre;
@@ -32,17 +36,19 @@ namespace Library
                 }
             } 
         }
-        public string IDContacto { get; set; }
+        public int IDContacto { get; set; }
         public ModoDeUso modo { get; set; }
-        public List<DiaNotificacion> diasNotificacion {get; set;}
+        public List<DiaNotificacion> DiasNotificacion
+        {
+            get
+            {
+                return diasNotificacion;
+            }
+        }
         public Bitacora BitacoraUsuario {get; set;}
 
 
-        public enum ModoDeUso
-        {
-            Consola,
-            Telegram
-        }
+       
 
         public static bool ValidarNombre(string nombre)
         {
@@ -56,21 +62,6 @@ namespace Library
             }
         }
 
-        public void ActualizarDiasDesdeLista(List<DiaNotificacion> lista)
-        {
-            if(lista.Count == 4)
-            {
-                DiaNotificacion diaObjetivo = lista[0];
-                DiaNotificacion diaPlanificacion = lista[1];
-                DiaNotificacion diaReflexionSemanal = lista[2];
-                DiaNotificacion diaReflexionMetacognitiva = lista[3];
-                diasNotificacion = new List<DiaNotificacion>{diaObjetivo, diaPlanificacion, diaReflexionSemanal, diaReflexionMetacognitiva};
-            }
-            else
-            {
-                throw new ListaDeDiasInvalidaException();
-            }
-        }
 
         
         /// <summary>
@@ -108,6 +99,15 @@ namespace Library
                 bitacoraSemanalEncontrada.GuardarReflexionMetacognitiva(msg);
             }
 
-        }     
+        }  
+
+        public void ImprimirConsolaUsuario()
+        {
+            Console.WriteLine(IDContacto);
+            foreach (var item in DiasNotificacion)
+            {
+                Console.WriteLine("Entrada "+item.Tipo.ToString()+" Dia "+item.Dia.ToString()+" Hora "+item.Hora);
+            }
+        }
     }  
 }

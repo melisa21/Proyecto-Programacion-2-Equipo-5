@@ -7,7 +7,15 @@ namespace Program
     {
         static void Main(string[] args)
         {
-           Configuracion.MenuInicial();
+            //ComunicadorTelegram.MainTelegram();
+            ComunicadorConsola.MainConsola();
+/*
+            Configuracion.MenuInicial();
+
+            Usuario usuario = Usuario.GetUsuario();
+            if (usuario.modo == Usuario.ModoDeUso.Telegram)
+                ComunicadorTelegram.MainTelegram();
+  */
         }
     }
 }

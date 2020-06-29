@@ -36,7 +36,7 @@ namespace Library.Test
             Console.SetIn(input);
             Configuracion.EstablecerPlataforma(usuario);
 
-            Assert.AreEqual(Usuario.ModoDeUso.Consola, usuario.modo);
+            Assert.AreEqual(ModoDeUso.Consola, usuario.modo);
         }
     }
 
