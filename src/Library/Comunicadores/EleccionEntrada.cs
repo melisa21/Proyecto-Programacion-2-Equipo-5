@@ -7,7 +7,7 @@ namespace Library
     /// </summary>
     public class EleccionEntrada: ConfiguracionNotificacion
     {
-        public EleccionEntrada(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
+        public EleccionEntrada(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {
@@ -15,6 +15,8 @@ namespace Library
             switch(MensajeEntrada)
             {
                 case "configurar":
+                    ProgramaEmisor p = ProgramaEmisor.GetInstancia();
+                    p.CrearBitacora(IDUsuario);
                     Respuesta  = "ELIGE LA OPCION CORRESPONDIENTE A LA ENTRADA QUE QUIERES CONFIGURAR:\n"+
                         " 1. OBJETIVO\n 2. PLANIFICACION DIARIA \n 3. REFLEXION METACOGNITIVA\n 4. REFLEXION SEMANAL\n___";
                     

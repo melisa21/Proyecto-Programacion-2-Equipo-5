@@ -6,7 +6,7 @@ namespace Library
     /// </summary>
     public class EleccionDia: ConfiguracionNotificacion
     {
-        public EleccionDia(string mensajeEntrada, int iDUsuario):
+        public EleccionDia(string mensajeEntrada, long iDUsuario):
             base(mensajeEntrada,iDUsuario)
         {}
 

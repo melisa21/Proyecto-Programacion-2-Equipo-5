@@ -7,7 +7,7 @@ namespace Library
     /// </summary>
     public class Comienzo: ManipuladorBase
     {
-        public Comienzo(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
+        public Comienzo(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {
@@ -15,6 +15,8 @@ namespace Library
             switch(MensajeEntrada)
             {
                 case "/start": 
+                    ProgramaEmisor p = ProgramaEmisor.GetInstancia();
+                    p.CrearBitacora(IDUsuario);
                     Respuesta = "¡Bienvenido!\n ¿Qué quieres hacer?\n"+
                     " * SI QUIERES ESCRIBIR TU BITÁCORA ESCRIBE: escribir \n"+
                     " * SI QUIERES CONFIGURAR EL MOMENTO DE NOTIFICACIÓN DE LAS ENTRADAS ESCRIBE: configurar\n"+

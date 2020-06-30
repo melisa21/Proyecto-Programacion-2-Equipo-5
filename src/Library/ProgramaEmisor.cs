@@ -54,7 +54,7 @@ namespace Library
         /// <summary>
         /// Delega a el comunicador el envio del mensaje para el usuario
         /// </summary>
-        public void EnviarMensajeNotificacion(int idContacto, TipoEntrada entrada)
+        public void EnviarMensajeNotificacion(long idContacto, TipoEntrada entrada)
         {
             int i = this.BuscarUsuarioID(idContacto);
             if (this.UsuariosDelPrograma[i].modo == ModoDeUso.Telegram)
@@ -66,13 +66,34 @@ namespace Library
         }
 
 
-        public int BuscarUsuarioID(int idContacto)
+        public int BuscarUsuarioID(long idContacto)
         {
             int indice = this.UsuariosDelPrograma.FindIndex((Usuario u) => u.IDContacto.Equals(idContacto));
             return indice;
         }
         
-        public void GuardarDiaNotificacionAUsuario(DiaNotificacion diaNotificacion, int IDUsuario)
+
+        public void GuardarFechaFinalizacionCurso(DateTime fechaFinal, long IDUsuario)
+        {
+            
+            int i= this.BuscarUsuarioID( IDUsuario);
+            
+            
+            if (i!=-1)
+            {
+                this.UsuariosDelPrograma[i].BitacoraUsuario.FechaFinDeCurso = fechaFinal;
+                Console.WriteLine("llego");
+            }
+            else
+            {
+                Usuario u= new Usuario();
+                u.IDContacto = IDUsuario;
+                u.BitacoraUsuario.FechaFinDeCurso= fechaFinal;
+            }
+        }
+
+
+        public void GuardarDiaNotificacionAUsuario(DiaNotificacion diaNotificacion, long IDUsuario)
         {
             
             int i= this.BuscarUsuarioID( IDUsuario);
@@ -93,7 +114,7 @@ namespace Library
             //this.ImprimirConsolaUsuarios();
         }
 
-        public void GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada entrada, int IDUsuario)
+        public void GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada entrada, long IDUsuario)
         {
             
                 DiaNotificacion diaNotificacion= new DiaNotificacion();
@@ -102,7 +123,7 @@ namespace Library
                 //this.ImprimirConsolaUsuarios();
         }
 
-        public void GuardarDiaDiaNotificacionAUsuario(Dias dia, int IDUsuario)
+        public void GuardarDiaDiaNotificacionAUsuario(Dias dia, long IDUsuario)
         {
             int i= this.BuscarUsuarioID( IDUsuario);
             int cantidad= this.UsuariosDelPrograma[i].DiasNotificacion.Count;
@@ -110,7 +131,7 @@ namespace Library
             //this.ImprimirConsolaUsuarios();
         }
 
-        public void GuardarHoraDiaNotificacionAUsuario(TimeSpan hora, int IDUsuario)
+        public void GuardarHoraDiaNotificacionAUsuario(TimeSpan hora, long IDUsuario)
         {
             
             int i= this.BuscarUsuarioID( IDUsuario);
@@ -125,6 +146,31 @@ namespace Library
                 item.ImprimirConsolaUsuario();
                 Console.WriteLine("......");
             }
+        }
+
+        public void CrearBitacora(long IDUsuario)
+        {
+            int i = this.BuscarUsuarioID(IDUsuario);
+            if (i!=-1)
+            {
+                this.UsuariosDelPrograma[i].BitacoraUsuario.CrearBitacoraSemanal();
+            }
+            else
+            {
+                Usuario u= new Usuario();
+                u.IDContacto = IDUsuario;
+                this.UsuariosDelPrograma.Add(u);
+                i = this.BuscarUsuarioID(IDUsuario);
+                this.UsuariosDelPrograma[i].BitacoraUsuario.CrearBitacoraSemanal();
+                
+            }
+            
+            /*DateTime fechaHoy = DateTime.Today;
+            Console.WriteLine(fechaHoy);
+            DateTime fechaSemana = this.UsuariosDelPrograma[i].BitacoraUsuario.CorrerFechaALunes(fechaHoy);
+            DateTime fechaABuscar = new DateTime(2020,6,6,00,00,00);
+            Console.WriteLine(this.UsuariosDelPrograma[i].BitacoraUsuario.BuscarBitacoraSemanalPorFecha(fechaABuscar));
+            */
         }
     }
 }

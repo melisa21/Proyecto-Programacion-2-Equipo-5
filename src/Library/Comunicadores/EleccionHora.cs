@@ -7,7 +7,7 @@ namespace Library
     /// </summary>
     public class EleccionHora: ConfiguracionNotificacion
     {
-        public EleccionHora(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
+        public EleccionHora(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {

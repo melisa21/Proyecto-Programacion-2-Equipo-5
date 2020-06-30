@@ -113,79 +113,21 @@ namespace Library
         /// <returns></returns>
         private static async Task HandleMessageReceived(Message message)
         {
-            string response="Disculpe, no entiendo";
+            
             string mensajeEntrada = message.Text.ToLower();
              
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
             
-            IManipulador comienzo = new Comienzo(mensajeEntrada,message.From.Id);
-            IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,message.From.Id);
+            ControladoraDialogo dialogo = ControladoraDialogo.GetInstancia();
+            string response = dialogo.GenerarRespuesta(mensajeEntrada, message.Chat.Id);
             
-            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada,message.From.Id);
-            IManipulador eleccionDia = new EleccionDia(mensajeEntrada,message.From.Id);
-            IManipulador eleccionHora = new EleccionHora(mensajeEntrada,message.From.Id);
-            IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,message.From.Id);
-            
-            //Si  caso es ConfiguracionNotificacion
-
-            switch(mensajeEntrada)
-            {
-                case "/start": 
-                    comienzo.Manipular();
-                    response = comienzo.Respuesta;
-                
-                break;
-
-                case "escribir":
-                    comienzo.CambiarSiguiente(escribirBitacora);
-                    response = escribirBitacora.Respuesta;
-                break;
-
-                case "configurar":
-                    comienzo.CambiarSiguiente(eleccionEntrada);
-                    response = eleccionEntrada.Respuesta;
-    
-                    
-                break;
-
-                default:
-                    if (mensajeEntrada == "1" || mensajeEntrada == "2" || mensajeEntrada == "3" || mensajeEntrada == "4")
-                    {    
-                        eleccionEntrada.CambiarSiguiente(eleccionDia);
-                        response = eleccionDia.Respuesta;
-                        
-                    } 
-                    else
-                    {
-                        if ((mensajeEntrada=="lunes") || (mensajeEntrada=="martes") || (mensajeEntrada=="miercoles") ||
-                        (mensajeEntrada=="jueves") || (mensajeEntrada=="viernes") || (mensajeEntrada=="sabado") || (mensajeEntrada=="domingo"))
-                        {
-                            
-                            eleccionDia.CambiarSiguiente(eleccionHora);
-                            response = eleccionHora.Respuesta;
-                        }
-                        else
-                        {
-                            eleccionHora.CambiarSiguiente(guardadoNotificacion);
-                            response = eleccionHora.Respuesta;
-                            
-                        }
-                    }
-                break;
-            }
             await Bot.SendTextMessageAsync(message.Chat.Id, response);
             
         }
 
 
-        public static int DevolverUsuario(Message message)
-        {
-            
-            Console.WriteLine("IdUsuario"+message.From.Id);
-            return message.From.Id;
-        }
 
-        public static void  HandleMessageSendNotification(int idContacto, TipoEntrada entrada)
+        public static void  HandleMessageSendNotification(long idContacto, TipoEntrada entrada)
         {
             
            MensajesNotificatorios m = new MensajesNotificatorios(idContacto);

@@ -36,7 +36,7 @@ namespace Library
                 }
             } 
         }
-        public int IDContacto { get; set; }
+        public long IDContacto { get; set; }
         public ModoDeUso modo { get; set; }
         public List<DiaNotificacion> DiasNotificacion
         {

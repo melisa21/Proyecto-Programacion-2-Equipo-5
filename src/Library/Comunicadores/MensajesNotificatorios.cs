@@ -8,10 +8,10 @@ namespace Library
     public class MensajesNotificatorios
     {
         
-        public int IDUsuario{get;set;}
+        public long IDUsuario{get;set;}
         public string Respuesta{get;set;}
         
-        public MensajesNotificatorios(int iDUsuario)
+        public MensajesNotificatorios(long iDUsuario)
         {
             this.IDUsuario = iDUsuario;
         }

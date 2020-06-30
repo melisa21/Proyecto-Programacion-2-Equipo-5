@@ -11,7 +11,7 @@ namespace Library
     public abstract class ConfiguracionNotificacion: ManipuladorBase
     {
 
-        public ConfiguracionNotificacion(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario)
+        public ConfiguracionNotificacion(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario)
         {
             
         }

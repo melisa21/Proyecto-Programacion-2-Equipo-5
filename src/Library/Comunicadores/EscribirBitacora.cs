@@ -7,15 +7,16 @@ namespace Library
     /// </summary>
     public class EscribirBitacora: ManipuladorBase
     {
-        public EscribirBitacora(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
+        public EscribirBitacora(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {
-            
+            ProgramaEmisor p = ProgramaEmisor.GetInstancia();   
             switch(MensajeEntrada)
             {
                 
                 case "escribir": 
+                    p.CrearBitacora(IDUsuario);
                     Respuesta = " * SI QUIERES ESCRIBIR EL OBJETIVO ESCRIBE: escribir objetivo \n"+
                     " * SI QUIERES ESCRIBIR LA PLANIFICACION DIARIA ESCRIBE: escribir diaria \n"+
                     " * SI QUIERES ESCRIBIR LA REFLEXION METACOGNITIVA ESCRIBE: escribir metacognitiva \n"+
@@ -28,6 +29,7 @@ namespace Library
                 case "escribir objetivo": 
                     Respuesta = " ESCRIBE UN OBJETIVO \n"+
                     "___";
+
                     break;
 
                 
