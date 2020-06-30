@@ -7,7 +7,7 @@ namespace Library
     public class Usuario
     {
         
-        private List<DiaNotificacion> diasNotificacion;
+        public List<DiaNotificacion> diasNotificacion {get; private set;}
 
         /// <summary>
         /// Usuario contiene informacion necesaria para el funcionamiento del bot como con que plataforma se quiere usar y en que dias se quiere ser notificado.
@@ -108,6 +108,40 @@ namespace Library
             {
                 Console.WriteLine("Entrada "+item.Tipo.ToString()+" Dia "+item.Dia.ToString()+" Hora "+item.Hora);
             }
+        }
+
+        /// <summary>
+        /// Verificar cuales son las tareas pendientes
+        /// dependiendo de los diaNotificacion del usuario
+        /// y un DateTime cualquiera.
+        /// </summary>
+        /// <param name="diaYHoraActual"></param>
+        public List<DiaNotificacion> TareasPendientes(DateTime diaYHoraActual)
+        {
+            List<DiaNotificacion> tareas = new List<DiaNotificacion>();
+
+            TimeSpan tiempoActual = diaYHoraActual.TimeOfDay;
+            int horaActual = tiempoActual.Hours;
+            int minutoActual = tiempoActual.Minutes;
+            int diaActual = (int)diaYHoraActual.DayOfWeek;
+
+            foreach (DiaNotificacion diaNot in this.diasNotificacion)
+            {
+                TimeSpan tiempoNotificacion = diaNot.Hora;
+                int horaNotificacion = tiempoNotificacion.Hours;
+                int minutoNotificacion = tiempoNotificacion.Minutes;
+
+                bool esElDia = ((int)diaNot.Dia == diaActual);
+                bool esLaHora = (horaActual == horaNotificacion);
+                bool esElMinuto = (minutoActual == minutoNotificacion);
+                
+                if(esElDia && esLaHora && esElMinuto)
+                {
+                    tareas.Add(diaNot);
+                }
+            }
+
+            return tareas;
         }
     }  
 }

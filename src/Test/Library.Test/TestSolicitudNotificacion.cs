@@ -7,28 +7,28 @@ namespace Library.Test
 {
     public class TestSolicitudNotificacion
     {
+        private SolicitudNotificacion solicitud;
+        private Usuario usuario;
         [SetUp]
-        public void Setup(){}
+        public void Setup()
+        {
+            solicitud = new SolicitudNotificacion();
+            usuario = new Usuario();
+        }
 
         [Test]
-        public void CasoPositivo()
+        public void ValidarNotificar()
         {
-            Dias diaDeLaSemana = (Dias)4;
-            TipoEntrada tipoDeEntrada = (TipoEntrada)1;
-            TimeSpan horaDeNot = new TimeSpan(23,0,0);
-            DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
-            bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
-            Assert.IsTrue(esMomento);
+            Assert.Throws(typeof(SolicitudNotificacionException), solicitud.crearSolicitud);
         }
         [Test]
-        public void CasoNegativo()
+        public void ValidarAgregarUsuario()
         {
-            Dias diaDeLaSemana = (Dias)4;
-            TipoEntrada tipoDeEntrada = (TipoEntrada)1;
-            TimeSpan horaDeNot = new TimeSpan(20,20,0);
-            DiaNotificacion dia = new DiaNotificacion(tipoDeEntrada, diaDeLaSemana, horaDeNot);
-            bool esMomento = SolicitudNotificacion.EsMomentoDeNotificar(dia, new DateTime(2020, 6, 4, 23, 0, 0));
-            Assert.IsFalse(esMomento);
+            void agregar()
+            {
+                solicitud.AgregarNotificado(usuario);
+            }
+            Assert.Throws(typeof(SolicitudNotificacionException), agregar);
         }
     }
 }
