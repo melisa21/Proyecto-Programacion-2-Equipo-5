@@ -7,6 +7,8 @@ namespace Library
     /// </summary>
     public class EscribirBitacora: ManipuladorBase
     {
+        public EscribirBitacora():base(){}
+        
         public EscribirBitacora(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
@@ -23,7 +25,8 @@ namespace Library
                     " * SI QUIERES ESCRIBIR LA REFLEXION SEMANAL ESCRIBE: escribir semanal \n"+
                     " * SI QUIERES SALIR DEL BOT ESCRIBE: salir \n"+
                     "___";
-                    
+                    int posUsr =p.BuscarUsuarioID(IDUsuario);
+                    p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.EscribirBitacora;
                     break;
                 
                 case "escribir objetivo": 

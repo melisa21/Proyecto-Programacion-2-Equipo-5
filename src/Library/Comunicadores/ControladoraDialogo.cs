@@ -37,91 +37,41 @@ namespace Library
             return instancia;
         }
 
+    
         public string GenerarRespuesta(string mensajeEntrada, long idContacto)
         {
+            
             string response="Disculpe, no entiendo";
 
-            
             ProgramaEmisor p = ProgramaEmisor.GetInstancia();
-            
-
+            IManipulador conf = new ConfigurarFechaFinalizacion(mensajeEntrada,idContacto);
             IManipulador comienzo = new Comienzo(mensajeEntrada,idContacto);
+            IManipulador pideEntrada = new PideEntrada(mensajeEntrada,idContacto);
+            IManipulador pideDia = new PideDia(mensajeEntrada,idContacto);
+            IManipulador pideHora = new PideHora(mensajeEntrada,idContacto);
+            IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,idContacto);
             IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,idContacto);
             
-            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada,idContacto);
-            IManipulador eleccionDia = new EleccionDia(mensajeEntrada,idContacto);
-            IManipulador eleccionHora = new EleccionHora(mensajeEntrada,idContacto);
-            IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,idContacto);
             
 
+            comienzo.CambiarSiguiente(conf);
+
+            conf.CambiarSiguiente(pideEntrada);
+                
+            pideEntrada.CambiarSiguiente(pideDia);
             
-            switch(mensajeEntrada)
-            {
-                case "/start": 
-                    if (p.BuscarUsuarioID(idContacto)==-1) //ingreso por priemra vez
-                    {
-                        response = "Bienvenido!!!\nELIGE LA FECHA QUE FINALIZA LA BITACORA ESCRIBE CON EL SIGUIENTE FORMATO: dd/mm/aaaa \n"+
-                                "___";
-                    }
-                    else
-                    {
-                        comienzo.Manipular();
-                        response = comienzo.Respuesta;
-                    }    
-                break;
+            pideDia.CambiarSiguiente(pideHora);
 
-                case "escribir":
-                    comienzo.CambiarSiguiente(escribirBitacora);
-                    response = escribirBitacora.Respuesta;
-                break;
+            pideHora.CambiarSiguiente(guardadoNotificacion);
 
-                case "configurar":
-                    comienzo.CambiarSiguiente(eleccionEntrada);
-                    response = eleccionEntrada.Respuesta;
-    
-                    
-                break;
+            guardadoNotificacion.CambiarSiguiente(escribirBitacora);
 
-                case "salir":
-                    response = "Chau chau";
-                break;
+            
+            comienzo.Manipular();
 
-                default:
-                    if (p.BuscarUsuarioID(idContacto)==-1) 
-                    {
-                        
-                        IManipulador conf = new ConfigurarFechaFinalizacion(mensajeEntrada,idContacto);
-                        conf.Manipular();
-                        p.CrearBitacora(idContacto);
-                        response = conf.Respuesta;
-                    }
-                    else
-                    {
-                        if (mensajeEntrada == "1" || mensajeEntrada == "2" || mensajeEntrada == "3" || mensajeEntrada == "4")
-                        {    
-                            eleccionEntrada.CambiarSiguiente(eleccionDia);
-                            response = eleccionDia.Respuesta;
-                            
-                        } 
-                        else
-                        {
-                            if ((mensajeEntrada=="lunes") || (mensajeEntrada=="martes") || (mensajeEntrada=="miercoles") ||
-                            (mensajeEntrada=="jueves") || (mensajeEntrada=="viernes") || (mensajeEntrada=="sabado") || (mensajeEntrada=="domingo"))
-                            {
-                                
-                                eleccionDia.CambiarSiguiente(eleccionHora);
-                                response = eleccionHora.Respuesta;
-                            }
-                            else
-                            {
-                                if (mensajeEntrada!="salir")
-                                    eleccionHora.CambiarSiguiente(guardadoNotificacion);
-                                    response = eleccionHora.Respuesta;   
-                            }
-                        }
-                    }
-                break;
-            }
+            response = comienzo.Respuesta;
+            
+               
             return response;
         } 
 

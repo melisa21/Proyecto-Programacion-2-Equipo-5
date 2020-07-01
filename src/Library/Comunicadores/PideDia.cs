@@ -4,9 +4,11 @@ namespace Library
     /// <summary>
     /// EsTA clasea 
     /// </summary>
-    public class EleccionDia: ConfiguracionNotificacion
+    public class PideDia: ConfiguracionNotificacion
     {
-        public EleccionDia(string mensajeEntrada, long iDUsuario):
+        public PideDia():base(){}
+        
+        public PideDia(string mensajeEntrada, long iDUsuario):
             base(mensajeEntrada,iDUsuario)
         {}
 
@@ -16,6 +18,7 @@ namespace Library
             switch(MensajeEntrada)
             {
                 case "1":
+                        
                         Respuesta = "ELIGE QUE ::DÍA:: QUIERES QUE SE NOTIFIQUE EL ::OBJETIVO:: ESCRIBE: \n"+
                         " lunes, martes, miercoles,\n jueves, viernes, sabado o domingo\n___";
                         

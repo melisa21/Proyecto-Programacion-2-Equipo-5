@@ -10,7 +10,7 @@ namespace Library
     /// </summary>
     public abstract class ConfiguracionNotificacion: ManipuladorBase
     {
-
+        public ConfiguracionNotificacion():base(){}
         public ConfiguracionNotificacion(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario)
         {
             

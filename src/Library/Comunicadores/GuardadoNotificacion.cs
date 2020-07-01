@@ -7,6 +7,8 @@ namespace Library
     /// </summary>
     public class GuardadoNotificacion: ConfiguracionNotificacion
     {
+        public GuardadoNotificacion():base(){}
+        
         public GuardadoNotificacion(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()

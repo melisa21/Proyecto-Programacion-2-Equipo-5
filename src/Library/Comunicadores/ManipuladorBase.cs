@@ -18,8 +18,11 @@ namespace Library
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Respuesta{get;set;}
-        public IManipulador Siguiente{get; set;}
+        private IManipulador siguiente = null;
 
+        public ManipuladorBase()
+        {}
+        
         public ManipuladorBase(string mensajeEntrada, long iDUsuario)
         {
             this.MensajeEntrada=mensajeEntrada;
@@ -30,17 +33,17 @@ namespace Library
         public void CambiarSiguiente(IManipulador m)
         {
             
-            this.Siguiente = m;
-            Manipular();
+            this.siguiente = m;
+            //Manipular();
             
         }
 
         public virtual void Manipular()
         {   
             
-            if (Siguiente!= null)
+            if (siguiente!= null)
             {
-                Siguiente.Manipular();
+                siguiente.Manipular();
             }
            
             
