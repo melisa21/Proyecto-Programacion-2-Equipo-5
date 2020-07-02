@@ -8,7 +8,6 @@ namespace Library.Test
     public class TestUsuario
     {
         Usuario usuario;
-        int cantidadTiposEntradasSoportadas = 4;
 
         [SetUp]
         public void Setup()
