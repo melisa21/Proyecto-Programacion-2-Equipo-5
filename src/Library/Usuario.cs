@@ -4,10 +4,9 @@ using System.Diagnostics;
 
 namespace Library
 {
-    [Serializable]
     public class Usuario
     {
-
+        
         private List<DiaNotificacion> diasNotificacion;
 
         /// <summary>
@@ -17,28 +16,23 @@ namespace Library
         {
             this.BitacoraUsuario = new Bitacora();
             this.diasNotificacion = new List<DiaNotificacion>();
-
             this.EstadoDialogoUsuario = new DialogoUsuario();
         }
 
         private string nombre;
-
-        [NonSerialized]
-        private DialogoUsuario estadoDialogoUsuario;
-
-        public string Nombre
-        {
+        public string Nombre 
+        { 
             get
             {
                 return this.nombre;
-            }
+            } 
             set
             {
-                if (ValidarNombre(value))
+                if(ValidarNombre(value))
                 {
                     this.nombre = value;
                 }
-            }
+            } 
         }
         public long IDContacto { get; set; }
         public ModoDeUso modo { get; set; }
@@ -58,11 +52,11 @@ namespace Library
         {
             diasNotificacion.Remove(dia);
         }
+        
+        public Bitacora BitacoraUsuario {get; set;}
 
-        public Bitacora BitacoraUsuario { get; set; }
-
-        public DialogoUsuario EstadoDialogoUsuario { get => estadoDialogoUsuario; set => estadoDialogoUsuario = value; }
-
+        public  DialogoUsuario EstadoDialogoUsuario{get; set;} 
+       
 
         public static bool ValidarNombre(string nombre)
         {
@@ -77,7 +71,7 @@ namespace Library
         }
 
 
-
+        
         /// <summary>
         /// Delega a la Bitacora con la correspondiente fecha la posibilidad
         /// de guardar el Mensaje como contenido de la entrada.
@@ -92,7 +86,7 @@ namespace Library
             BitacoraSemanal bitacoraSemanalEncontrada = BitacoraUsuario.BitacoraSemanals[indice];
 
             //guardarmensaje en la encontrada
-
+            
             if (tipoEntrada == TipoEntrada.Objetivo)
             {
                 bitacoraSemanalEncontrada.GuardarObjetivo(msg);
@@ -103,7 +97,7 @@ namespace Library
                 bitacoraSemanalEncontrada.GuardarPlanificacionDiaria(msg);
             }
 
-            if (tipoEntrada == TipoEntrada.ReflexionSemanal)
+            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
             {
                 bitacoraSemanalEncontrada.GuardarReflexionSemanal(msg);
             }
@@ -113,15 +107,15 @@ namespace Library
                 bitacoraSemanalEncontrada.GuardarReflexionMetacognitiva(msg);
             }
 
-        }
+        }  
 
         public void ImprimirConsolaUsuario()
         {
             Console.WriteLine(IDContacto);
             foreach (var item in DiasNotificacion)
             {
-                Console.WriteLine("Entrada " + item.Tipo.ToString() + " Dia " + item.Dia.ToString() + " Hora " + item.Hora);
+                Console.WriteLine("Entrada "+item.Tipo.ToString()+" Dia "+item.Dia.ToString()+" Hora "+item.Hora);
             }
         }
-    }
+    }  
 }

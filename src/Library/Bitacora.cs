@@ -14,8 +14,6 @@ namespace Library
     /// Adicionalmente, en base a CREATOR esta debe ser la responsable de crear
     ///  las instancias de la clase BitacoraSemanal
     /// </summary>
-    
-    [Serializable]
     public class Bitacora
     {
         

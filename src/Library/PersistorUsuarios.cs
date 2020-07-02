@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography;
 
 namespace Library
 {
@@ -64,11 +61,51 @@ namespace Library
             }
         }
 
-        public Usuario CargarUsuario(string ruta)
+        private Usuario CargarUsuario(string ruta)
         {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(ruta, FileMode.Open, FileAccess.Read);
-            Usuario usuario = (Usuario)formatter.Deserialize(stream);
+            string[] informacion = File.ReadAllLines(ruta);
+
+            Usuario usuario = new Usuario();
+
+            for (int i = 0; i < informacion.Length; i++)
+            {
+                if (informacion[i].TrimEnd('\n') == "[info]")
+                {
+                    string cadena = informacion[i+1].TrimEnd('\n');
+                    string[] datos = cadena.Split(',');
+                    if(datos.Length == CantidadDatosInfo)
+                    {
+                        usuario.Nombre = datos[0];
+                        usuario.IDContacto = long.Parse(datos[1]);
+                    }
+                    else
+                    {
+                        throw new ArchivoUsuarioInvalidoException();
+                    }
+                    i++;
+                }
+                else if (informacion[i].TrimEnd('\n') == "[diaN]")
+                {
+                    string cadena = informacion[i + 1].TrimEnd('\n');
+                    string[] datos = cadena.Split(',');
+                    if(datos.Length == CantidadDatosDiaN)
+                    {
+                        DiaNotificacion dia = new DiaNotificacion
+                        {
+                            Tipo = (TipoEntrada)Enum.Parse(typeof(TipoEntrada), datos[0], true),
+                            Dia = (Dias)Enum.Parse(typeof(Dias), datos[1], true),
+                            Hora = TimeSpan.Parse(datos[2])
+                        };
+
+                        usuario.AgregarDiaN(dia);
+                    }
+                    else
+                    {
+                        throw new ArchivoUsuarioInvalidoException();
+                    }
+                    i++;
+                }
+            }
 
             return usuario;
         }
@@ -85,12 +122,21 @@ namespace Library
         {
             string rutaUsuario = rutaCarpeta + @$"/{usuario.IDContacto}.usuario";
 
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(rutaUsuario, FileMode.Create, FileAccess.Write);
+            string cadenaInfo = "[info]\n" + $"{usuario.Nombre},{usuario.IDContacto}\n";
+            
+            List<string> listaCadenasDiaN = new List<string>();
+            foreach (DiaNotificacion dia in usuario.DiasNotificacion)
+            {
+                string cadena = dia.ToString();
+                listaCadenasDiaN.Add(cadena);
+            }
 
-            formatter.Serialize(stream, usuario);
-            stream.Close();
+            foreach  (string cadenaDiaN in listaCadenasDiaN)
+            {
+                cadenaInfo += "[diaN]\n" + cadenaDiaN + "\n";
+            }
 
+            File.WriteAllText(rutaUsuario, cadenaInfo);
         }
     }
 }
