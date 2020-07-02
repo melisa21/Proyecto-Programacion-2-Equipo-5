@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.0" />
+    <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.1.0" />
   </ItemGroup>
 
 </Project>

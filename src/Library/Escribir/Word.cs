@@ -10,17 +10,18 @@ namespace Library
 {
     public class Word : Documento
     {
-        
+        private const string InicioSeccion = "........................";
+        private const string FinSeccion    = "________________________";
         WordDocument doc = new WordDocument("bitacora.docx");
 
         public Word()
         {
-            
+
         }
 
         public override void EscribirDocumento(List<Mensaje> datosEspeciales1)
         {
-            
+
             doc.AddContent(new TextContent("........................"));
             doc.AddContent(new TextContent(".:Reflexión Metacognitiva:."));
             doc.AddContent(new TextContent("_______________________"));
@@ -31,7 +32,7 @@ namespace Library
             doc.AddContent(new TextContent("                        "));
             doc.AddContent(new TextContent("_______________________"));
             doc.AddContent(new TextContent("  .:Para que me sirve:."));
-            doc.AddContent(new TextContent("                        "));
+            doc.AddContent(new TextContent("                        "))
             doc.AddContent(new TextContent("_______________________"));
 
             
@@ -61,8 +62,34 @@ namespace Library
             
 
             doc.AddContent(new TextContent("Planificación Semanal (#) FECHA \n"));
-            
-            
+        }
+
+        public void escribirMetacognitiva(string texto){
+            doc.AddContent(new TextContent(InicioSeccion));
+            doc.AddContent(new TextContent("   .:Reflexión Metacognitiva:.   "));
+            doc.AddContent(new TextContent(texto));
+            doc.AddContent(new TextContent(FinSeccion));
+        }
+
+        public void escribirQueAprendiHoy(string texto){
+            doc.AddContent(new TextContent(InicioSeccion));
+            doc.AddContent(new TextContent("   .:Que aprendi hoy:.   "));
+            doc.AddContent(new TextContent(texto));
+            doc.AddContent(new TextContent(FinSeccion));
+        }
+
+        public void escribirComoLoAprendi(string texto){
+            doc.AddContent(new TextContent(InicioSeccion));
+            doc.AddContent(new TextContent("   .:Como lo aprendi:.   "));
+            doc.AddContent(new TextContent(texto));
+            doc.AddContent(new TextContent(FinSeccion));
+        }
+
+        public void escribirQueAprendiHoy(string texto){
+            doc.AddContent(new TextContent(InicioSeccion));
+            doc.AddContent(new TextContent("   .:Para que me sirve:.   "));
+            doc.AddContent(new TextContent(texto));
+            doc.AddContent(new TextContent(FinSeccion));
         }
     }
 }
