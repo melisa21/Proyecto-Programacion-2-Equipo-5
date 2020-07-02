@@ -14,6 +14,8 @@ namespace Library
         /// cumpliendo la responsabilidad de manipular esta informacion
         /// Ademas tiene la informacion necesaria para guardar el mensaje en las entradas segun cual sea el caso
         /// </summary>
+        /// 
+        [Serializable]
         public class BitacoraSemanal
         {
         
