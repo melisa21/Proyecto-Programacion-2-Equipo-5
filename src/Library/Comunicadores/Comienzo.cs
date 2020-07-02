@@ -15,7 +15,7 @@ namespace Library
             
             ProgramaEmisor p = ProgramaEmisor.GetInstancia();
             int posUsr =p.BuscarUsuarioID(IDUsuario);
-
+            
             switch(MensajeEntrada)
             {
                 
@@ -32,26 +32,29 @@ namespace Library
                         Console.WriteLine("Comienzo");
                         this.Respuesta = "Bienvenido!!!\nELIGE LA FECHA QUE FINALIZA LA BITACORA ESCRIBE CON EL SIGUIENTE FORMATO: dd/mm/aaaa \n"+
                                 "___";
-                    }
-                    else
-                    {
                         
+                    }
+                    break;
+
+                default:
+                    if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario == EstadoDialogo.Comienzo) 
+                    {
                         Console.WriteLine("Comienzo else");
                         Respuesta = "¡Bienvenido!\n ¿Qué quieres hacer?\n"+
                         " * SI QUIERES ESCRIBIR TU BITÁCORA ESCRIBE: escribir \n"+
                         " * SI QUIERES CONFIGURAR EL MOMENTO DE NOTIFICACIÓN DE LAS ENTRADAS ESCRIBE: configurar\n"+
                         " * SI QUIERES SALIR DEL BOT ESCRIBE: salir \n"+
                         "___";
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.Comienzo;
-                        
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.MenuComienzo;
                     }
-                    break;
-
-                default:
-                    if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario == EstadoDialogo.Comienzo)
-                        Respuesta = "Fin";
-                    base.Manipular();
-                    break;
+                    else
+                    {
+                        if (MensajeEntrada=="salir")
+                            Respuesta = "Chau chau";
+                        else
+                        base.Manipular();
+                    }
+                break;
                 
             }
             

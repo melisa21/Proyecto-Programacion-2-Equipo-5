@@ -17,9 +17,19 @@ namespace Library
                 //Guardo Dia Notificacion en logica
                 
                 ProgramaEmisor p = ProgramaEmisor.GetInstancia();
+                int posUsr =p.BuscarUsuarioID(IDUsuario);
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.GuardadoNotificacion)
+            {
                 p.GuardarHoraDiaNotificacionAUsuario(TimeSpan.Parse(MensajeEntrada),IDUsuario);
-                Respuesta = "Guardado";
+                Respuesta = "Guardado tu dia de notificacion\n Escribe algo para continuar";
+                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario=EstadoDialogo.Comienzo;
+            }
+            else
+            {
+                Respuesta ="Fin guardado";
                 base.Manipular();
+            }
+                
             
             
         }

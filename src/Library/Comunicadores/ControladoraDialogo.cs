@@ -69,9 +69,24 @@ namespace Library
             
             comienzo.Manipular();
 
-            response = comienzo.Respuesta;
+            int posUsr =p.BuscarUsuarioID(idContacto);
             
-               
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario == EstadoDialogo.ConfigurarFechaFinalizacion)
+                response = comienzo.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideEntrada)
+                response = conf.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideDia)
+                response = pideEntrada.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideHora)
+                response = pideDia.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.GuardadoNotificacion)
+                response = pideHora.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.Comienzo)
+                response = guardadoNotificacion.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.MenuComienzo)
+                response = comienzo.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.EscribirBitacora)
+                response = escribirBitacora.Respuesta;
             return response;
         } 
 

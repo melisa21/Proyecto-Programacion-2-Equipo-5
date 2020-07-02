@@ -1,6 +1,9 @@
 public enum EstadoDialogo
 {
     Comienzo,
+
+    MenuComienzo,
+    
     PedirFechaFinalizacion,
     ConfigurarFechaFinalizacion,
 

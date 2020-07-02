@@ -27,6 +27,7 @@ namespace Library
                 
                         
                 Respuesta = "Fecha de fializacion Guardada con exito\n Ahora debe configurar fecha de notificacion,para ello escriba: configurar";
+                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario=EstadoDialogo.PideEntrada;
             }
             else
             {
