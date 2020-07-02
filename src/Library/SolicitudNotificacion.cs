@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Timers;
+using System.Threading;
 using System;
 namespace Library
 {
@@ -13,68 +13,45 @@ namespace Library
         /// Importante: esta clase implementara ProgramaEmisor
         /// en un futuro para enviar mensajes.
         /// </summary>
-        private static List<DiaNotificacion> dias;
-        public Timer aTimer {get; set;}
-
-        public SolicitudNotificacion(List<DiaNotificacion> data){
-            dias = data;
+        private static ProgramaEmisor pEmisor;
+        public Timer aTimer {get; private set;}
+        public SolicitudNotificacion()
+        {
+            pEmisor = ProgramaEmisor.GetInstancia();
+            this.crearSolicitud();
         }
+
         /// <summary>
         /// Crea el Timer necesario para notificar.
-        /// Se corre el evento Notificar cada 1 minuto.
-        /// Al ser asíncrono no vamos a poder ver el mensaje
-        /// a menos que agreguemos Console.ReadLine() al final
-        /// de esta funcion y sea la hora exacta.
         /// </summary>
-        public void crearSolicitud()
+        private void crearSolicitud()
         {
-            
-            if(dias.Count == 0)
-                return;
             // Seteamos el timer con el evento
-            aTimer = new Timer(60000);
-            aTimer.Elapsed += Notificar;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
+            aTimer = new Timer(this.Notificar, null, 60000, 60000);
         }
         /// <summary>
-        /// Notificar el usario en el momento dado.
-        /// Importante: este metodo en el futuro implementara Programa Emisor
-        /// para poder notificar tanto por conosla como por telegram.
+        /// Notificar los usarios del programa en el momento dado.
         /// </summary>
         /// <param name="source"></param>
-        /// <param name="e"></param>
-        private static void Notificar(Object source, ElapsedEventArgs e)
+        private void Notificar(Object source)
         {
-            foreach (DiaNotificacion diaNot in dias)
+            DateTime fechaActual = DateTime.Now;
+            List<Usuario> usuarios = pEmisor.UsuariosDelPrograma;
+            
+            if (usuarios != null && usuarios.Count > 0)
             {
-                if(EsMomentoDeNotificar(diaNot, DateTime.Now))
+                foreach (Usuario usuario in usuarios)
                 {
-                    Console.WriteLine($"Es hora de trabajar en la {(DiaNotificacion.TipoEntrada)diaNot.Tipo}!");
+                    List<DiaNotificacion> tareasPendiente = usuario.TareasPendientes(fechaActual);
+                    if(tareasPendiente.Count > 0)
+                    {
+                        foreach (DiaNotificacion tarea in tareasPendiente)
+                        {
+                            pEmisor.EnviarMensajeNotificacion(usuario.IDContacto, tarea.Tipo);
+                        }
+                    }
                 }
             }
-        }
-        /// <summary>
-        /// Verificar que es el momento de notificacion.
-        /// </summary>
-        /// <param name="diaNot"></param>
-        /// <param name="diaYHoraActual"></param>
-        public static bool EsMomentoDeNotificar(DiaNotificacion diaNot, DateTime diaYHoraActual)
-        {
-            TimeSpan tiempoActual = diaYHoraActual.TimeOfDay;
-            int horaActual = tiempoActual.Hours;
-            int minutoActual = tiempoActual.Minutes;
-            int diaActual = (int)diaYHoraActual.DayOfWeek;
-
-            TimeSpan tiempoNotificacion = diaNot.Hora;
-            int horaNotificacion = tiempoNotificacion.Hours;
-            int minutoNotificacion = tiempoNotificacion.Minutes;
-
-            bool esElDia = ((int)diaNot.Dia == diaActual);
-            bool esLaHora = (horaActual == horaNotificacion);
-            bool esElMinuto = (minutoActual == minutoNotificacion);
-
-            return (esElDia && esLaHora && esElMinuto);
         }
     }
 }

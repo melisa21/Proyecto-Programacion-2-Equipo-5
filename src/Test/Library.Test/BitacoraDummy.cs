@@ -8,7 +8,7 @@ namespace Library.Test
 
         public static Bitacora CrearBitacoraSemanalDummy()
         {
-            Bitacora bitacora = Bitacora.GetInstancia();
+            Bitacora bitacora = new Bitacora();
             int cantidadSemanas = 2;
             DateTime fechaHoy = DateTime.Today;
             bitacora.FechaFinDeCurso = fechaHoy.AddDays(cantidadSemanas*7);

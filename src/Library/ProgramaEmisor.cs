@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Library
 {
@@ -17,16 +18,16 @@ namespace Library
         
         private static ProgramaEmisor instancia = null;
 
-        protected Bitacora bitacora = null;
+        private List<Usuario> usuarios;
 
-
-        public Bitacora Bitacora
+        public List<Usuario> UsuariosDelPrograma
         {
             get
             {
-                return bitacora;
+                return usuarios;
             }
         }
+
 
         /// <summary>
         /// ProgramaEmisor en el encargado de comunicarse con el usuario a traves del comunicador.
@@ -34,7 +35,7 @@ namespace Library
         /// <param name="name">Nombre del objeto</param>
         private ProgramaEmisor()
         {
-            this.bitacora = Bitacora.GetInstancia();
+            this.usuarios = new List<Usuario>();   
         }
 
         /// <summary>
@@ -47,68 +48,83 @@ namespace Library
             return instancia;
         }
 
-        /// <summary>
-        /// Crea el mensaje.
-        /// </summary>
-        public void CrearMensaje()
-        {
+      
 
-        }
 
         /// <summary>
         /// Delega a el comunicador el envio del mensaje para el usuario
         /// </summary>
-        public void EnviarMensaje()
+        public void EnviarMensajeNotificacion(int idContacto, TipoEntrada entrada)
         {
+            int i = this.BuscarUsuarioID(idContacto);
+            if (this.UsuariosDelPrograma[i].modo == ModoDeUso.Telegram)
+                ComunicadorTelegram.HandleMessageSendNotification(idContacto,entrada);
+            else
+                ComunicadorConsola.ModeradroMensajeNotificacion(idContacto,entrada);
+
 
         }
 
-        /// <summary>
-        /// Interpreta el mensaje que envio el mensaje a tarves del comunicador.
-        /// </summary>
-        public void RecibirMensaje()
-        {
 
+        public int BuscarUsuarioID(int idContacto)
+        {
+            int indice = this.UsuariosDelPrograma.FindIndex((Usuario u) => u.IDContacto.Equals(idContacto));
+            return indice;
         }
-
-        /// <summary>
-        /// Delega a la Bitacora con la correspondiente fecha la posibilidad
-        /// de guardar el Mensaje como contenido de la entrada.
-        /// </summary>
-        /// <param name="msg">contenido de la entrada</param>
-        /// <param name="tipoEntrada">"objetivo" "planificaciondiaria" "reflexionsemanal" "reflexionmetacognitiva"</param>
-        /// <param name="fecha">fecha de la bitacora semanal a a la que se quiere guardar la entrada</param>
-        public void GuardarEnBitacora(Mensaje msg, TipoEntrada tipoEntrada, DateTime fecha)
+        
+        public void GuardarDiaNotificacionAUsuario(DiaNotificacion diaNotificacion, int IDUsuario)
         {
-            //buscar biracora semenal con fecha 
-            int indice = Bitacora.BuscarBitacoraSemanalPorFecha(fecha);
-            BitacoraSemanal bitacoraSemanalEncontrada = Bitacora.BitacoraSemanals[indice];
-
-            //guardarmensaje en la encontrada
             
-            if (tipoEntrada == TipoEntrada.Objetivo)
-            {
-                bitacoraSemanalEncontrada.GuardarObjetivo(msg);
-            }
-
-            if (tipoEntrada == TipoEntrada.PlanificacionDiaria)
-            {
-                bitacoraSemanalEncontrada.GuardarPlanificacionDiaria(msg);
-            }
-
-            if (tipoEntrada == TipoEntrada.ReflexionSemanal )
-            {
-                bitacoraSemanalEncontrada.GuardarReflexionSemanal(msg);
-            }
-
-            if (tipoEntrada == TipoEntrada.ReflexionMetacognitiva)
-            {
-                bitacoraSemanalEncontrada.GuardarReflexionMetacognitiva(msg);
-            }
-
-
+            int i= this.BuscarUsuarioID( IDUsuario);
             
+            
+            if (i!=-1)
+            {
+                this.UsuariosDelPrograma[i].DiasNotificacion.Add(diaNotificacion);
+                Console.WriteLine(this.UsuariosDelPrograma[i].DiasNotificacion);
+            }
+            else
+            {
+                Usuario u= new Usuario();
+                u.IDContacto = IDUsuario;
+                u.DiasNotificacion.Add(diaNotificacion);
+                this.UsuariosDelPrograma.Add(u);
+            }
+            //this.ImprimirConsolaUsuarios();
         }
 
+        public void GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada entrada, int IDUsuario)
+        {
+            
+                DiaNotificacion diaNotificacion= new DiaNotificacion();
+                diaNotificacion.Tipo = entrada; 
+                GuardarDiaNotificacionAUsuario(diaNotificacion, IDUsuario);
+                //this.ImprimirConsolaUsuarios();
+        }
+
+        public void GuardarDiaDiaNotificacionAUsuario(Dias dia, int IDUsuario)
+        {
+            int i= this.BuscarUsuarioID( IDUsuario);
+            int cantidad= this.UsuariosDelPrograma[i].DiasNotificacion.Count;
+            this.UsuariosDelPrograma[i].DiasNotificacion[cantidad-1].Dia = dia;
+            //this.ImprimirConsolaUsuarios();
+        }
+
+        public void GuardarHoraDiaNotificacionAUsuario(TimeSpan hora, int IDUsuario)
+        {
+            
+            int i= this.BuscarUsuarioID( IDUsuario);
+            int cantidad= this.UsuariosDelPrograma[i].DiasNotificacion.Count;
+            this.UsuariosDelPrograma[i].DiasNotificacion[cantidad-1].Hora = hora;
+            //ImprimirConsolaUsuarios();
+        }
+        public void ImprimirConsolaUsuarios()
+        {
+            foreach (var item in this.UsuariosDelPrograma)
+            {
+                item.ImprimirConsolaUsuario();
+                Console.WriteLine("......");
+            }
+        }
     }
 }

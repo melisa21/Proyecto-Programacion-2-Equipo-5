@@ -15,7 +15,7 @@ namespace Library.Test
         [Test]
         public void CambiarNombreUsuario() 
         {
-            Usuario usuario = Usuario.GetUsuario();
+            Usuario usuario = new Usuario();
             Assert.IsNull(usuario.Nombre);
             
             string nombre = "Marina";
@@ -29,14 +29,14 @@ namespace Library.Test
         [Test]
         public void CambiarPlataforma() 
         {
-            Usuario usuario = Usuario.GetUsuario();
+            Usuario usuario = new Usuario();
 
             string modo = "Consola";
             var input = new StringReader(modo);
             Console.SetIn(input);
             Configuracion.EstablecerPlataforma(usuario);
 
-            Assert.AreEqual(Usuario.ModoDeUso.Consola, usuario.modo);
+            Assert.AreEqual(ModoDeUso.Consola, usuario.modo);
         }
     }
 

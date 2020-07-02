@@ -12,7 +12,7 @@ namespace Library
         /// </summary>
         public static void MenuInicial()
         {
-            Usuario usuario = Usuario.GetUsuario();
+            Usuario usuario = new Usuario();
             EstablecerNombre(usuario);
             EstablecerPlataforma(usuario);
             EstablecerDias(usuario);
@@ -47,12 +47,13 @@ namespace Library
                 string respuesta = Console.ReadLine();
                 if (respuesta == "1" || respuesta.ToLower() == "telegram")
                 {
-                    usuario.modo = Usuario.ModoDeUso.Telegram;
+                    usuario.modo = ModoDeUso.Telegram;
+                    Console.WriteLine("Ingresa aqui desde Telegram: http://t.me/Lukesoytupadrebot");
                     break;
                 }
                 else if (respuesta == "0" || respuesta.ToLower() == "consola")
                 {
-                    usuario.modo = Usuario.ModoDeUso.Consola;
+                    usuario.modo = ModoDeUso.Consola;
                     break;
                 }
             }
@@ -61,7 +62,7 @@ namespace Library
         public static void EstablecerDias(Usuario usuario)
         {
             int cantidadTiposEntrada = 4;
-            DiaNotificacion.Dias dia;
+            Dias dia;
             TimeSpan hora;
             List<DiaNotificacion> diasNotificacion = new List<DiaNotificacion>();
 
@@ -74,7 +75,7 @@ namespace Library
             string textoMetacogniva = "\nY de la Reflexion Metacognitiva? \n" + textoDias;
             List<string> textosEntradas = new List<string> { textoObjetivos, textoPlanificacion, textoSemanal, textoMetacogniva };
 
-            List<DiaNotificacion.Dias> dias = new List<DiaNotificacion.Dias>();
+            List<Dias> dias = new List<Dias>();
             for (int i = 0; i < cantidadTiposEntrada; i++)
             {
                 Console.WriteLine(textosEntradas[i]);
@@ -83,7 +84,7 @@ namespace Library
                     try
                     {
                         string respuesta = Console.ReadLine();
-                        dia = (DiaNotificacion.Dias)Enum.Parse(typeof(DiaNotificacion.Dias), respuesta, true);
+                        dia = (Dias)Enum.Parse(typeof(Dias), respuesta, true);
                         break;
                     }
                     catch (ArgumentException)
@@ -124,11 +125,11 @@ namespace Library
                     }
 
                 }
-                DiaNotificacion.TipoEntrada tipo = (DiaNotificacion.TipoEntrada)i;
+                TipoEntrada tipo = (TipoEntrada)i;
 
                 diasNotificacion.Add(new DiaNotificacion(tipo,dia, hora));
             }
-            usuario.ActualizarDiasDesdeLista(diasNotificacion);
+            //usuario.ActualizarDiasDesdeLista(diasNotificacion);
         }
     }
 }
