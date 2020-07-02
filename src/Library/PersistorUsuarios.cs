@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography;
 
 namespace Library
 {
     public class PersistorUsuarios
     {
+        private static PersistorUsuarios persistorUsuarios;
+
+        private IFormatter formatter = new BinaryFormatter();
+        private Stream stream;
+
+        private string rutaCarpeta;
+
         private PersistorUsuarios()
         {
             string rutaExe = AppDomain.CurrentDomain.BaseDirectory;
@@ -19,13 +25,6 @@ namespace Library
             }
             CrearUsuarioConsola();
         }
-        private static PersistorUsuarios persistorUsuarios;
-
-        private string rutaCarpeta;
-
-        private static int CantidadDatosInfo = 2;
-        private static int CantidadDatosDiaN = 3;
-
         public static PersistorUsuarios GetPersistorUsuarios()
         {
             if (persistorUsuarios == null)
@@ -64,11 +63,11 @@ namespace Library
             }
         }
 
-        public Usuario CargarUsuario(string ruta)
+        private Usuario CargarUsuario(string ruta)
         {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(ruta, FileMode.Open, FileAccess.Read);
+            stream = new FileStream(ruta, FileMode.Open, FileAccess.Read);
             Usuario usuario = (Usuario)formatter.Deserialize(stream);
+            stream.Close();
 
             return usuario;
         }
@@ -85,8 +84,7 @@ namespace Library
         {
             string rutaUsuario = rutaCarpeta + @$"/{usuario.IDContacto}.usuario";
 
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(rutaUsuario, FileMode.Create, FileAccess.Write);
+            stream = new FileStream(rutaUsuario, FileMode.Create, FileAccess.Write);
 
             formatter.Serialize(stream, usuario);
             stream.Close();
