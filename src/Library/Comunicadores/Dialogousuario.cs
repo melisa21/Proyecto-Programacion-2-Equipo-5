@@ -7,23 +7,15 @@ namespace Library
     /// </summary>
     public class DialogoUsuario
     {
-        
-        
-        public IManipulador Comienzo{get;set;} 
-        public IManipulador PideEntrada{get;set;}  
-        public IManipulador PideDia{get;set;}  
-        public IManipulador PideHora{get;set;}  
-        public IManipulador GuardadoNotificacion{get;set;}  
-        public IManipulador EscribirBitacora{get;set;} 
-        
+        public EstadoDialogo Dialogo{get;set;}
+        public bool Error{get;set;}
+
+        public TipoEntrada Entrada{get;set;}
         public DialogoUsuario()
         {
-            Comienzo = new Comienzo();
-            PideEntrada= new PideEntrada();
-            PideDia= new PideDia();
-            PideHora= new PideHora();
-            GuardadoNotificacion= new GuardadoNotificacion();
-            EscribirBitacora = new EscribirBitacora();
+            Dialogo = EstadoDialogo.PrimeraVez;
+            Error = false;
+            Entrada = TipoEntrada.Objetivo;
         }
     }
 }

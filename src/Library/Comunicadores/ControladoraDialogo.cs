@@ -42,37 +42,81 @@ namespace Library
         {
             
             string response="Disculpe, no entiendo";
-
+            
             ProgramaEmisor p = ProgramaEmisor.GetInstancia();
-            IManipulador conf = new ConfigurarFechaFinalizacion(mensajeEntrada,idContacto);
+            int posUsr =p.BuscarUsuarioID(idContacto);
+            
+            if (posUsr==-1) //ingreso por primera vez
+            {
+                Usuario u= new Usuario();
+                u.IDContacto = idContacto;
+                p.UsuariosDelPrograma.Add(u);
+            }        
+
             IManipulador comienzo = new Comienzo(mensajeEntrada,idContacto);
+            
+            IManipulador conf = new ConfigurarFechaFinalizacion(mensajeEntrada,idContacto);
+            IManipulador pideFechaNotObjetivo = new PideFechaNotObjetivo(mensajeEntrada,idContacto);
+            IManipulador pideDiaNotObjetivo = new PideDiaFechaNotObjetivo(mensajeEntrada,idContacto);
+            IManipulador pideHoraNotObjetivo = new PideHoraFechaNotObjetivo(mensajeEntrada,idContacto);
+           
             IManipulador pideEntrada = new PideEntrada(mensajeEntrada,idContacto);
             IManipulador pideDia = new PideDia(mensajeEntrada,idContacto);
             IManipulador pideHora = new PideHora(mensajeEntrada,idContacto);
             IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,idContacto);
+            
+            IManipulador menuComienzo = new MenuComienzo(mensajeEntrada,idContacto);
             IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,idContacto);
-            
-            
+            IManipulador pideEscribirEntrada = new PideEscribirEntrada(mensajeEntrada,idContacto);
 
             comienzo.CambiarSiguiente(conf);
 
-            conf.CambiarSiguiente(pideEntrada);
-                
-            pideEntrada.CambiarSiguiente(pideDia);
+            conf.CambiarSiguiente(pideFechaNotObjetivo);
+
+            pideFechaNotObjetivo.CambiarSiguiente(pideDiaNotObjetivo);
+
+            pideDiaNotObjetivo.CambiarSiguiente(pideHoraNotObjetivo);
             
-            pideDia.CambiarSiguiente(pideHora);
+            pideHoraNotObjetivo.CambiarSiguiente(guardadoNotificacion);
 
-            pideHora.CambiarSiguiente(guardadoNotificacion);
+            //pideEntrada.CambiarSiguiente(pideDia);
+            
+            //pideDia.CambiarSiguiente(pideHora);
 
-            guardadoNotificacion.CambiarSiguiente(escribirBitacora);
+            //pideHora.CambiarSiguiente(guardadoNotificacion);
 
+            //guardadoNotificacion.CambiarSiguiente(escribirBitacora);
             
             comienzo.Manipular();
 
-            int posUsr =p.BuscarUsuarioID(idContacto);
+            Console.WriteLine(p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo);
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Error==false)
+            {
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.Comienzo)
+                    response = comienzo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.ConfigurarFechaFinalizacion)
+                    response = comienzo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideFechaNotObjetivo)
+                    response = conf.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideDiaFechaNotObjetivo)
+                    response = pideFechaNotObjetivo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideHoraFechaNotObjetivo)
+                    response = pideDiaNotObjetivo.Respuesta;                
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardadoNotificacion)
+                    response = pideHoraNotObjetivo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardoFechaNotObjetivo)
+                  response = guardadoNotificacion.Respuesta;
+            }
+            else
+            {
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideDiaFechaNotObjetivo)
+                    response = pideHoraNotObjetivo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardadoNotificacion)
+                    response = guardadoNotificacion.Respuesta;
+                
+            }    
             
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario == EstadoDialogo.ConfigurarFechaFinalizacion)
-                response = comienzo.Respuesta;
+            /*
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideEntrada)
                 response = conf.Respuesta;
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideDia)
@@ -86,7 +130,12 @@ namespace Library
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.MenuComienzo)
                 response = comienzo.Respuesta;
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.EscribirBitacora)
+                response = menuComienzo.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideEscribirEntrada)
                 response = escribirBitacora.Respuesta;
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.EscribioEntrada)
+                response = pideEscribirEntrada.Respuesta;
+            */
             return response;
         } 
 

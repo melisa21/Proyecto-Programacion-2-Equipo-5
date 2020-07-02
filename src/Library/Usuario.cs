@@ -16,7 +16,7 @@ namespace Library
         {
             this.BitacoraUsuario = new Bitacora();
             this.diasNotificacion = new List<DiaNotificacion>();
-            this.EstadoDialogoUsuario = EstadoDialogo.Comienzo;
+            this.EstadoDialogoUsuario = new DialogoUsuario();
         }
 
         private string nombre;
@@ -55,7 +55,7 @@ namespace Library
         
         public Bitacora BitacoraUsuario {get; set;}
 
-        public  EstadoDialogo EstadoDialogoUsuario{get; set;} 
+        public  DialogoUsuario EstadoDialogoUsuario{get; set;} 
        
 
         public static bool ValidarNombre(string nombre)

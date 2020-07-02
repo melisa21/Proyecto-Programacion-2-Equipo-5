@@ -16,7 +16,7 @@ namespace Library
         {
             ProgramaEmisor p = ProgramaEmisor.GetInstancia();
             int posUsr =p.BuscarUsuarioID(IDUsuario);
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideDia)
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PideDia)
             {
                 switch(MensajeEntrada)
                 {
@@ -30,7 +30,7 @@ namespace Library
                             p.GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada.Objetivo, IDUsuario);
                             //buscar usuario en el programa asociado con el usuario de Telegram
                             //guardar en DiaNotificacion del usuario
-                            p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.PideHora;
+                            p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideHora;
                             break;
 
                 
@@ -42,7 +42,7 @@ namespace Library
                             
                         //buscar usuario en el programa asociado con el usuario de Telegram
                         //guardar en DiaNotificacion del usuario
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.PideHora;
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideHora;
                         break;
 
                     
@@ -54,7 +54,7 @@ namespace Library
                         //guardar en DiaNotificacion del usuario
                         
                         p.GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada.ReflexionMetacognitiva, IDUsuario);
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.PideHora;    
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideHora;    
                         break;
 
                     
@@ -66,11 +66,11 @@ namespace Library
                         //guardar en DiaNotificacion del usuario
                         
                         p.GuardarTipoEntradaDiaNotificacionAUsuario(TipoEntrada.ReflexionSemanal, IDUsuario);
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.PideHora;
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideHora;
                         break;
                     default:
                         Respuesta = "Entrada invalido!!! Intenta nuevamente";
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.PideEntrada;
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEntrada;
                     break;
 
 

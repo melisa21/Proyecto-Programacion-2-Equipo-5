@@ -16,6 +16,7 @@ namespace Library
         {
             while(true)
             {
+                Console.WriteLine();
                 string mensajeEntrada = Console.ReadLine();
                 if (instancia == null)
                     instancia =new ComunicadorConsola();
@@ -36,11 +37,10 @@ namespace Library
         {
             string mensajeEntrada = mensajeEntradaOriginal.ToLower();
              
-            Console.WriteLine("Mesnaje Recibido de UsuarioConsola"+"saying "+mensajeEntrada);
+            //Console.WriteLine("Mesnaje Recibido de UsuarioConsola"+"saying "+mensajeEntrada);
             
             ControladoraDialogo dialogo = ControladoraDialogo.GetInstancia();
             string response = dialogo.GenerarRespuesta(mensajeEntrada, 0);
-            
             
             Console.WriteLine(response);
         }

@@ -1,15 +1,22 @@
 public enum EstadoDialogo
 {
-    Comienzo,
-
-    MenuComienzo,
-    
+    PrimeraVez,
     PedirFechaFinalizacion,
     ConfigurarFechaFinalizacion,
-
+    PideFechaNotObjetivo,
+    PideDiaFechaNotObjetivo,
+    PideHoraFechaNotObjetivo,
+    GuardoFechaNotObjetivo,
+    
+    Comienzo,
+    MenuComienzo,    
     EscribirBitacora,
     PideEntrada,
     PideDia,
     PideHora,
-    GuardadoNotificacion
+    GuardadoNotificacion,
+
+    PideEscribirEntrada,
+
+    EscribioEntrada,
 }

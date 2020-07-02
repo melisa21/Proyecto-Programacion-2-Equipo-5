@@ -16,21 +16,26 @@ namespace Library
             ProgramaEmisor p = ProgramaEmisor.GetInstancia();
             int posUsr =p.BuscarUsuarioID(IDUsuario);
 
-            
-                if ((MensajeEntrada=="configurar") || (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideEntrada))
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PideEntrada)
+            {
+                if ((MensajeEntrada=="configurar"))
                 {
                     Respuesta  = "ELIGE LA OPCION CORRESPONDIENTE A LA ENTRADA QUE QUIERES CONFIGURAR:\n"+
                         " 1. OBJETIVO\n 2. PLANIFICACION DIARIA \n 3. REFLEXION METACOGNITIVA\n 4. REFLEXION SEMANAL\n___";
-                    p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario = EstadoDialogo.PideDia;
+                    p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideDia;
                     
                     
                 }
                 else
                 {
                     Respuesta = "No se entendio";
-                    base.Manipular();
+                    p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEntrada;
                 }
-            
+            }
+            else
+            {
+                base.Manipular();
+            }
 
             
         }

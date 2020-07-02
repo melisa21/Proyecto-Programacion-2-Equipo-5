@@ -14,7 +14,7 @@ namespace Library
             
             ProgramaEmisor p = ProgramaEmisor.GetInstancia();
             int posUsr =p.BuscarUsuarioID(IDUsuario);
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario == EstadoDialogo.ConfigurarFechaFinalizacion)
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.ConfigurarFechaFinalizacion)
             {
                 Console.WriteLine("llega");
                 int anio = int.Parse(MensajeEntrada.Substring(6));
@@ -26,12 +26,12 @@ namespace Library
                 p.CrearBitacora(IDUsuario);
                 
                         
-                Respuesta = "Fecha de fializacion Guardada con exito\n Ahora debe configurar fecha de notificacion,para ello escriba: configurar";
-                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario=EstadoDialogo.PideEntrada;
+                Respuesta = "FECHA DE FINALIZACION GUARDADA CON EXITO\nAHORA DEBES CONFIGUAR FECHA NOTIFICACION ESCRIBE continuar";
+                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo=EstadoDialogo.PideFechaNotObjetivo;
             }
             else
             {
-                
+                Respuesta = "Error";
                 base.Manipular();
                 
             }
