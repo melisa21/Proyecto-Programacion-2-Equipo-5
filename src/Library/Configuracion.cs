@@ -4,101 +4,132 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    public class Configuracion
+    public static class Configuracion
     {
-        private static Configuracion configuracion;
+        /// <summary>
+        /// Configuracion es una clase estatica que contiene metodos que crea objetos y establece variables con los datos necesarios para el funcionamiento del programa.
+        /// Por ahora solo guarda las variables en memoria pero en el futuro podra almacenar y recuperar los datos desde archivos.
+        /// </summary>
+        public static void MenuInicial()
+        {
+            Usuario usuario = new Usuario();
+            EstablecerNombre(usuario);
+            EstablecerPlataforma(usuario);
+            EstablecerDias(usuario);
 
-        public Formato FormatoObjetivo { get; private set; }
-        public Formato FormatoPlanificacion { get; private set; }
-        public List<string> ColumnasTablaObjetivo { get; private set; }
-        public List<string> ColumnasTablaPlanificacion { get; private set; }
-        private Configuracion()
-        {
-            ColumnasTablaObjetivo = new List<string>();
-            ColumnasTablaPlanificacion = new List<string>();
-        }
-        public static Configuracion GetConfiguracion()
-        {
-            if (configuracion == null)
-            {
-                configuracion = new Configuracion();
-            }
-            return configuracion;
         }
 
-        public void Comienzo()
+        public static void EstablecerNombre(Usuario usuario)
         {
-            ConfigurarFormato();
-        }
-
-        private void ConfigurarFormato()
-        {
-            Console.WriteLine("Escoge el formato del Objetivo Semanal (SinFormato, Tabla)");
+            Console.WriteLine("Ingrese un nombre: ");
             while (true)
             {
-                string respuesta = Console.ReadLine();
                 try
                 {
-                    FormatoObjetivo = (Formato)Enum.Parse(typeof(Formato), respuesta, true);
-                    if (FormatoObjetivo == Formato.Tabla)
-                    {
-                        ConfigurarTabla(ColumnasTablaObjetivo, "Objetivo Semanal");
-                    }
+                    string nombre = Console.ReadLine();
+                    Usuario.ValidarNombre(nombre);
+                    usuario.Nombre = nombre;
                     break;
                 }
-                catch (ArgumentException)
+                catch (NombreVacioException)
                 {
-                    Console.WriteLine("Formato invalido, intente nuevamente.");
+                    Console.WriteLine("El nombre no puede quedar vacio. Ingrese un nombre: ");
                 }
             }
-            Console.WriteLine("Escoge el formato de la Planificación Diaria (SinFormato, Tabla)");
+
+        }
+        public static void EstablecerPlataforma(Usuario usuario)
+        {
+
             while (true)
             {
+                Console.WriteLine("Utilizar el bot desde Telegram (1) o la Consola (0)?");
                 string respuesta = Console.ReadLine();
-                try
+                if (respuesta == "1" || respuesta.ToLower() == "telegram")
                 {
-                    FormatoPlanificacion = (Formato)Enum.Parse(typeof(Formato), respuesta, true);
-                    if (FormatoPlanificacion == Formato.Tabla)
-                    {
-                        ConfigurarTabla(ColumnasTablaPlanificacion, "Planificación Diaria");
-                    }
+                    usuario.modo = ModoDeUso.Telegram;
+                    Console.WriteLine("Ingresa aqui desde Telegram: http://t.me/Lukesoytupadrebot");
                     break;
                 }
-                catch (ArgumentException)
+                else if (respuesta == "0" || respuesta.ToLower() == "consola")
                 {
-                    Console.WriteLine("Formato invalido, intente nuevamente.");
+                    usuario.modo = ModoDeUso.Consola;
+                    break;
                 }
             }
-
         }
 
-        private void ConfigurarTabla(List<string> tabla, string nombre)
+        public static void EstablecerDias(Usuario usuario)
         {
-            Console.WriteLine($"Escribe la descripción de la primera columna que tendra la tabla de {nombre}:");
-            string descripcion = Console.ReadLine();
-            tabla.Add(descripcion);
+            int cantidadTiposEntrada = 4;
+            Dias dia;
+            TimeSpan hora;
+            List<DiaNotificacion> diasNotificacion = new List<DiaNotificacion>();
 
-            while (true)
+            Console.WriteLine("\nEscoja cuando comenzar a ser notificado de cada tipo de entrada");
+            string textoDias = "Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado. (Sin Tildes)";
+
+            string textoObjetivos = "\nQue dia quiere que empieze a ser notificado de hacer los Objetivos? \n" + textoDias;
+            string textoPlanificacion = "\nY de la Planificacion? \n" + textoDias;
+            string textoSemanal = "\nDe la Reflexion Semanal? \n" + textoDias;
+            string textoMetacogniva = "\nY de la Reflexion Metacognitiva? \n" + textoDias;
+            List<string> textosEntradas = new List<string> { textoObjetivos, textoPlanificacion, textoSemanal, textoMetacogniva };
+
+            List<Dias> dias = new List<Dias>();
+            for (int i = 0; i < cantidadTiposEntrada; i++)
             {
-                Console.WriteLine($"LLevas {tabla.Count} columnas. Quieres agregar otra mas? (Si) (No)");
-                string respuesta = Console.ReadLine().ToLower();
-                if (!(respuesta == "s" || respuesta == "si" || respuesta == "1"))
+                Console.WriteLine(textosEntradas[i]);
+                while (true)
                 {
-                    break;
+                    try
+                    {
+                        string respuesta = Console.ReadLine();
+                        dia = (Dias)Enum.Parse(typeof(Dias), respuesta, true);
+                        break;
+                    }
+                    catch (ArgumentException)
+                    {
+                        Console.WriteLine("Dia invalido, intente nuevamente: ");
+                    }
                 }
-                else
+
+                Console.WriteLine("Desde que hora? (XX:XX)");
+                while (true)
                 {
-                    Console.WriteLine($"Escribe la descripción:");
-                    descripcion = Console.ReadLine();
-                    tabla.Add(descripcion);
+                    try
+                    {
+                        string respuesta = Console.ReadLine();
+                        hora = TimeSpan.Parse(respuesta);
+                        if (hora < TimeSpan.Zero || hora > TimeSpan.FromDays(1))
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
+
+                        break;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.WriteLine("Formato invalido: Hora fuera de rango.");
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Formato invalido: Tiene que ser del tipo XX:XX.");
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.WriteLine("Formato invalido: Tiene que ser del tipo XX:XX.");
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Lo que sea que hayas hecho no funciona.");
+                    }
+
                 }
+                TipoEntrada tipo = (TipoEntrada)i;
+
+                diasNotificacion.Add(new DiaNotificacion(tipo,dia, hora));
             }
-        }
-        
-        public enum Formato
-        {
-            SinFormato,
-            Tabla
+            //usuario.ActualizarDiasDesdeLista(diasNotificacion);
         }
     }
 }

@@ -7,16 +7,13 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Configuracion configuracion = Configuracion.GetConfiguracion();
-            configuracion.Comienzo();
+            PersistorUsuarios persistor = PersistorUsuarios.GetPersistorUsuarios();
+            ProgramaEmisor programaEmisor = ProgramaEmisor.GetInstancia();
 
-            //PersistorUsuarios persistor = PersistorUsuarios.GetPersistorUsuarios();
-            //ProgramaEmisor programaEmisor = ProgramaEmisor.GetInstancia();
-
-            //programaEmisor.UsuariosDelPrograma = persistor.CargarUsuarios();
+            programaEmisor.UsuariosDelPrograma = persistor.CargarUsuarios();
 
             //ComunicadorTelegram.MainTelegram();
-            //ComunicadorConsola.MainConsola();
+            ComunicadorConsola.MainConsola();
 /*
             Configuracion.MenuInicial();
 
