@@ -22,10 +22,8 @@ namespace Library
 
         public List<Usuario> UsuariosDelPrograma
         {
-            get
-            {
-                return usuarios;
-            }
+            get{return usuarios;}
+            set{usuarios = value;}
         }
 
 
@@ -47,8 +45,6 @@ namespace Library
                 instancia = new ProgramaEmisor();
             return instancia;
         }
-
-      
 
 
         /// <summary>

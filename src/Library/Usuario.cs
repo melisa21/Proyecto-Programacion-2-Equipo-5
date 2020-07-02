@@ -11,8 +11,6 @@ namespace Library
 
         /// <summary>
         /// Usuario contiene informacion necesaria para el funcionamiento del bot como con que plataforma se quiere usar y en que dias se quiere ser notificado.
-        /// Es un Singleton ya que contiene una instancia publica de si mismo que sera unica. 
-        /// Lo es ya que nuestro bot esta pensado de forma que solo haya un usuario por instalacion. 
         /// </summary>
         public Usuario()
         {
@@ -22,7 +20,6 @@ namespace Library
         }
 
         private string nombre;
-
         public string Nombre 
         { 
             get
@@ -46,6 +43,16 @@ namespace Library
                 return diasNotificacion;
             }
         }
+        public void AgregarDiaN(DiaNotificacion dia)
+        {
+            diasNotificacion.Add(dia);
+        }
+
+        public void QuitarDiaN(DiaNotificacion dia)
+        {
+            diasNotificacion.Remove(dia);
+        }
+        
         public Bitacora BitacoraUsuario {get; set;}
 
         public  EstadoDialogo EstadoDialogoUsuario{get; set;} 
