@@ -79,6 +79,14 @@ namespace Library
             
             pideHoraNotObjetivo.CambiarSiguiente(guardadoNotificacion);
 
+            
+            guardadoNotificacion.CambiarSiguiente(menuComienzo);
+
+            menuComienzo.CambiarSiguiente(escribirBitacora);
+
+            escribirBitacora.CambiarSiguiente(pideEscribirEntrada);
+
+
             //pideEntrada.CambiarSiguiente(pideDia);
             
             //pideDia.CambiarSiguiente(pideHora);
@@ -104,8 +112,17 @@ namespace Library
                     response = pideDiaNotObjetivo.Respuesta;                
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardadoNotificacion)
                     response = pideHoraNotObjetivo.Respuesta;
-                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardoFechaNotObjetivo)
-                  response = guardadoNotificacion.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.Comienzo)
+                    response = guardadoNotificacion.Respuesta;
+
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.MenuComienzo)
+                    response = comienzo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.EscribirBitacora)
+                    response = menuComienzo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PideEscribirEntrada)
+                    response = escribirBitacora.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.EscribioEntrada)
+                    response = pideEscribirEntrada.Respuesta;
             }
             else
             {
@@ -113,7 +130,7 @@ namespace Library
                     response = pideHoraNotObjetivo.Respuesta;
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardadoNotificacion)
                     response = guardadoNotificacion.Respuesta;
-                
+                    
             }    
             
             /*
@@ -125,16 +142,8 @@ namespace Library
                 response = pideDia.Respuesta;
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.GuardadoNotificacion)
                 response = pideHora.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.Comienzo)
-                response = guardadoNotificacion.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.MenuComienzo)
-                response = comienzo.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.EscribirBitacora)
-                response = menuComienzo.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideEscribirEntrada)
-                response = escribirBitacora.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.EscribioEntrada)
-                response = pideEscribirEntrada.Respuesta;
+            
+            
             */
             return response;
         } 

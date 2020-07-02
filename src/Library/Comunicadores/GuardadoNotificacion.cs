@@ -50,7 +50,7 @@ namespace Library
                             if(p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada==TipoEntrada.ReflexionSemanal)
                             {
                                 p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada = TipoEntrada.Objetivo;
-                                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo=EstadoDialogo.GuardoFechaNotObjetivo;
+                                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo=EstadoDialogo.Comienzo;
                             }
                         }
 
