@@ -20,8 +20,6 @@ namespace Program
             //ComunicadorTelegram.MainTelegram();
             //ComunicadorConsola.MainConsola();
 
-
-            persistor.GuardarUsuarios(programaEmisor.UsuariosDelPrograma);
         }
     }
 }
