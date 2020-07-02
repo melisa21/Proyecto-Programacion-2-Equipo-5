@@ -19,27 +19,33 @@ namespace Library
             
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideEscribirEntrada) 
             {
-                
-                Console.WriteLine("entra a pide Entrada");
-                    
+                  
                 switch(MensajeEntrada)
                 {  
+                        
                     case "objetivo": 
-                        Console.WriteLine("entra objetivo");
                         Respuesta = " ESCRIBE UN OBJETIVO \n"+
                         "___";
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.EscribioEntrada;
+                        //revisa formato
+                        //si formato es escribir sin formato
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada = TipoEntrada.Objetivo;
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEscribirSinFormato;
+                    
                         
                         Console.WriteLine(p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario);
                         break;
 
                     
                     case "diaria": 
-                        Respuesta = " ESCRIBE UNA PLANIFICACIÓN DIARIA \n"+
+                        Respuesta = " ESCRIBE continuar \n"+
                         "___";
                         
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.EscribioEntrada;
-
+                        //revisa formato
+                        //si formato es escribir sin formato
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada = TipoEntrada.PlanificacionDiaria;
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEscribirSinFormato;
+                        
+                       
                         break;
                         
                     
@@ -47,8 +53,12 @@ namespace Library
                         Respuesta = " ESCRIBE UNA REFLEXIÓN METACOGNITIVA \n"+
                         "___";
                         
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.EscribioEntrada;
+                        //revisa formato
+                        //si formato es escribir sin formato
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEscribirSinFormato;
 
+                        
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada = TipoEntrada.ReflexionMetacognitiva;
                         break;
 
                     
@@ -56,8 +66,11 @@ namespace Library
                         Respuesta = " ESCRIBE UNA REFLEXIÓN SEMANAL \n"+
                         "___";
                         
-                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.EscribioEntrada;
-
+                        //revisa formato
+                        //si formato es escribir sin formato
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEscribirSinFormato;
+                        
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada = TipoEntrada.ReflexionSemanal;
                         break;
                     
                     case "salir": 

@@ -68,6 +68,9 @@ namespace Library
             IManipulador menuComienzo = new MenuComienzo(mensajeEntrada,idContacto);
             IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,idContacto);
             IManipulador pideEscribirEntrada = new PideEscribirEntrada(mensajeEntrada,idContacto);
+            IManipulador pideEscribirSinFormato = new PideEscribirEntrada(mensajeEntrada,idContacto);
+            IManipulador pidePlanificacionDiaria = new PidePlanificacionDiaria(mensajeEntrada,idContacto);
+            
 
             comienzo.CambiarSiguiente(conf);
 
@@ -86,7 +89,8 @@ namespace Library
 
             escribirBitacora.CambiarSiguiente(pideEscribirEntrada);
 
-
+            pideEscribirEntrada.CambiarSiguiente(pideEscribirSinFormato);
+            pideEscribirSinFormato.CambiarSiguiente(pidePlanificacionDiaria);
             //pideEntrada.CambiarSiguiente(pideDia);
             
             //pideDia.CambiarSiguiente(pideHora);
@@ -100,8 +104,15 @@ namespace Library
             Console.WriteLine(p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo);
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Error==false)
             {
+                
+
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.Comienzo)
                     response = comienzo.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.Comienzo)
+                    response = guardadoNotificacion.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.Comienzo)
+                    response = pideEscribirSinFormato.Respuesta;
+
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.ConfigurarFechaFinalizacion)
                     response = comienzo.Respuesta;
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideFechaNotObjetivo)
@@ -112,8 +123,6 @@ namespace Library
                     response = pideDiaNotObjetivo.Respuesta;                
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardadoNotificacion)
                     response = pideHoraNotObjetivo.Respuesta;
-                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.Comienzo)
-                    response = guardadoNotificacion.Respuesta;
 
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.MenuComienzo)
                     response = comienzo.Respuesta;
@@ -121,8 +130,13 @@ namespace Library
                     response = menuComienzo.Respuesta;
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PideEscribirEntrada)
                     response = escribirBitacora.Respuesta;
-                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.EscribioEntrada)
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PideEscribirSinFormato)
                     response = pideEscribirEntrada.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PidePlanificacionDiaria)
+                    response = pideEscribirSinFormato.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.EscribioEntrada)
+                    response = pidePlanificacionDiaria.Respuesta;
+           
             }
             else
             {
@@ -130,6 +144,12 @@ namespace Library
                     response = pideHoraNotObjetivo.Respuesta;
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.GuardadoNotificacion)
                     response = guardadoNotificacion.Respuesta;
+                
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideEscribirSinFormato)
+                    response = pidePlanificacionDiaria.Respuesta;
+
+                
+                
                     
             }    
             

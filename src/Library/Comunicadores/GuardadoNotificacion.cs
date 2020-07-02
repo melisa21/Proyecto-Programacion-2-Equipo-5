@@ -13,11 +13,11 @@ namespace Library
 
         public override void Manipular()
         {
-                
-                //Guardo Dia Notificacion en logica
-                
-                ProgramaEmisor p = ProgramaEmisor.GetInstancia();
-                int posUsr =p.BuscarUsuarioID(IDUsuario);
+            
+            //Guardo Dia Notificacion en logica
+            
+            ProgramaEmisor p = ProgramaEmisor.GetInstancia();
+            int posUsr =p.BuscarUsuarioID(IDUsuario);
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.GuardadoNotificacion)
             {
                 p.GuardarHoraDiaNotificacionAUsuario(TimeSpan.Parse(MensajeEntrada),IDUsuario);

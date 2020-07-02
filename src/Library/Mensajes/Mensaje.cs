@@ -2,8 +2,10 @@
 
 namespace Library
 {
+    
     public abstract class Mensaje
     {
         
+        public string Contenido {get; set;}    
     }
 }

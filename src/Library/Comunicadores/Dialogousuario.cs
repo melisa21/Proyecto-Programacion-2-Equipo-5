@@ -11,11 +11,14 @@ namespace Library
         public bool Error{get;set;}
 
         public TipoEntrada Entrada{get;set;}
+        public string ContenidoEntrada{get;set;}
+        public Dias Dia{get;set;}
         public DialogoUsuario()
         {
             Dialogo = EstadoDialogo.PrimeraVez;
             Error = false;
             Entrada = TipoEntrada.Objetivo;
+            Dia = Dias.Lunes; 
         }
     }
 }

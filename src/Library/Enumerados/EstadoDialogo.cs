@@ -11,6 +11,8 @@ public enum EstadoDialogo
     Comienzo,
     MenuComienzo,    
     EscribirBitacora,
+    PideEscribirSinFormato,
+    GuardoEntrada,
     PideEntrada,
     PideDia,
     PideHora,
@@ -19,4 +21,5 @@ public enum EstadoDialogo
     PideEscribirEntrada,
 
     EscribioEntrada,
+    PidePlanificacionDiaria,
 }
