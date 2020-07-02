@@ -30,8 +30,7 @@ namespace Library
             }
             else
             {
-                Respuesta = "\nNo se esperaba que escribieras eso!!!\n";
-                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.EscribirBitacora;
+                
                 base.Manipular();
             }
             

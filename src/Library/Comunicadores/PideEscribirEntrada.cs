@@ -17,7 +17,7 @@ namespace Library
             
             int posUsr =p.BuscarUsuarioID(IDUsuario);
             
-            if ((p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideEscribirEntrada) )
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PideEscribirEntrada) 
             {
                 
                 Console.WriteLine("entra a pide Entrada");
@@ -69,13 +69,16 @@ namespace Library
                         Respuesta = "\nNo se esperaba que escribieras eso como entrada a escribir!!!\n";
                         
                         p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.EscribirBitacora;
+                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Error= true;
                         
                         break;
                 }
                     
             }
             else
-            {base.Manipular();}
+            {
+                base.Manipular();
+            }
         }
     }
 }
