@@ -72,6 +72,7 @@ namespace Library
             IManipulador pideEscribirSinFormato = new PideEscribirSinFormato(mensajeEntrada,idContacto);
             IManipulador pidePlanificacionDiaria = new PidePlanificacionDiaria(mensajeEntrada,idContacto);
             
+            IManipulador guardarEscribirEntrada = new GuardarEscribirEntrada(mensajeEntrada,idContacto);
 
             comienzo.CambiarSiguiente(conf);
 
@@ -92,14 +93,7 @@ namespace Library
 
             pideEscribirEntrada.CambiarSiguiente(pideEscribirSinFormato);
             pideEscribirSinFormato.CambiarSiguiente(pidePlanificacionDiaria);
-            //pideEntrada.CambiarSiguiente(pideDia);
-            
-            //pideDia.CambiarSiguiente(pideHora);
-
-            //pideHora.CambiarSiguiente(guardadoNotificacion);
-
-            //guardadoNotificacion.CambiarSiguiente(escribirBitacora);
-            
+            pidePlanificacionDiaria.CambiarSiguiente(guardarEscribirEntrada);
             comienzo.Manipular();
 
             Console.WriteLine(p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo);
@@ -135,9 +129,18 @@ namespace Library
                     response = pideEscribirEntrada.Respuesta;
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PidePlanificacionDiaria)
                     response = pideEscribirSinFormato.Respuesta;
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.GuardarEscribirEntrada)
+                    response = pideEscribirSinFormato.Respuesta;
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.EscribioEntrada)
+                {
+                    response = guardarEscribirEntrada.Respuesta;
+                    p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.Comienzo;
+                }
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.EscribioPlanificacionDiaria)
+                {
                     response = pidePlanificacionDiaria.Respuesta;
-           
+                    p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.Comienzo;
+                }
             }
             else
             {
@@ -154,18 +157,6 @@ namespace Library
                     
             }    
             
-            /*
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideEntrada)
-                response = conf.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideDia)
-                response = pideEntrada.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.PideHora)
-                response = pideDia.Respuesta;
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario==EstadoDialogo.GuardadoNotificacion)
-                response = pideHora.Respuesta;
-            
-            
-            */
             if (response == null)
             {
                 response = "Escriba continuar... (C)";

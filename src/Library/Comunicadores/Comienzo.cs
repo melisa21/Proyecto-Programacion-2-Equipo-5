@@ -29,7 +29,6 @@ namespace Library
                   
                     Respuesta = "¡Bienvenido!\n ¿Qué quieres hacer?\n"+
                     " * SI QUIERES ESCRIBIR TU BITÁCORA ESCRIBE: escribir \n"+
-                    " * SI QUIERES CONFIGURAR EL MOMENTO DE NOTIFICACIÓN DE LAS ENTRADAS ESCRIBE: configurar\n"+
                     "___";
                     p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.MenuComienzo;  
                 
