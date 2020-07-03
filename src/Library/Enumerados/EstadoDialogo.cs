@@ -22,4 +22,6 @@ public enum EstadoDialogo
 
     EscribioEntrada,
     PidePlanificacionDiaria,
+    GuardarEscribirEntrada,
+    EscribioPlanificacionDiaria,
 }

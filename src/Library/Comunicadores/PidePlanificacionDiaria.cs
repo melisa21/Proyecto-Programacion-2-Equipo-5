@@ -20,7 +20,7 @@ namespace Library
             if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PidePlanificacionDiaria)
             {
 
-                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.ContenidoEntrada += p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia.ToString()
+                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.ContenidoEntrada += "\n"+p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia.ToString()
                 + "\n" + MensajeEntrada;
 
                 Console.WriteLine(p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.ContenidoEntrada);
@@ -71,7 +71,7 @@ namespace Library
                                         Mensaje msg = new Texto();
                                         msg.Contenido = MensajeEntrada;
                                         p.UsuariosDelPrograma[posUsr].BitacoraUsuario.GuardarMensajeEnEntrada(msg,p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada,DateTime.Today);
-                                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.Comienzo;
+                                        p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.EscribioPlanificacionDiaria;
                                         Respuesta = "SU ENTRADA QUEDO GUARDADA";                            
                                     }
         

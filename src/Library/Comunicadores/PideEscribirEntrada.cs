@@ -56,8 +56,6 @@ namespace Library
                         //revisa formato
                         //si formato es escribir sin formato
                         p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEscribirSinFormato;
-
-                        
                         p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada = TipoEntrada.ReflexionMetacognitiva;
                         break;
 
