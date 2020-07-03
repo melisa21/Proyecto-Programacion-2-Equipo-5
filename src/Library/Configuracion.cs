@@ -4,132 +4,101 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    public static class Configuracion
+    public class Configuracion
     {
-        /// <summary>
-        /// Configuracion es una clase estatica que contiene metodos que crea objetos y establece variables con los datos necesarios para el funcionamiento del programa.
-        /// Por ahora solo guarda las variables en memoria pero en el futuro podra almacenar y recuperar los datos desde archivos.
-        /// </summary>
-        public static void MenuInicial()
-        {
-            Usuario usuario = new Usuario();
-            EstablecerNombre(usuario);
-            EstablecerPlataforma(usuario);
-            EstablecerDias(usuario);
+        private static Configuracion configuracion;
 
+        public Formato FormatoObjetivo { get; private set; }
+        public Formato FormatoPlanificacion { get; private set; }
+        public List<string> ColumnasTablaObjetivo { get; private set; }
+        public List<string> ColumnasTablaPlanificacion { get; private set; }
+        private Configuracion()
+        {
+            ColumnasTablaObjetivo = new List<string>();
+            ColumnasTablaPlanificacion = new List<string>();
+        }
+        public static Configuracion GetConfiguracion()
+        {
+            if (configuracion == null)
+            {
+                configuracion = new Configuracion();
+            }
+            return configuracion;
         }
 
-        public static void EstablecerNombre(Usuario usuario)
+        public void Comienzo()
         {
-            Console.WriteLine("Ingrese un nombre: ");
+            ConfigurarFormato();
+        }
+
+        private void ConfigurarFormato()
+        {
+            Console.WriteLine("Escoge el formato del Objetivo Semanal (SinFormato, Tabla)");
             while (true)
             {
+                string respuesta = Console.ReadLine();
                 try
                 {
-                    string nombre = Console.ReadLine();
-                    Usuario.ValidarNombre(nombre);
-                    usuario.Nombre = nombre;
+                    FormatoObjetivo = (Formato)Enum.Parse(typeof(Formato), respuesta, true);
+                    if (FormatoObjetivo == Formato.Tabla)
+                    {
+                        ConfigurarTabla(ColumnasTablaObjetivo, "Objetivo Semanal");
+                    }
                     break;
                 }
-                catch (NombreVacioException)
+                catch (ArgumentException)
                 {
-                    Console.WriteLine("El nombre no puede quedar vacio. Ingrese un nombre: ");
+                    Console.WriteLine("Formato invalido, intente nuevamente.");
+                }
+            }
+            Console.WriteLine("Escoge el formato de la Planificación Diaria (SinFormato, Tabla)");
+            while (true)
+            {
+                string respuesta = Console.ReadLine();
+                try
+                {
+                    FormatoPlanificacion = (Formato)Enum.Parse(typeof(Formato), respuesta, true);
+                    if (FormatoPlanificacion == Formato.Tabla)
+                    {
+                        ConfigurarTabla(ColumnasTablaPlanificacion, "Planificación Diaria");
+                    }
+                    break;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("Formato invalido, intente nuevamente.");
                 }
             }
 
         }
-        public static void EstablecerPlataforma(Usuario usuario)
+
+        private void ConfigurarTabla(List<string> tabla, string nombre)
         {
+            Console.WriteLine($"Escribe la descripción de la primera columna que tendra la tabla de {nombre}:");
+            string descripcion = Console.ReadLine();
+            tabla.Add(descripcion);
 
             while (true)
             {
-                Console.WriteLine("Utilizar el bot desde Telegram (1) o la Consola (0)?");
-                string respuesta = Console.ReadLine();
-                if (respuesta == "1" || respuesta.ToLower() == "telegram")
+                Console.WriteLine($"LLevas {tabla.Count} columnas. Quieres agregar otra mas? (Si) (No)");
+                string respuesta = Console.ReadLine().ToLower();
+                if (!(respuesta == "s" || respuesta == "si" || respuesta == "1"))
                 {
-                    usuario.modo = ModoDeUso.Telegram;
-                    Console.WriteLine("Ingresa aqui desde Telegram: http://t.me/Lukesoytupadrebot");
                     break;
                 }
-                else if (respuesta == "0" || respuesta.ToLower() == "consola")
+                else
                 {
-                    usuario.modo = ModoDeUso.Consola;
-                    break;
+                    Console.WriteLine($"Escribe la descripción:");
+                    descripcion = Console.ReadLine();
+                    tabla.Add(descripcion);
                 }
             }
         }
-
-        public static void EstablecerDias(Usuario usuario)
+        
+        public enum Formato
         {
-            int cantidadTiposEntrada = 4;
-            Dias dia;
-            TimeSpan hora;
-            List<DiaNotificacion> diasNotificacion = new List<DiaNotificacion>();
-
-            Console.WriteLine("\nEscoja cuando comenzar a ser notificado de cada tipo de entrada");
-            string textoDias = "Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado. (Sin Tildes)";
-
-            string textoObjetivos = "\nQue dia quiere que empieze a ser notificado de hacer los Objetivos? \n" + textoDias;
-            string textoPlanificacion = "\nY de la Planificacion? \n" + textoDias;
-            string textoSemanal = "\nDe la Reflexion Semanal? \n" + textoDias;
-            string textoMetacogniva = "\nY de la Reflexion Metacognitiva? \n" + textoDias;
-            List<string> textosEntradas = new List<string> { textoObjetivos, textoPlanificacion, textoSemanal, textoMetacogniva };
-
-            List<Dias> dias = new List<Dias>();
-            for (int i = 0; i < cantidadTiposEntrada; i++)
-            {
-                Console.WriteLine(textosEntradas[i]);
-                while (true)
-                {
-                    try
-                    {
-                        string respuesta = Console.ReadLine();
-                        dia = (Dias)Enum.Parse(typeof(Dias), respuesta, true);
-                        break;
-                    }
-                    catch (ArgumentException)
-                    {
-                        Console.WriteLine("Dia invalido, intente nuevamente: ");
-                    }
-                }
-
-                Console.WriteLine("Desde que hora? (XX:XX)");
-                while (true)
-                {
-                    try
-                    {
-                        string respuesta = Console.ReadLine();
-                        hora = TimeSpan.Parse(respuesta);
-                        if (hora < TimeSpan.Zero || hora > TimeSpan.FromDays(1))
-                        {
-                            throw new ArgumentOutOfRangeException();
-                        }
-
-                        break;
-                    }
-                    catch (OverflowException)
-                    {
-                        Console.WriteLine("Formato invalido: Hora fuera de rango.");
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("Formato invalido: Tiene que ser del tipo XX:XX.");
-                    }
-                    catch (ArgumentOutOfRangeException)
-                    {
-                        Console.WriteLine("Formato invalido: Tiene que ser del tipo XX:XX.");
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Lo que sea que hayas hecho no funciona.");
-                    }
-
-                }
-                TipoEntrada tipo = (TipoEntrada)i;
-
-                diasNotificacion.Add(new DiaNotificacion(tipo,dia, hora));
-            }
-            //usuario.ActualizarDiasDesdeLista(diasNotificacion);
+            SinFormato,
+            Tabla
         }
     }
 }
