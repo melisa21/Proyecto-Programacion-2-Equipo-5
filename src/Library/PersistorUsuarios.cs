@@ -1,11 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Library
 {
+    /// <summary>
+    /// PersistorUsuarios es la clase encargada de persistir en archivos instancias de objetos Usuario y volver a crearlas desde ellos.
+    /// Es un Singleton para que solo una instancia pueda existir al mismo tiempo, no es necesario tener varias en una clase con funciones de este tipo. Tambien podria haber sido una clase estatica.
+    /// Es un Creator porque conoce toda la informacion necesaria para crear objetos Usuario.
+    /// </summary>
     public class PersistorUsuarios
     {
+        private static PersistorUsuarios persistorUsuarios;
+
+        private string rutaCarpeta;
+
+        IFormatter formatter = new BinaryFormatter();
+        Stream stream;
+
         private PersistorUsuarios()
         {
             string rutaExe = AppDomain.CurrentDomain.BaseDirectory;
@@ -16,13 +30,6 @@ namespace Library
             }
             CrearUsuarioConsola();
         }
-        private static PersistorUsuarios persistorUsuarios;
-
-        private string rutaCarpeta;
-
-        private static int CantidadDatosInfo = 2;
-        private static int CantidadDatosDiaN = 3;
-
         public static PersistorUsuarios GetPersistorUsuarios()
         {
             if (persistorUsuarios == null)
@@ -63,49 +70,9 @@ namespace Library
 
         private Usuario CargarUsuario(string ruta)
         {
-            string[] informacion = File.ReadAllLines(ruta);
-
-            Usuario usuario = new Usuario();
-
-            for (int i = 0; i < informacion.Length; i++)
-            {
-                if (informacion[i].TrimEnd('\n') == "[info]")
-                {
-                    string cadena = informacion[i+1].TrimEnd('\n');
-                    string[] datos = cadena.Split(',');
-                    if(datos.Length == CantidadDatosInfo)
-                    {
-                        usuario.Nombre = datos[0];
-                        usuario.IDContacto = long.Parse(datos[1]);
-                    }
-                    else
-                    {
-                        throw new ArchivoUsuarioInvalidoException();
-                    }
-                    i++;
-                }
-                else if (informacion[i].TrimEnd('\n') == "[diaN]")
-                {
-                    string cadena = informacion[i + 1].TrimEnd('\n');
-                    string[] datos = cadena.Split(',');
-                    if(datos.Length == CantidadDatosDiaN)
-                    {
-                        DiaNotificacion dia = new DiaNotificacion
-                        {
-                            Tipo = (TipoEntrada)Enum.Parse(typeof(TipoEntrada), datos[0], true),
-                            Dia = (Dias)Enum.Parse(typeof(Dias), datos[1], true),
-                            Hora = TimeSpan.Parse(datos[2])
-                        };
-
-                        usuario.AgregarDiaN(dia);
-                    }
-                    else
-                    {
-                        throw new ArchivoUsuarioInvalidoException();
-                    }
-                    i++;
-                }
-            }
+            stream = new FileStream(ruta, FileMode.Open, FileAccess.Read);
+            Usuario usuario = (Usuario)formatter.Deserialize(stream);
+            stream.Close();
 
             return usuario;
         }
@@ -122,21 +89,11 @@ namespace Library
         {
             string rutaUsuario = rutaCarpeta + @$"/{usuario.IDContacto}.usuario";
 
-            string cadenaInfo = "[info]\n" + $"{usuario.Nombre},{usuario.IDContacto}\n";
-            
-            List<string> listaCadenasDiaN = new List<string>();
-            foreach (DiaNotificacion dia in usuario.DiasNotificacion)
-            {
-                string cadena = dia.ToString();
-                listaCadenasDiaN.Add(cadena);
-            }
+            stream = new FileStream(rutaUsuario, FileMode.Create, FileAccess.Write);
 
-            foreach  (string cadenaDiaN in listaCadenasDiaN)
-            {
-                cadenaInfo += "[diaN]\n" + cadenaDiaN + "\n";
-            }
+            formatter.Serialize(stream, usuario);
+            stream.Close();
 
-            File.WriteAllText(rutaUsuario, cadenaInfo);
         }
     }
 }
