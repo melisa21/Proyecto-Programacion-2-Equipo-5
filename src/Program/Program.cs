@@ -10,21 +10,20 @@ namespace Program
         static void Main(string[] args)
         {
             Configuracion configuracion = Configuracion.GetConfiguracion();
-            //configuracion.Comienzo();
+            configuracion.Comienzo();
 
             PersistorUsuarios persistor = PersistorUsuarios.GetPersistorUsuarios();
             ProgramaEmisor programaEmisor = ProgramaEmisor.GetInstancia();
 
             programaEmisor.UsuariosDelPrograma = persistor.CargarUsuarios();
-
-
-            //DateTime fecha = programaEmisor.UsuariosDelPrograma[1].BitacoraUsuario.CorrerFechaALunes(DateTime.Today);
-            //int posicion = programaEmisor.UsuariosDelPrograma[1].BitacoraUsuario.BuscarBitacoraSemanalPorFecha(fecha);
-            //Console.WriteLine(posicion);
-
-
-            //ComunicadorTelegram.MainTelegram();
-            //ComunicadorConsola.MainConsola();
+            if (configuracion.Modo == ModoDeUso.Telegram)
+            { 
+                ComunicadorTelegram.MainTelegram();
+            }
+            if (configuracion.Modo == ModoDeUso.Consola)
+            {
+                ComunicadorConsola.MainConsola();
+            }
 
             persistor.GuardarUsuarios(programaEmisor.UsuariosDelPrograma);
         }
