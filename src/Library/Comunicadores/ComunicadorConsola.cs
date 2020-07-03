@@ -1,6 +1,8 @@
 ﻿using System;
 /*******************************
 Se encargara de imprimir la salida y leer la entrada por Consola.
+Esta clase se encarga de manejar la consola
+
 *******************************/
 
 namespace Library
