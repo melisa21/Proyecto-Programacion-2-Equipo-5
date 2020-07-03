@@ -5,11 +5,11 @@ namespace Library
     /// <summary>
     /// EsTA clasea 
     /// </summary>
-    public class PideEscribirTabla: ManipuladorBase
+    public class PideEscribirSinFormato: ManipuladorBase
     {
-        public PideEscribirTabla():base(){}
+        public PideEscribirSinFormato():base(){}
         
-        public PideEscribirTabla(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
+        public PideEscribirSinFormato(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {
@@ -24,7 +24,7 @@ namespace Library
                 
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Entrada==TipoEntrada.PlanificacionDiaria)
                 {
-                    Respuesta = Respuesta = "¿Que piensas planificar para el"+p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia+"?\n"+
+                    Respuesta = "¿Que piensas planificar para el"+p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia+"?\n"+
                         "___";
                     p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo=EstadoDialogo.PidePlanificacionDiaria;
                 }

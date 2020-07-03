@@ -17,13 +17,18 @@ namespace Library
         
             ProgramaEmisor p = ProgramaEmisor.GetInstancia();
             int posUsr =p.BuscarUsuarioID(IDUsuario);
-            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo==EstadoDialogo.PidePlanificacionDiaria)
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PidePlanificacionDiaria)
             {
 
-                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.ContenidoEntrada = p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia.ToString()
-                +"\n"+MensajeEntrada;
+                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.ContenidoEntrada += p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia.ToString()
+                + "\n" + MensajeEntrada;
+
+                Console.WriteLine(p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.ContenidoEntrada);
+
                 p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.PideEscribirSinFormato;
                 p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Error=true;
+
+
                 if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia == Dias.Lunes)
                 {
                     p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia = Dias.Martes;
@@ -34,7 +39,6 @@ namespace Library
                     if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia == Dias.Martes)
                     {
                         p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dia = Dias.Miercoles;
-                        
                     }
                     else
                     {

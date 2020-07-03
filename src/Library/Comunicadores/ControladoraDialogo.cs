@@ -51,6 +51,7 @@ namespace Library
                 Usuario u= new Usuario();
                 u.IDContacto = idContacto;
                 p.UsuariosDelPrograma.Add(u);
+                posUsr = p.BuscarUsuarioID(idContacto);
             }        
 
             IManipulador comienzo = new Comienzo(mensajeEntrada,idContacto);
@@ -68,7 +69,7 @@ namespace Library
             IManipulador menuComienzo = new MenuComienzo(mensajeEntrada,idContacto);
             IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,idContacto);
             IManipulador pideEscribirEntrada = new PideEscribirEntrada(mensajeEntrada,idContacto);
-            IManipulador pideEscribirSinFormato = new PideEscribirEntrada(mensajeEntrada,idContacto);
+            IManipulador pideEscribirSinFormato = new PideEscribirSinFormato(mensajeEntrada,idContacto);
             IManipulador pidePlanificacionDiaria = new PidePlanificacionDiaria(mensajeEntrada,idContacto);
             
 
@@ -165,6 +166,10 @@ namespace Library
             
             
             */
+            if (response == null)
+            {
+                response = "Escriba continuar... (C)";
+            }    
             return response;
         } 
 

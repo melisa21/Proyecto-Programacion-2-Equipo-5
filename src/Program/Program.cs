@@ -12,8 +12,8 @@ namespace Program
 
             programaEmisor.UsuariosDelPrograma = persistor.CargarUsuarios();
 
-            //ComunicadorTelegram.MainTelegram();
-            ComunicadorConsola.MainConsola();
+            ComunicadorTelegram.MainTelegram();
+            //ComunicadorConsola.MainConsola();
 /*
             Configuracion.MenuInicial();
 
