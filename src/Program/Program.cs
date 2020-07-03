@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Library;
 
 namespace Program
@@ -7,16 +9,24 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            SolicitudNotificacion solicitud = new SolicitudNotificacion();
-            ComunicadorTelegram.MainTelegram();
+            Configuracion configuracion = Configuracion.GetConfiguracion();
+            //configuracion.Comienzo();
+
+            PersistorUsuarios persistor = PersistorUsuarios.GetPersistorUsuarios();
+            ProgramaEmisor programaEmisor = ProgramaEmisor.GetInstancia();
+
+            programaEmisor.UsuariosDelPrograma = persistor.CargarUsuarios();
+
+
+            //DateTime fecha = programaEmisor.UsuariosDelPrograma[1].BitacoraUsuario.CorrerFechaALunes(DateTime.Today);
+            //int posicion = programaEmisor.UsuariosDelPrograma[1].BitacoraUsuario.BuscarBitacoraSemanalPorFecha(fecha);
+            //Console.WriteLine(posicion);
+
+
+            //ComunicadorTelegram.MainTelegram();
             //ComunicadorConsola.MainConsola();
 
-            //Configuracion.MenuInicial();
-
-            
-            /*Usuario usuario = Usuario.GetUsuario();
-            if (usuario.modo == Usuario.ModoDeUso.Telegram)
-                ComunicadorTelegram.MainTelegram();*/
+            persistor.GuardarUsuarios(programaEmisor.UsuariosDelPrograma);
         }
     }
 }

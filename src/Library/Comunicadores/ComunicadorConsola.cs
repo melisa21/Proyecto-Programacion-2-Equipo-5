@@ -18,6 +18,7 @@ namespace Library
         {
             while(true)
             {
+                Console.WriteLine();
                 string mensajeEntrada = Console.ReadLine();
                 if (instancia == null)
                     instancia =new ComunicadorConsola();
@@ -36,70 +37,17 @@ namespace Library
         /// <returns></returns>
         public void ManejadorMensajesRecibidos(string mensajeEntradaOriginal)
         {
-            string response="Disculpe, no entiendo";
-            
-            //leer de consola
             string mensajeEntrada = mensajeEntradaOriginal.ToLower();
              
-            Console.WriteLine("Mesnaje Recibido de UsuarioConsola"+"saying "+mensajeEntrada);
+            //Console.WriteLine("Mesnaje Recibido de UsuarioConsola"+"saying "+mensajeEntrada);
             
-            IManipulador comienzo = new Comienzo(mensajeEntrada,0);
-            IManipulador escribirBitacora = new EscribirBitacora(mensajeEntrada,0);
+            ControladoraDialogo dialogo = ControladoraDialogo.GetInstancia();
+            string response = dialogo.GenerarRespuesta(mensajeEntrada, 0);
             
-            IManipulador eleccionEntrada = new EleccionEntrada(mensajeEntrada,0);
-            IManipulador eleccionDia = new EleccionDia(mensajeEntrada,0);
-            IManipulador eleccionHora = new EleccionHora(mensajeEntrada,0);
-            IManipulador guardadoNotificacion = new GuardadoNotificacion(mensajeEntrada,0);
-            
-            switch(mensajeEntrada)
-            {
-                case "/start": 
-                    comienzo.Manipular();
-                    response = comienzo.Respuesta;
-                
-                break;
-
-                case "escribir":
-                    comienzo.CambiarSiguiente(escribirBitacora);
-                    response = escribirBitacora.Respuesta;
-                break;
-
-                case "configurar":
-                    comienzo.CambiarSiguiente(eleccionEntrada);
-                    response = eleccionEntrada.Respuesta;
-    
-                    
-                break;
-
-                default:
-                    if (mensajeEntrada == "1" || mensajeEntrada == "2" || mensajeEntrada == "3" || mensajeEntrada == "4")
-                    {    
-                        eleccionEntrada.CambiarSiguiente(eleccionDia);
-                        response = eleccionDia.Respuesta;
-                        
-                    } 
-                    else
-                    {
-                        if ((mensajeEntrada=="lunes") || (mensajeEntrada=="martes") || (mensajeEntrada=="miercoles") ||
-                        (mensajeEntrada=="jueves") || (mensajeEntrada=="viernes") || (mensajeEntrada=="sabado") || (mensajeEntrada=="domingo"))
-                        {
-                            
-                            eleccionDia.CambiarSiguiente(eleccionHora);
-                            response = eleccionHora.Respuesta;
-                        }
-                        else
-                        {
-                            eleccionHora.CambiarSiguiente(guardadoNotificacion);
-                            response = eleccionHora.Respuesta;
-                            
-                        }
-                    }
-                break;
-            }
             Console.WriteLine(response);
         }
 
-        public static void  ModeradroMensajeNotificacion(int idContacto, TipoEntrada entrada)
+        public static void  ModeradroMensajeNotificacion(long idContacto, TipoEntrada entrada)
         {
             
             MensajesNotificatorios m = new MensajesNotificatorios(idContacto);

@@ -7,29 +7,40 @@ namespace Library
     /// </summary>
     public class Comienzo: ManipuladorBase
     {
-        public Comienzo(string mensajeEntrada, int iDUsuario):base(mensajeEntrada,iDUsuario){}
+        public Comienzo():base(){}
+        public Comienzo(string mensajeEntrada, long iDUsuario):base(mensajeEntrada,iDUsuario){}
 
         public override void Manipular()
         {
             
-            switch(MensajeEntrada)
+            ProgramaEmisor p = ProgramaEmisor.GetInstancia();
+            int posUsr =p.BuscarUsuarioID(IDUsuario);
+            if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.PrimeraVez) 
             {
-                case "/start": 
+                p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.ConfigurarFechaFinalizacion;
+                Respuesta = "Bienvenido!!!\nELIGE LA FECHA QUE FINALIZA LA BITACORA ESCRIBE CON EL SIGUIENTE FORMATO: dd/mm/aaaa \n"+
+                        "___";
+                
+            }
+            else
+            {
+                if (p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo == EstadoDialogo.Comienzo) 
+                {
+                  
                     Respuesta = "¡Bienvenido!\n ¿Qué quieres hacer?\n"+
                     " * SI QUIERES ESCRIBIR TU BITÁCORA ESCRIBE: escribir \n"+
                     " * SI QUIERES CONFIGURAR EL MOMENTO DE NOTIFICACIÓN DE LAS ENTRADAS ESCRIBE: configurar\n"+
-                    " * SI QUIERES SALIR DEL BOT ESCRIBE: salir \n"+
                     "___";
+                    p.UsuariosDelPrograma[posUsr].EstadoDialogoUsuario.Dialogo = EstadoDialogo.MenuComienzo;  
+                
+                }
+                else
+                {
                     
-                    break;
-
-                default:
-                    Respuesta = "No se puede comenzar";
                     base.Manipular();
-                    break;
-            }
-
             
+                }    
+            }
         }
     }
 }
