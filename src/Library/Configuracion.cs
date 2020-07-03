@@ -35,6 +35,7 @@ namespace Library
                 try
                 {
                     Modo = (ModoDeUso)Enum.Parse(typeof(ModoDeUso), respuesta, true);
+                    break;
                 }
                 catch (ArgumentException)
                 {
