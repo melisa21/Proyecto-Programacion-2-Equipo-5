@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace Library
 {
+    /// <summary>
+    /// Configuracion se encarga de establecer que plataforma va a ser usada con el bot.
+    /// Es un Singleton ya que queremos que sea un ajuste unico a traves de todo el programa.
+    /// </summary>
+
     public class Configuracion
     {
         private static Configuracion configuracion;
