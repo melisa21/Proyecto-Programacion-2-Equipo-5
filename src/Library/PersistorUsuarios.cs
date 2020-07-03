@@ -6,6 +6,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Library
 {
+    /// <summary>
+    /// PersistorUsuarios es la clase encargada de persistir en archivos instancias de objetos Usuario y volver a crearlas desde ellos.
+    /// Es un Singleton para que solo una instancia pueda existir al mismo tiempo, no es necesario tener varias en una clase con funciones de este tipo. Tambien podria haber sido una clase estatica.
+    /// Es un Creator porque conoce toda la informacion necesaria para crear objetos Usuario.
+    /// </summary>
     public class PersistorUsuarios
     {
         private static PersistorUsuarios persistorUsuarios;
